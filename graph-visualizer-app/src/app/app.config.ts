@@ -25,19 +25,39 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RestConfig} from './rest/rest.config';
 import {environment} from '../main';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {ApiClient} from './rest/api-client';
+import {HttpClient} from '@angular/common/http';
+import {ApiClientService} from './rest/api-client.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes)
+    provideRouter(routes),
+    {
+      provide: RestConfig,
+      useFactory: restConfigFactory,
+    },
+    {
+      provide: ApiClient,
+      useClass: ApiClientService,
+      deps: [HttpClient, RestConfig],
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        subscriptSizing: 'dynamic',
+        appearance: 'outline',
+      },
+    },
   ]
 };
 
@@ -79,6 +99,7 @@ export const angularComponents = [
   MatChipsModule,
   MatGridListModule,
   MatPaginatorModule,
+  MatSlideToggleModule,
 ];
 
 export const shared = [

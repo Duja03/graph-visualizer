@@ -25,7 +25,7 @@ export const environment: Partial<Environment> = {
 };
 
 (async () => {
-  const response = await fetch('config/config.yaml');
+  const response = await fetch('./config/config.yaml');
   const yamlConfig = await response.text();
   environment.config = jsYaml.load(yamlConfig) as YamlConfig;
 

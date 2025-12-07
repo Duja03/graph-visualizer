@@ -6,6 +6,11 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+$primary: #4E3955;
+$secondary: #312b33;
+$tertiary: #b1b2b5;
+$error: #ff0042;
+
 html {
   @include mat.theme((
     color: (
@@ -15,7 +20,34 @@ html {
     typography: Roboto,
     density: 0,
   ));
+
+  .mdc-notched-outline__notch {
+    border-right: none;
+  }
+
+  body {
+    background: var(--mat-sys-surface-container);
+    color: var(--mat-sys-on-surface);
+
+    &.alt-theme {
+      background: var(--mat-sys-surface-container-lowest);
+    }
+  }
 }
+
+@include mat.form-field-overrides((
+  filled-container-color: transparent,
+  outlined-container-shape: var(--mat-sys-corner-extra-large),
+  outlined-outline-color: $primary,
+  outlined-outline-width: 2px,
+  outlined-label-text-color: $secondary,
+
+  outlined-focus-outline-color: $primary,
+  outlined-focus-outline-width: 2px,
+  outlined-focus-label-text-color: $secondary,
+));
+
+
 
 body {
   margin: 0;
