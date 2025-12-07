@@ -1,10 +1,10 @@
 import {Routes} from '@angular/router';
-import {Main} from './components/main/main';
+import {MainShell} from './components/main/main-shell';
 
 export const routes: Routes = [
   {
     path: '',
-    component: Main,
+    component: MainShell,
   },
   {
     path: '**',
