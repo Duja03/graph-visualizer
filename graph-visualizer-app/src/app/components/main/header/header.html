@@ -11,11 +11,10 @@
       </mat-form-field>
     </div>
     <div class="flex justify-center items-center space-x-4">
-      <div class="">
-        <mat-slide-toggle></mat-slide-toggle>
-      </div>
-      <div class="cursor-pointer">
-        <mat-icon>settings_outlined</mat-icon>
+      <div class="flex justify-center items-center space-x-4">
+        <span class="text-lg text-custom-primary">Simple View</span>
+        <mat-slide-toggle (change)="onToggleChange($event)"></mat-slide-toggle>
+        <span class="text-lg">Block View</span>
       </div>
     </div>
   </div>

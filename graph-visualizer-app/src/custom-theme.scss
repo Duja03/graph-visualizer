@@ -9,6 +9,7 @@
 $primary: #4E3955;
 $secondary: #312b33;
 $tertiary: #b1b2b5;
+$violet: #bf00ff;
 $error: #ff0042;
 
 html {
@@ -47,7 +48,25 @@ html {
   outlined-focus-label-text-color: $secondary,
 ));
 
+@include mat.slide-toggle-overrides((
+  selected-icon-size: 0px,
+  selected-track-outline-color: $secondary,
+  selected-handle-color: white,
+  selected-pressed-handle-color: white,
+  selected-focus-handle-color: white,
+  selected-hover-handle-color: white,
 
+  unselected-icon-size: 0px,
+  unselected-track-color: $violet,
+  unselected-hover-track-color: $violet,
+  unselected-pressed-track-color: $violet,
+  unselected-focus-track-color: $violet,
+  track-outline-color: $secondary,
+  unselected-handle-color: white,
+  unselected-pressed-handle-color: white,
+  unselected-focus-handle-color: white,
+  unselected-hover-handle-color: white,
+));
 
 body {
   margin: 0;
