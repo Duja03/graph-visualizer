@@ -2,12 +2,14 @@ import {Component} from '@angular/core';
 import {shared} from '../../../app.config';
 import {Router} from '@angular/router';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
+import { NgOptimizedImage } from '@angular/common';
 
 
 @Component({
   selector: 'app-header',
   imports: [
-    shared
+    shared,
+    NgOptimizedImage
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',

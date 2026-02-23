@@ -1,1 +1,29 @@
-<p>side-navigation works!</p>
+<mat-drawer-container class="w-full h-full">
+  <mat-drawer class="w-half p-4" mode="side" opened>Possible data sources</mat-drawer>
+  <mat-drawer-content class="border-l">
+    <mat-drawer-container class="w-full h-full">
+      <mat-drawer class="w-half p-4 overflow-x-hidden" mode="side" opened>
+        Tree view
+        <iframe></iframe>
+      </mat-drawer>
+      <mat-drawer-content class="border-l p-4">
+        <div class="w-full h-24 bg-inherit p-1.5 z-1000 pointer-events-none border rounded-2xl">
+          <div class="flex w-full h-full bg-inherit rounded overflow-hidden relative">
+            <div class="">
+              Filters
+            </div>
+          </div>
+        </div>
+        View
+        <iframe></iframe>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<div class="fixed bottom-4 right-4 w-xs h-xs bg-inherit p-1.5 z-1000 pointer-events-none border rounded-2xl">
+  <div class="flex w-full h-full bg-inherit rounded overflow-hidden relative">
+    Minimap
+    <iframe></iframe>
+  </div>
+</div>
