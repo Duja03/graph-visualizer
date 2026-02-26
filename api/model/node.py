@@ -1,7 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Dict
-from api.types import AttributeValue
-
+from api.model.attribute_type import AttributeValue
 
 @dataclass(slots=True)
 class Node:
@@ -10,3 +9,6 @@ class Node:
 
     def set_attribute(self, name: str, value: AttributeValue):
         self.attributes[name] = value
+    
+    def get_attribute(self, name: str):
+        return self.attributes.get(name)

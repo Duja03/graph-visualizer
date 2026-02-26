@@ -1,7 +1,7 @@
 from typing import Dict, Set, Iterable
 
-from api.graph.node import Node
-from api.graph.edge import Edge
+from api.model.node import Node
+from api.model.edge import Edge
 
 
 class Graph:
@@ -55,15 +55,26 @@ class Graph:
             self._outgoing[edge.target].add(edge.id)
             self._incoming[edge.source].add(edge.id)
 
+    def get_edge(self, edge_id: str) -> Edge:
+        if edge_id not in self.edges:
+            raise ValueError("Edge does not exist")
+        return self.edges[edge_id]
+
     # neighbor operations
 
     def neighbors(self, node_id: str) -> Iterable[Node]:
+
+        if node_id not in self.nodes:
+            raise ValueError("Node does not exist")
 
         for edge_id in self._outgoing[node_id]:
 
             edge = self.edges[edge_id]
 
-            yield self.nodes[edge.target]
+            if edge.source == node_id:
+                yield self.nodes[edge.target]
+            else:
+                yield self.nodes[edge.source]
 
     # delete operations
 
@@ -73,6 +84,9 @@ class Graph:
 
         self._outgoing[edge.source].remove(edge_id)
         self._incoming[edge.target].remove(edge_id)
+        if not self.directed:
+            self._outgoing[edge.target].remove(edge_id)
+            self._incoming[edge.source].remove(edge_id)
 
     def remove_node(self, node_id: str):
 
@@ -88,16 +102,23 @@ class Graph:
     # info & iteration
 
     def node_count(self) -> int:
-    return len(self.nodes)
-
+        return len(self.nodes)
 
     def edge_count(self) -> int:
         return len(self.edges)
 
+    def has_edge(self, edge_id: str) -> bool:
+        return edge_id in self.edges
+
+    def has_node(self, node_id: str) -> bool:
+        return node_id in self.nodes
 
     def __len__(self):
         return len(self.nodes)
 
+    @property
+    def is_directed(self) -> bool:
+        return self.directed
 
     def __iter__(self):
         return iter(self.nodes.values())
