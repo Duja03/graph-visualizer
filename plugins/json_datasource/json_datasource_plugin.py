@@ -170,16 +170,6 @@ class JsonDataSourcePlugin(DataSourcePlugin):
 
                         child_id = visit(v, node_id, k)
 
-                        if child_id:
-                            graph.add_edge(
-                                Edge(
-                                    id=new_edge_id(),
-                                    source=node_id,
-                                    target=child_id,
-                                    attributes={"name": k}
-                                )
-                            )
-
                     elif isinstance(v, str):
 
                         ref = v.strip()
