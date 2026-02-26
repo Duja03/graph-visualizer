@@ -41,10 +41,10 @@ class Graph:
             raise ValueError("Edge exists")
 
         if edge.source not in self.nodes:
-            raise ValueError("Source missing")
+            raise ValueError(f"Source node '{edge.source}' not found")
 
         if edge.target not in self.nodes:
-            raise ValueError("Target missing")
+            raise ValueError(f"Target node '{edge.target}' not found")
 
         self.edges[edge.id] = edge
 
@@ -57,7 +57,7 @@ class Graph:
 
     def get_edge(self, edge_id: str) -> Edge:
         if edge_id not in self.edges:
-            raise ValueError("Edge does not exist")
+            raise ValueError(f"Edge '{edge_id}' does not exist")
         return self.edges[edge_id]
 
     # neighbor operations
@@ -65,7 +65,7 @@ class Graph:
     def neighbors(self, node_id: str) -> Iterable[Node]:
 
         if node_id not in self.nodes:
-            raise ValueError("Node does not exist")
+            raise ValueError(f"Node '{node_id}' does not exist")
 
         for edge_id in self._outgoing[node_id]:
 
@@ -80,6 +80,9 @@ class Graph:
 
     def remove_edge(self, edge_id: str):
 
+        if edge_id not in self.edges:
+            raise ValueError(f"Edge '{edge_id}' does not exist")
+
         edge = self.edges.pop(edge_id)
 
         self._outgoing[edge.source].remove(edge_id)
@@ -92,7 +95,7 @@ class Graph:
 
         if self._incoming[node_id] or self._outgoing[node_id]:
             raise ValueError(
-                "Node connected with edges"
+                f"Node '{node_id}' is connected with edges"
             )
 
         del self.nodes[node_id]
@@ -126,3 +129,18 @@ class Graph:
 
     def iter_edges(self):
         return iter(self.edges.values())
+
+    # subgraph logic
+
+    def subgraph(self, node_ids: Set[str]) -> "Graph":
+        new_graph = Graph(directed=self.directed)
+        # copy nodes
+        for node_id in node_ids:
+            if node_id in self.nodes:
+                new_graph.add_node(self.nodes[node_id])
+        # copy edges connecting selected nodes
+        for edge in self.edges.values():
+            if (edge.source in node_ids and edge.target in node_ids):
+                new_graph.add_edge(edge)
+
+        return new_graph

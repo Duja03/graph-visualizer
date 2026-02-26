@@ -4,6 +4,10 @@ from api.model.attribute_type import AttributeValue
 
 @dataclass(slots=True)
 class Node:
+    """
+    Node abstraction.
+    Node attributes should be modified only through set_attribute().
+    """
     id: str
     attributes: Dict[str, AttributeValue] = field(default_factory=dict)
 
