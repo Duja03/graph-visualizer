@@ -6,30 +6,68 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+$primary: #4E3955;
+$secondary: #312b33;
+$tertiary: #b1b2b5;
+$violet: #bf00ff;
+$error: #ff0042;
+
 html {
   @include mat.theme((
     color: (
-      primary: mat.$magenta-palette,
-      tertiary: mat.$violet-palette,
+      primary: mat.$violet-palette,
+      tertiary: mat.$magenta-palette,
     ),
     typography: Roboto,
     density: 0,
   ));
+
+  .mdc-notched-outline__notch {
+    border-right: none;
+  }
+
+  body {
+    background: var(--mat-sys-surface-container);
+    color: var(--mat-sys-on-surface);
+
+    &.alt-theme {
+      background: var(--mat-sys-surface-container-lowest);
+    }
+  }
 }
 
+@include mat.form-field-overrides((
+  filled-container-color: transparent,
+  outlined-container-shape: var(--mat-sys-corner-extra-large),
+  outlined-outline-color: $primary,
+  outlined-outline-width: 2px,
+  outlined-label-text-color: $secondary,
+
+  outlined-focus-outline-color: $primary,
+  outlined-focus-outline-width: 2px,
+  outlined-focus-label-text-color: $secondary,
+));
+
+@include mat.slide-toggle-overrides((
+  selected-icon-size: 0px,
+  selected-track-outline-color: $secondary,
+  selected-handle-color: white,
+  selected-pressed-handle-color: white,
+  selected-focus-handle-color: white,
+  selected-hover-handle-color: white,
+
+  unselected-icon-size: 0px,
+  unselected-track-color: $violet,
+  unselected-hover-track-color: $violet,
+  unselected-pressed-track-color: $violet,
+  unselected-focus-track-color: $violet,
+  track-outline-color: $secondary,
+  unselected-handle-color: white,
+  unselected-pressed-handle-color: white,
+  unselected-focus-handle-color: white,
+  unselected-hover-handle-color: white,
+));
+
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
   margin: 0;
 }

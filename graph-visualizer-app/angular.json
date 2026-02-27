@@ -16,10 +16,7 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/assets/logo.svg"
             ],
             "styles": [
               "src/custom-theme.scss",
@@ -70,17 +67,18 @@
           "options": {
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/assets/logo.svg"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
             ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
