@@ -1,7 +1,7 @@
 from typing import Dict, Set, Iterable
 
-from api.model.node import Node
-from api.model.edge import Edge
+from .node import Node
+from .edge import Edge
 
 
 class Graph:

@@ -1,8 +1,8 @@
 import time
 
-from api.model.graph import Graph
-from api.plugins.datasource_plugin import DataSourcePlugin
-from api.plugins.visualizer_plugin import VisualizerPlugin
+from api.model import Graph
+from api.plugins import DataSourcePlugin
+from api.plugins import VisualizerPlugin
 from plugins.csv_datasource_plugin import CsvDataSourcePlugin
 from plugins.json_datasource import JsonDataSourcePlugin
 

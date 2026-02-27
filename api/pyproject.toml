@@ -3,16 +3,13 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "platform"
+name = "api"
 version = "0.1.0"
-description = "graph visualizer platform"
+description = "graph visualizer API"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["api"]
+dependencies = []
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["core*"]
-
-[tool.pytest.ini_options]
-pythonpath = ["..", "."]
+include = ["api*"]

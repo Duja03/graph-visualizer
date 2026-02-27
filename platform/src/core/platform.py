@@ -1,6 +1,6 @@
 from typing import Dict
 
-from workspace import Workspace
+from .workspace import Workspace
 
 class Platform:
     def __init__(self):

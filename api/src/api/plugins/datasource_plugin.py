@@ -1,8 +1,8 @@
 from abc import abstractmethod
 from typing import Dict, Any
 
-from api.model.graph import Graph
-from api.plugins.base_plugin import Plugin
+from ..model.graph import Graph
+from .base_plugin import Plugin
 
 
 class DataSourcePlugin(Plugin):

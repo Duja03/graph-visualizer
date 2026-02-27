@@ -1,9 +1,9 @@
 import pytest
 from datetime import date
-from api.model.graph import Graph
-from api.model.node import Node
-from api.model.edge import Edge
-from graph_platform.filter_engine import FilterEngine, FilterError
+from api.model import Graph
+from api.model import Node
+from api.model import Edge
+from core import FilterEngine, FilterError
 
 
 @pytest.fixture

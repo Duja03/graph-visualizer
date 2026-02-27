@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Dict
-from api.model.attribute_type import AttributeValue
+from .attribute_type import AttributeValue
 
 @dataclass(slots=True)
 class Edge:
