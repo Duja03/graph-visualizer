@@ -1,3 +1,0 @@
-rest:
-  baseUrl: http://localhost:8000/ #django default
-#  baseUrl: http://localhost:5000/ #flask default

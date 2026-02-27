@@ -1,0 +1,7 @@
+[project]
+name = "platform"
+version = "0.1.0"
+description = "graph visualizer platform"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
