@@ -58,6 +58,8 @@ def _parse_typed_value(v: Any) -> Optional[AttributeValue]:
 
 class CsvDataSourcePlugin(DataSourcePlugin):
 
+    static_identifier = "CSV"
+
     def plugin_id(self) -> str:
         return "csv_data_source"
 

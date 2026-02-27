@@ -63,6 +63,8 @@ def _parse_typed_value(v: Any) -> Optional[AttributeValue]:
 
 class JsonDataSourcePlugin(DataSourcePlugin):
 
+    static_identifier = "JSON"
+
     def plugin_id(self) -> str:
         return "json_datasource"
 
