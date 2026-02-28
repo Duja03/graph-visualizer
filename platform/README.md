@@ -14,6 +14,7 @@ pip install -e ../platform
 ## Usage
 ```python
 from core import FilterEngine, FilterError
+from core import SearchEngine
 from core import Platform
 from core import Workspace
 ```
