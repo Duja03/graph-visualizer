@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title_suffix %} — Main View{% endblock %}
+
+{% block content %}
+<div class="view-container">
+
+    <!-- Toolbar: search, filter, plugin selector -->
+    <div class="toolbar">
+        <select id="plugin-selector" class="toolbar-select">
+            <option value="">Loading plugins...</option>
+        </select>
+        <input type="text" id="search-input" class="toolbar-input" placeholder="Search nodes...">
+        <input type="text" id="filter-input" class="toolbar-input" placeholder="Filter: Age > 30">
+        <button id="btn-search" class="btn">Search</button>
+        <button id="btn-filter" class="btn">Filter</button>
+        <button id="btn-reset" class="btn btn-secondary">Reset</button>
+    </div>
+
+    <!-- Three views side by side -->
+    <div class="views-row">
+
+        <!-- Main canvas -->
+        <div class="view-panel main-panel">
+            <h3 class="panel-title">Main View</h3>
+            <svg id="main-canvas" width="100%" height="100%"></svg>
+        </div>
+
+        <!-- Tree view panel -->
+        <div class="view-panel tree-panel">
+            <h3 class="panel-title">Tree View</h3>
+            <div id="tree-container"></div>
+        </div>
+
+        <!-- Bird view panel -->
+        <div class="view-panel bird-panel">
+            <h3 class="panel-title">Bird View</h3>
+            <svg id="bird-canvas" width="100%" height="100%">
+                <rect id="bird-viewport" class="bird-viewport" x="0" y="0" width="50" height="50"/>
+            </svg>
+        </div>
+
+    </div>
+
+    <!-- CLI Terminal -->
+    <div class="cli-panel">
+        <div id="cli-output" class="cli-output"></div>
+        <div class="cli-input-row">
+            <span class="cli-prompt">graph&gt;</span>
+            <input type="text" id="cli-input" class="cli-input" placeholder="create node --id=1 --property Name=Alice">
+            <button id="btn-cli-run" class="btn">Run</button>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="/static/js/graph.js"></script>
+<script src="/static/js/tree.js"></script>
+<script src="/static/js/cli.js"></script>
+{% endblock %}

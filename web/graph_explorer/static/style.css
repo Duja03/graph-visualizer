@@ -1,0 +1,72 @@
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: 'Segoe UI', sans-serif; background: #1e1e2e; color: #cdd6f4; height: 100vh; display: flex; flex-direction: column; }
+
+/* Navbar */
+.navbar { display: flex; align-items: center; gap: 24px; padding: 10px 20px; background: #181825; border-bottom: 1px solid #313244; }
+.navbar-brand { font-weight: 700; font-size: 1.1rem; color: #89b4fa; }
+.nav-link { color: #a6adc8; text-decoration: none; padding: 4px 10px; border-radius: 4px; }
+.nav-link:hover { background: #313244; color: #cdd6f4; }
+.nav-link.active { background: #89b4fa; color: #1e1e2e; font-weight: 600; }
+
+/* Main layout */
+.main-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+.view-container { flex: 1; display: flex; flex-direction: column; padding: 12px; gap: 10px; overflow: hidden; }
+
+/* Toolbar */
+.toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.toolbar-input { background: #313244; border: 1px solid #45475a; color: #cdd6f4; padding: 6px 10px; border-radius: 4px; font-size: 0.85rem; min-width: 180px; }
+.toolbar-select { background: #313244; border: 1px solid #45475a; color: #cdd6f4; padding: 6px 10px; border-radius: 4px; }
+.btn { background: #89b4fa; color: #1e1e2e; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+.btn:hover { background: #b4befe; }
+.btn-secondary { background: #45475a; color: #cdd6f4; }
+.btn-secondary:hover { background: #585b70; }
+.btn-sm { font-size: 0.75rem; padding: 3px 8px; }
+
+/* Three-panel row */
+.views-row { display: flex; flex: 1; gap: 10px; overflow: hidden; }
+.view-panel { flex: 1; background: #181825; border: 1px solid #313244; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; }
+.main-panel { flex: 2; }
+.tree-panel, .bird-panel { flex: 1; }
+.panel-title { font-size: 0.8rem; font-weight: 600; color: #89b4fa; padding: 8px 12px; border-bottom: 1px solid #313244; }
+
+/* Graph nodes and edges */
+.node { fill: #89b4fa; cursor: pointer; }
+.node:hover, .node.focused { fill: #f38ba8; }
+.edge { stroke: #45475a; stroke-width: 1.5px; }
+.node-label { fill: #cdd6f4; font-size: 11px; pointer-events: none; }
+
+/* Bird view */
+.bird-node { fill: #a6e3a1; opacity: 0.7; }
+.bird-node.focused { fill: #f38ba8; }
+.bird-viewport { fill: none; stroke: #f9e2af; stroke-width: 1.5px; opacity: 0.8; }
+
+/* Tree view */
+.tree-full-panel { flex: 1; background: #181825; border: 1px solid #313244; border-radius: 6px; overflow-y: auto; padding: 10px; }
+#tree-container { padding: 6px; }
+.tree-node { margin-left: 16px; }
+.tree-node-header { display: flex; align-items: center; gap: 6px; padding: 3px 4px; border-radius: 4px; cursor: default; }
+.tree-node-header:hover { background: #313244; }
+.tree-toggle { cursor: pointer; color: #89b4fa; font-size: 0.9rem; width: 14px; text-align: center; user-select: none; }
+.tree-label { font-size: 0.85rem; cursor: pointer; }
+.tree-label:hover { color: #89b4fa; }
+.tree-cycle-marker { color: #f38ba8; font-size: 0.85rem; }
+.tree-leaf-marker { color: #45475a; }
+.tree-node.focused > .tree-node-header { background: #313244; color: #f38ba8; }
+
+/* CLI */
+.cli-panel { background: #11111b; border: 1px solid #313244; border-radius: 6px; max-height: 160px; display: flex; flex-direction: column; }
+.cli-output { flex: 1; overflow-y: auto; padding: 6px 10px; font-family: monospace; font-size: 0.8rem; }
+.cli-line { padding: 1px 0; color: #a6adc8; }
+.cli-error { color: #f38ba8; }
+.cli-input-row { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-top: 1px solid #313244; }
+.cli-prompt { color: #a6e3a1; font-family: monospace; font-size: 0.85rem; }
+.cli-input { flex: 1; background: transparent; border: none; outline: none; color: #cdd6f4; font-family: monospace; font-size: 0.85rem; }
+
+/* Workspace page */
+.workspace-panel { padding: 20px; max-width: 700px; display: flex; flex-direction: column; gap: 24px; }
+.workspace-controls, .workspace-list { background: #181825; border: 1px solid #313244; border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.plugin-params { display: flex; flex-direction: column; gap: 8px; }
+.workspace-item { background: #313244; border-radius: 4px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+.empty-state { color: #585b70; font-size: 0.85rem; }

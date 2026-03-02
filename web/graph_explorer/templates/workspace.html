@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title_suffix %} — Workspace{% endblock %}
+
+{% block content %}
+<div class="view-container">
+    <div class="workspace-panel">
+        <h2>Workspaces</h2>
+
+        <div class="workspace-controls">
+            <h3>Load New Graph</h3>
+            <select id="plugin-selector" class="toolbar-select">
+                <option value="">Select data source plugin...</option>
+            </select>
+            <div id="plugin-params" class="plugin-params">
+                <!-- Dynamic plugin parameters rendered here -->
+            </div>
+            <button id="btn-load" class="btn">Load Graph</button>
+        </div>
+
+        <div class="workspace-list">
+            <h3>Active Workspaces</h3>
+            <div id="workspace-list-container">
+                <p class="empty-state">No workspaces loaded yet.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/workspace.js"></script>
+{% endblock %}

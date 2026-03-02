@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title_suffix %} — Tree View{% endblock %}
+
+{% block content %}
+<div class="view-container">
+    <div class="toolbar">
+        <input type="text" id="search-input" class="toolbar-input" placeholder="Search nodes...">
+        <button id="btn-search" class="btn">Search</button>
+        <button id="btn-reset" class="btn btn-secondary">Reset</button>
+    </div>
+
+    <div class="tree-full-panel">
+        <h3 class="panel-title">Tree View</h3>
+        <div id="tree-container"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/tree.js"></script>
+{% endblock %}

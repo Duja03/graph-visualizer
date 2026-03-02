@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Explorer{% block title_suffix %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <span class="navbar-brand">Graph Explorer</span>
+        <div class="nav-links">
+            <a href="/" class="nav-link {% if active_view == 'main' %}active{% endif %}">Main View</a>
+            <a href="/tree/" class="nav-link {% if active_view == 'tree' %}active{% endif %}">Tree View</a>
+            <a href="/map/" class="nav-link {% if active_view == 'map' %}active{% endif %}">Bird View</a>
+            <a href="/workspace/" class="nav-link {% if active_view == 'workspace' %}active{% endif %}">Workspace</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        // Flask API base URL injected from Django settings
+        const FLASK_API_URL = "{{ flask_api_url }}";
+    </script>
+    <script src="/static/js/api.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
