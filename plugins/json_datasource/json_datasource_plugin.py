@@ -4,11 +4,11 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from api.model.graph import Graph
-from api.model.node import Node
-from api.model.edge import Edge
-from api.model.attribute_type import AttributeValue
-from api.plugins.datasource_plugin import DataSourcePlugin
+from api.src.api.model.graph import Graph
+from api.src.api.model.node import Node
+from api.src.api.model.edge import Edge
+from api.src.api.model.attribute_type import AttributeValue
+from api.src.api.plugins.datasource_plugin import DataSourcePlugin
 
 
 _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
