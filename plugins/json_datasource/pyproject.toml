@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "json-datasource"
+version = "1.0.0"
+description = "JSON data source plugin for Graph Explorer"
+requires-python = ">=3.11"
+dependencies = [
+    "api",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["json_datasource*"]
+
+[project.entry-points."graph_explorer.datasource_plugins"]
+json_datasource = "json_datasource:JsonDataSourcePlugin"

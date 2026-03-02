@@ -65,7 +65,7 @@ def plugin_params(plugin_id):
     if not plugin_cls:
         return jsonify({'error': 'Plugin not found'}), 404
     return jsonify([
-        {'name': 'filepath', 'label': 'File path', 'placeholder': '/path/to/file'}
+    {'name': 'file_path', 'label': 'File path', 'placeholder': '/path/to/file.json'}
     ])
 
 
@@ -81,7 +81,7 @@ def load_graph():
 
     try:
         plugin_instance = plugin_cls()
-        graph = plugin_instance.load(params.get('filepath', ''))
+        graph = plugin_instance.load(file_path=params.get('file_path', ''))
         workspace_id = store.create_workspace(graph, plugin_instance)
         return jsonify({
             'workspace_id': workspace_id,
