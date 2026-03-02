@@ -45,22 +45,22 @@ def sample_graph():
 # ====== int filters ======
 
 def test_filter_age_greater_than(sample_graph):
-    result = FilterEngine.apply(sample_graph, "age > 25")
+    result = FilterEngine.filter(sample_graph, "age > 25")
     ids = {n.id for n in result}
     assert ids == {"1", "3"}  # Alice(30) and Carol(40)
 
 def test_filter_age_equals(sample_graph):
-    result = FilterEngine.apply(sample_graph, "age == 30")
+    result = FilterEngine.filter(sample_graph, "age == 30")
     ids = {n.id for n in result}
     assert ids == {"1"}  # only Alice
 
 def test_filter_age_less_than(sample_graph):
-    result = FilterEngine.apply(sample_graph, "age < 30")
+    result = FilterEngine.filter(sample_graph, "age < 30")
     ids = {n.id for n in result}
     assert ids == {"2"}  # only Bob
 
 def test_filter_age_not_equals(sample_graph):
-    result = FilterEngine.apply(sample_graph, "age != 30")
+    result = FilterEngine.filter(sample_graph, "age != 30")
     ids = {n.id for n in result}
     assert ids == {"2", "3"}  # Bob and Carol
 
@@ -68,12 +68,12 @@ def test_filter_age_not_equals(sample_graph):
 # ====== float filters ======
 
 def test_filter_salary_greater_than(sample_graph):
-    result = FilterEngine.apply(sample_graph, "salary > 3000.0")
+    result = FilterEngine.filter(sample_graph, "salary > 3000.0")
     ids = {n.id for n in result}
     assert ids == {"1", "3"}  # Alice and Carol
 
 def test_filter_salary_less_than_or_equal(sample_graph):
-    result = FilterEngine.apply(sample_graph, "salary <= 2800.0")
+    result = FilterEngine.filter(sample_graph, "salary <= 2800.0")
     ids = {n.id for n in result}
     assert ids == {"2"}  # only Bob
 
@@ -81,12 +81,12 @@ def test_filter_salary_less_than_or_equal(sample_graph):
 # ====== string filters ======
 
 def test_filter_city_equals(sample_graph):
-    result = FilterEngine.apply(sample_graph, "city == Berlin")
+    result = FilterEngine.filter(sample_graph, "city == Berlin")
     ids = {n.id for n in result}
     assert ids == {"1", "3"}  # Alice and Carol
 
 def test_filter_city_not_equals(sample_graph):
-    result = FilterEngine.apply(sample_graph, "city != Berlin")
+    result = FilterEngine.filter(sample_graph, "city != Berlin")
     ids = {n.id for n in result}
     assert ids == {"2"}  # only Bob
 
@@ -94,12 +94,12 @@ def test_filter_city_not_equals(sample_graph):
 # ====== date filters ======
 
 def test_filter_joined_after(sample_graph):
-    result = FilterEngine.apply(sample_graph, "joined > 2020-01-01")
+    result = FilterEngine.filter(sample_graph, "joined > 2020-01-01")
     ids = {n.id for n in result}
     assert ids == {"1", "2"}  # Alice and Bob
 
 def test_filter_joined_equals(sample_graph):
-    result = FilterEngine.apply(sample_graph, "joined == 2020-01-15")
+    result = FilterEngine.filter(sample_graph, "joined == 2020-01-15")
     ids = {n.id for n in result}
     assert ids == {"1"}  # only Alice
 
@@ -107,7 +107,7 @@ def test_filter_joined_equals(sample_graph):
 # ====== empty result ======
 
 def test_filter_no_results(sample_graph):
-    result = FilterEngine.apply(sample_graph, "age > 100")
+    result = FilterEngine.filter(sample_graph, "age > 100")
     assert result.node_count() == 0
     assert result.edge_count() == 0
 
@@ -115,7 +115,7 @@ def test_filter_no_results(sample_graph):
 # ====== non-existing attribute ======
 
 def test_filter_missing_attribute(sample_graph):
-    result = FilterEngine.apply(sample_graph, "height > 170")
+    result = FilterEngine.filter(sample_graph, "height > 170")
     assert result.node_count() == 0
 
 
@@ -123,8 +123,8 @@ def test_filter_missing_attribute(sample_graph):
 
 def test_filter_invalid_format(sample_graph):
     with pytest.raises(FilterError):
-        FilterEngine.apply(sample_graph, "age 30")
+        FilterEngine.filter(sample_graph, "age 30")
 
 def test_filter_type_mismatch(sample_graph):
     with pytest.raises(FilterError):
-        FilterEngine.apply(sample_graph, "age > Berlin")
+        FilterEngine.filter(sample_graph, "age > Berlin")
