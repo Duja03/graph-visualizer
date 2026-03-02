@@ -10,7 +10,7 @@ from api.model.edge import Edge
 from api.plugins.datasource_plugin import DataSourcePlugin
 
 _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-
+XML_ID = "{http://www.w3.org/XML/1998/namespace}id"
 
 def _parse_typed_value(v: Any) -> Optional[str | int | float | date]:
     if v is None:
@@ -104,14 +104,14 @@ class XmlDataSourcePlugin(DataSourcePlugin):
             graph.add_node(Node(id=node_id))
 
     def _collect_ids(self, element: ElementTree.Element) -> None:
-        xml_id = element.get("xml:id")
+        xml_id = element.get(XML_ID)
         if xml_id and xml_id.strip():
             self._id_registry[xml_id.strip()] = xml_id.strip()
         for child in element:
             self._collect_ids(child)
 
     def _visit(self, graph: Graph, element: ElementTree.Element) -> str:
-        xml_id = element.get("xml:id")
+        xml_id = element.get(XML_ID)
         node_id = xml_id.strip() if (xml_id and xml_id.strip()) else self._new_node_id()
 
         self._ensure_node(graph, node_id)
@@ -119,7 +119,7 @@ class XmlDataSourcePlugin(DataSourcePlugin):
         node.set_attribute("_tag", element.tag)
 
         for attr_name, attr_val in element.attrib.items():
-            if attr_name in ("xml:id", "reference"):
+            if attr_name in (XML_ID, "reference"):
                 continue
             typed = _parse_typed_value(attr_val)
             if typed is not None:
@@ -144,7 +144,7 @@ class XmlDataSourcePlugin(DataSourcePlugin):
                 if typed is not None:
                     node.set_attribute(child.tag, typed)
 
-                if child.get("reference"):
+                if child.get(XML_ID) or child.get("reference"):
                     child_id = self._visit(graph, child)
                     graph.add_edge(Edge(
                         id=self._new_edge_id(),
