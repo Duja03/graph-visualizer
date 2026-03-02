@@ -1,26 +1,26 @@
 """
 plugin_registry.py
 Discovers and holds all installed DataSourcePlugin instances.
-Plugins are found via Python's entry_points mechanism (or Django AppConfig equivalent).
 """
+
+import sys
+import os
+
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+if repo_root not in sys.path:
+    sys.path.insert(0, repo_root)
 
 from typing import Dict, Optional, List
 
 
 class PluginRegistry:
-    """
-    Discovers installed data source plugins.
-    Plugins register themselves via the 'graph_explorer.datasource_plugins'
-    entry point group in their setup.cfg / pyproject.toml.
-    """
-
     def __init__(self):
         self._plugins: Dict[str, object] = {}
         self._discover()
 
     def _discover(self):
-        from plugins.csv_datasource_plugin import CsvDataSourcePlugin
-        from plugins.json_datasource import JsonDataSourcePlugin
+        from plugins.csv_datasource_plugin.csv_datasource_plugin import CsvDataSourcePlugin
+        from plugins.json_datasource.json_datasource_plugin import JsonDataSourcePlugin
         for cls in [CsvDataSourcePlugin, JsonDataSourcePlugin]:
             self._plugins[cls.static_identifier] = cls
 
@@ -31,5 +31,4 @@ class PluginRegistry:
         return self._plugins.get(plugin_id)
 
     def register(self, plugin):
-        """Manually register a plugin (useful for testing)."""
         self._plugins[plugin.plugin_id] = plugin
