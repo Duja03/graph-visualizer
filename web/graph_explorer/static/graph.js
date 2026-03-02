@@ -158,3 +158,10 @@ document.getElementById('btn-filter')?.addEventListener('click', async () => {
 document.getElementById('btn-reset')?.addEventListener('click', () => {
     if (currentWorkspaceId) renderGraph(currentWorkspaceId);
 });
+
+const params = new URLSearchParams(window.location.search);
+const workspaceId = params.get('workspace');
+if (workspaceId) {
+    currentWorkspaceId = workspaceId;
+    renderGraph(workspaceId);
+}

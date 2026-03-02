@@ -62,7 +62,7 @@ function renderWorkspaceList() {
         const item = document.createElement('div');
         item.className = 'workspace-item';
         item.innerHTML = `
-            <strong>${ws.plugin_name}</strong> — ${ws.node_count} nodes
+            <strong>${ws.plugin_name}</strong> - ${ws.node_count} nodes
             <a href="/?workspace=${ws.workspace_id}" class="btn btn-sm">Open</a>
         `;
         container.appendChild(item);
