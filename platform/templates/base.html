@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graph Explorer{% block title_suffix %}{% endblock %}</title>
-    <link rel="icon" href="/platform/templates/assets/logo.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
@@ -212,7 +212,7 @@
             margin: 0.75rem 1rem 1rem;
             border: 1px solid var(--violet-200);
             border-radius: 1rem;
-            background: #1e1b2e;
+            background: white;
             overflow: hidden;
             flex-shrink: 0;
         }
@@ -220,21 +220,23 @@
             padding: 0.65rem 1rem;
             font-family: 'Roboto Mono', 'Courier New', monospace;
             font-size: 0.82rem;
-            color: #c4b5fd;
+            color: var(--violet-800);
             min-height: 3.5rem;
             max-height: 8rem;
             overflow-y: auto;
             line-height: 1.6;
+            background: var(--violet-50);
         }
         .cli-input-row {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             padding: 0.5rem 0.75rem;
-            border-top: 1px solid #2d2a45;
+            border-top: 1px solid var(--violet-200);
+            background: white;
         }
         .cli-prompt {
-            color: var(--violet-500);
+            color: var(--violet-600);
             font-family: 'Roboto Mono', 'Courier New', monospace;
             font-size: 0.85rem;
             font-weight: 500;
@@ -245,12 +247,12 @@
             background: transparent;
             border: none;
             outline: none;
-            color: #e9d5ff;
+            color: var(--gray-700);
             font-family: 'Roboto Mono', 'Courier New', monospace;
             font-size: 0.85rem;
-            caret-color: var(--violet-300);
+            caret-color: var(--violet-600);
         }
-        .cli-input::placeholder { color: #4c4a6e; }
+        .cli-input::placeholder { color: var(--violet-300); }
 
         /* ── EMPTY STATE ── */
         .empty-state {
