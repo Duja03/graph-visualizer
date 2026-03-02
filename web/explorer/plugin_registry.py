@@ -19,16 +19,10 @@ class PluginRegistry:
         self._discover()
 
     def _discover(self):
-        try:
-            from importlib.metadata import entry_points
-            eps = entry_points(group='graph_explorer.datasource_plugins')
-            for ep in eps:
-                plugin_cls = ep.load()
-                instance = plugin_cls()
-                self._plugins[instance.plugin_id] = instance
-        except Exception as e:
-            # During development with no plugins installed yet, this is expected
-            print(f'[PluginRegistry] Discovery warning: {e}')
+        from plugins.csv_datasource_plugin import CsvDataSourcePlugin
+        from plugins.json_datasource import JsonDataSourcePlugin
+        for cls in [CsvDataSourcePlugin, JsonDataSourcePlugin]:
+            self._plugins[cls.static_identifier] = cls
 
     def get_all_plugins(self) -> List:
         return list(self._plugins.values())
