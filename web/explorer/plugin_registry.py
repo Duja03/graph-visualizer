@@ -6,7 +6,9 @@ Discovers and holds all installed DataSourcePlugin instances.
 import sys
 import os
 
-repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+print("__file__:", os.path.abspath(__file__))
+print("repo_root:", repo_root)  
 if repo_root not in sys.path:
     sys.path.insert(0, repo_root)
 
