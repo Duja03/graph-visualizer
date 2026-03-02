@@ -5,10 +5,12 @@ from api.plugins import DataSourcePlugin
 from api.plugins import VisualizerPlugin
 from plugins.csv_datasource_plugin import CsvDataSourcePlugin
 from plugins.json_datasource import JsonDataSourcePlugin
+from plugins.xml_datasource_plugin import XmlDataSourcePlugin
 
 data_sources = {
     CsvDataSourcePlugin.static_identifier: CsvDataSourcePlugin,
     JsonDataSourcePlugin.static_identifier: JsonDataSourcePlugin,
+    XmlDataSourcePlugin.static_identifier: XmlDataSourcePlugin,
 }
 
 class Workspace:
