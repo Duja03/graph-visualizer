@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Explorer{% block title_suffix %}{% endblock %}</title>
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --violet-50:  #f5f3ff;
+            --violet-100: #ede9fe;
+            --violet-200: #e2d9f3;
+            --violet-300: #c4b5fd;
+            --violet-500: #8b5cf6;
+            --violet-600: #7c3aed;
+            --violet-700: #6d28d9;
+            --violet-800: #5b21b6;
+            --violet-900: #6b21a8;
+            --gray-100:   #f3f4f6;
+            --gray-500:   #6b7280;
+            --gray-700:   #374151;
+            --gray-800:   #4b5563;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--violet-50);
+        }
+
+        /* ── NAV ── */
+        nav {
+            border-bottom: 1px solid var(--violet-200);
+            background-color: var(--violet-50);
+            flex-shrink: 0;
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 2rem;
+            gap: 1.5rem;
+        }
+        .nav-brand {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--violet-600);
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .nav-brand .material-icons { font-size: 1.4rem; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-link {
+            padding: 0.45rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+            white-space: nowrap;
+        }
+        .nav-link:hover {
+            background: var(--violet-100);
+            color: var(--violet-600);
+            border-color: var(--violet-300);
+        }
+        .nav-link.active {
+            background: var(--violet-600);
+            color: white;
+            border-color: var(--violet-600);
+            font-weight: 500;
+        }
+
+        /* ── MAIN ── */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── TOOLBAR ── */
+        .toolbar {
+            margin: 1rem 1rem 0;
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 1px solid var(--violet-200);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        /* ── INPUTS ── */
+        .toolbar-input,
+        .toolbar-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--violet-300);
+            border-radius: 999px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            color: var(--gray-700);
+            background: var(--violet-50);
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .toolbar-input:focus,
+        .toolbar-select:focus {
+            border-color: var(--violet-600);
+            background: white;
+        }
+        .toolbar-select { cursor: pointer; padding-right: 1.5rem; }
+
+        /* ── BUTTONS ── */
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 999px;
+            border: none;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+            background: var(--violet-600);
+            color: white;
+        }
+        .btn:hover { background: var(--violet-700); }
+        .btn-secondary {
+            background: var(--violet-50);
+            color: var(--violet-800);
+            border: 1px solid var(--violet-300);
+        }
+        .btn-secondary:hover {
+            background: var(--violet-100);
+        }
+
+        /* ── PANELS ── */
+        .view-panel {
+            flex: 1;
+            border: 1px solid var(--violet-200);
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .panel-title {
+            padding: 0.5rem 1rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--violet-900);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--violet-100);
+            background: var(--violet-50);
+            flex-shrink: 0;
+        }
+
+        /* ── VIEW PLACEHOLDER ── */
+        .view-placeholder {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--violet-300);
+            font-size: 0.9rem;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .view-placeholder .material-icons { font-size: 3rem; }
+
+        /* ── FILTER CHIP ── */
+        .filter-chip {
+            padding: 0.45rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid var(--violet-300);
+            background: var(--violet-50);
+            font-size: 0.9rem;
+            color: var(--violet-800);
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+        .filter-chip:hover, .filter-chip.active {
+            background: var(--violet-600);
+            color: white;
+            border-color: var(--violet-600);
+        }
+
+        /* ── CLI ── */
+        .cli-panel {
+            margin: 0.75rem 1rem 1rem;
+            border: 1px solid var(--violet-200);
+            border-radius: 1rem;
+            background: white;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .cli-output {
+            padding: 0.65rem 1rem;
+            font-family: 'Roboto Mono', 'Courier New', monospace;
+            font-size: 0.82rem;
+            color: var(--violet-800);
+            min-height: 3.5rem;
+            max-height: 8rem;
+            overflow-y: auto;
+            line-height: 1.6;
+            background: var(--violet-50);
+        }
+        .cli-input-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            border-top: 1px solid var(--violet-200);
+            background: white;
+        }
+        .cli-prompt {
+            color: var(--violet-600);
+            font-family: 'Roboto Mono', 'Courier New', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+        .cli-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--gray-700);
+            font-family: 'Roboto Mono', 'Courier New', monospace;
+            font-size: 0.85rem;
+            caret-color: var(--violet-600);
+        }
+        .cli-input::placeholder { color: var(--violet-300); }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            padding: 1rem 0;
+        }
+
+        /* ── WORKSPACE ── */
+        .workspace-panel {
+            flex: 1;
+            margin: 1rem;
+            border: 1px solid var(--violet-200);
+            border-radius: 8px;
+            background: white;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .workspace-panel h2 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--violet-900);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--violet-100);
+        }
+        .workspace-controls,
+        .workspace-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .workspace-controls h3,
+        .workspace-list h3 {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--violet-900);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .plugin-params {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="nav-brand">
+                <span class="material-icons">hub</span>
+                Graph Explorer
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link {% if active_view == 'main' %}active{% endif %}">
+                    Main View
+                </a>
+                <a href="/tree/" class="nav-link {% if active_view == 'tree' %}active{% endif %}">
+                    Tree View
+                </a>
+                <a href="/map/" class="nav-link {% if active_view == 'map' %}active{% endif %}">
+                    Bird View
+                </a>
+                <a href="/workspace/" class="nav-link {% if active_view == 'workspace' %}active{% endif %}">
+                    Workspace
+                </a>
+            </div>
+        </div>
+    </nav>
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+    <script>
+        const FLASK_API_URL = "{{ flask_api_url }}";
+    </script>
+    <script src="/static/api.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
