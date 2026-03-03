@@ -1,5 +1,5 @@
 from api.model import Graph
-from command import Command
+from .command import Command
 
 
 class DeleteGraphCommand(Command):
@@ -7,4 +7,7 @@ class DeleteGraphCommand(Command):
         self.graph = graph
 
     def execute(self) -> None:
-        pass
+        for edge_id in list(self.graph.edges):
+            self.graph.remove_edge(edge_id)
+        for node_id in list(self.graph.nodes):
+            self.graph.remove_node(node_id)

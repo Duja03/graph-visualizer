@@ -1,6 +1,7 @@
 from typing import Dict
+
 from api.model import Graph, Node, AttributeValue
-from command import Command
+from .command import Command
 
 
 class CreateNodeCommand(Command):
@@ -10,7 +11,8 @@ class CreateNodeCommand(Command):
         self.attributes = attributes
 
     def execute(self) -> None:
-        pass
+        node = Node(id=self.node_id, attributes=self.attributes)
+        self.graph.add_node(node)
 
 
 class EditNodeCommand(Command):
@@ -20,7 +22,9 @@ class EditNodeCommand(Command):
         self.attributes = attributes
 
     def execute(self) -> None:
-        pass
+        node = self.graph.get_node(self.node_id)
+        for name, value in self.attributes.items():
+            node.set_attribute(name, value)
 
 
 class DeleteNodeCommand(Command):
@@ -29,4 +33,4 @@ class DeleteNodeCommand(Command):
         self.node_id = node_id
 
     def execute(self) -> None:
-        pass
+        self.graph.remove_node(self.node_id)

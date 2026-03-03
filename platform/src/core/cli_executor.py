@@ -23,5 +23,5 @@ class CLIExecutor:
             return command.execute()
         except FilterError as e:
             return f"Filter error: {e}"
-        except ValueError as e:
+        except (ValueError, KeyError) as e:
             return f"Error: {e}"

@@ -1,6 +1,7 @@
 from typing import Dict
+
 from api.model import Graph, Edge, AttributeValue
-from command import Command
+from .command import Command
 
 
 class CreateEdgeCommand(Command):
@@ -12,7 +13,8 @@ class CreateEdgeCommand(Command):
         self.attributes = attributes
 
     def execute(self) -> None:
-        pass
+        edge = Edge(id=self.edge_id, source=self.source, target=self.target, attributes=self.attributes)
+        self.graph.add_edge(edge)
 
 
 class EditEdgeCommand(Command):
@@ -22,7 +24,9 @@ class EditEdgeCommand(Command):
         self.attributes = attributes
 
     def execute(self) -> None:
-        pass
+        edge = self.graph.get_edge(self.edge_id)
+        for name, value in self.attributes.items():
+            edge.set_attribute(name, value)
 
 
 class DeleteEdgeCommand(Command):
@@ -31,4 +35,4 @@ class DeleteEdgeCommand(Command):
         self.edge_id = edge_id
 
     def execute(self) -> None:
-        pass
+        self.graph.remove_edge(self.edge_id)
