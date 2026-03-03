@@ -1,10 +1,8 @@
-import datetime
 import json
 import os
 
 from api.model import Graph
 from api.plugins import VisualizerPlugin
-
 
 class BlockVisualizerPlugin(VisualizerPlugin):
 
