@@ -1,4 +1,9 @@
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
 <style>
     :root {
         --violet-50:  #f5f3ff;
@@ -65,19 +70,73 @@
 
     .simple-svg-container, .container-simple {
         width: 100%;
+        min-height: 920px;
         height: 100%;
     }
 </style>
+<body>
+<!--{% load static %}-->
 <div class="simple-svg-container">
     <svg id="container-simple" class="container-simple"></svg>
 </div>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-    var graphData = JSON.parse('{{ graph_json | safe }}');
+    // var graphData = JSON.parse('{{ graph_json | safe }}');
+    var graphData = {
+      "nodes": [
+        {
+          "id": "company_1",
+          "attributes": {
+            "name": "GraphSoft",
+            "founded": "2015-03-10"
+          }
+        },
+        {
+          "id": "emp_1",
+          "attributes": {
+            "name": "Sara",
+            "age": 23,
+            "salary": "3500.5"
+          }
+        },
+        {
+          "id": "emp_2",
+          "attributes": {
+            "name": "Marko",
+            "age": 30
+          }
+        },
+        {
+          "id": "emp_3",
+          "attributes": {
+            "name": "Luka",
+            "age": 40
+          }
+        },
+        {
+          "id": "dep_1",
+          "attributes": {
+            "name": "Engineering"
+          }
+        }
+      ],
+      "edges": [
+        { "id": "company_1_emp_1", "source": "company_1", "target": "emp_1", "value": {"relation": "employees"} },
+        { "id": "company_1_emp_2", "source": "company_1", "target": "emp_2", "value": {"relation": "employees"} },
+        { "id": "company_1_emp_3", "source": "company_1", "target": "emp_3", "value": {"relation": "employees"} },
+        { "id": "emp_1_emp_3",     "source": "emp_1",     "target": "emp_3", "value": {"relation": "manager"} },
+        { "id": "emp_2_emp_3",     "source": "emp_2",     "target": "emp_3", "value": {"relation": "manager"} },
+        { "id": "emp_3_dep_1",     "source": "emp_3",     "target": "dep_1", "value": {"relation": "department"} },
+        { "id": "company_1_dep_1", "source": "company_1", "target": "dep_1", "value": {"relation": "main_department"} }
+      ]
+    };
+
     var NODE_W = 100;
     var ROW_H  = 20;
 
     var svg = d3.select(".container-simple");
+
+    // A single <g> that receives all zoom/pan transforms
     var zoomG = svg.append("g").attr("class", "zoom-layer");
 
     var simulation = d3.forceSimulation()
@@ -87,12 +146,14 @@
         .force("center", d3.forceCenter(400, 300))
         .force("collide", d3.forceCollide().radius(80).iterations(5));
 
+    // ── Links ──────────────────────────────────────────────────────────────────
     var link = zoomG
         .selectAll(".link")
         .data(graphData.edges)
         .enter().append("line")
         .attr("class", "link");
 
+    // ── Node groups ────────────────────────────────────────────────────────────
     var nodeGroup = zoomG
         .selectAll(".node-group")
         .data(graphData.nodes)
@@ -111,10 +172,12 @@
                 .on("end",   dragended)
         );
 
-        nodeGroup.each(function(d) {
+    // For each node group, append header rect + header label + property rows
+    nodeGroup.each(function(d) {
         var g = d3.select(this);
         var props = Object.entries(d.attributes);
 
+        // Header rect (the "node" title bar)
         g.append("rect")
             .attr("class", "node-header")
             .attr("width",  NODE_W)
@@ -122,14 +185,16 @@
             .attr("x", -NODE_W / 2)
             .attr("y", -ROW_H / 2);
 
+        // Header label (node id)
         g.append("text")
             .attr("class", "label")
             .attr("x", 0)
             .attr("y", ROW_H / 2 - 6)
             .text(d.id);
 
+        // Property rows below the header
         props.forEach(function([key, val], i) {
-            var rowY = ROW_H / 2 + i * ROW_H;
+            var rowY = ROW_H / 2 + i * ROW_H; // starts just below header
 
             g.append("rect")
                 .attr("class", "node_property")
@@ -146,6 +211,7 @@
         });
     });
 
+    // ── Simulation tick ────────────────────────────────────────────────────────
     simulation.on("tick", function() {
         link
             .attr("x1", d => d.source.x)
@@ -153,9 +219,11 @@
             .attr("x2", d => d.target.x)
             .attr("y2", d => d.target.y);
 
+        // Moving the whole group is all that's needed — children are in local coords
         nodeGroup.attr("transform", d => `translate(${d.x},${d.y})`);
     });
 
+    // ── Zoom / pan ─────────────────────────────────────────────────────────────
     var zoom = d3.zoom()
         .scaleExtent([0.3, 5])
         .on("zoom", function(event) {
@@ -164,6 +232,7 @@
 
     svg.call(zoom);
 
+    // ── Drag handlers ──────────────────────────────────────────────────────────
     function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
         d.fx = d.x;
@@ -181,3 +250,5 @@
         d.fy = null;
     }
 </script>
+</body>
+</html>
