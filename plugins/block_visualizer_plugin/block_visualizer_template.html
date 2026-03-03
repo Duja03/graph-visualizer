@@ -1,1 +1,15 @@
 {% load static %}
+<style>
+    .simple-svg-container, .container-simple {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<div class="simple-svg-container">
+    <svg id="container-simple" class="container-simple"></svg>
+</div>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+    var graphData = JSON.parse('{{ graph_json | safe }}');
+
+</script>
