@@ -31,7 +31,7 @@ async function runCommand(command) {
         } else {
             cliPrint(result.message || 'OK');
             // Re-render graph after mutation commands
-            if (['create', 'edit', 'delete'].some(cmd => command.startsWith(cmd))) {
+            if (['create', 'edit', 'delete', 'filter', 'search'].some(cmd => command.startsWith(cmd))) {
                 await renderGraph(currentWorkspaceId);
             }
         }
