@@ -1,7 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-
-from api.model import Graph
+from typing import Any
 
 
 class Command(ABC):
@@ -10,5 +9,5 @@ class Command(ABC):
     """
 
     @abstractmethod
-    def execute(self) -> None:
+    def execute(self) -> Any:
         pass
