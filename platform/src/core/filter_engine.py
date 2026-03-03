@@ -38,7 +38,7 @@ def _parse_value(raw: str, target_type: type) -> AttributeValue:
 class FilterEngine:
 
     @staticmethod
-    def apply(graph: Graph, filter_str: str) -> Graph:
+    def filter(graph: Graph, filter_str: str) -> Graph:
         """
         Takes filter string (e.g. 'Age > 30')
         Returns subgraph which nodes satisfy condition.
