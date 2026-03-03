@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "block_visualizer"
+version = "1.0.0"
+description = "Block visualizer plugin for Graph Explorer"
+requires-python = ">=3.11"
+dependencies = [
+    "api",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["block_visualizer_plugin*"]
+
+[project.entry-points."graph_explorer.visualizer_plugins"]
+block_visualizer = "block_visualizer_plugin:BlockVisualizerPlugin"
