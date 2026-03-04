@@ -1,36 +1,52 @@
 """
 plugin_registry.py
-Discovers and holds all installed DataSourcePlugin instances.
+Auto-discovers installed plugins via importlib.metadata entry_points.
+
+Datasource plugins must register under: graph_explorer.datasource_plugins
+Visualizer plugins must register under:  graph_explorer.visualizer_plugins
 """
 
-import sys
-import os
+from importlib.metadata import entry_points
+from typing import Optional
+from api.plugins.datasource_plugin import DataSourcePlugin
+from api.plugins.visualizer_plugin import VisualizerPlugin
 
-repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-print("__file__:", os.path.abspath(__file__))
-print("repo_root:", repo_root)  
-if repo_root not in sys.path:
-    sys.path.insert(0, repo_root)
 
-from typing import Dict, Optional, List
+DATASOURCE_GROUP = "graph_explorer.datasource_plugins"
+VISUALIZER_GROUP = "graph_explorer.visualizer_plugins"
 
 
 class PluginRegistry:
     def __init__(self):
-        self._plugins: Dict[str, object] = {}
+        self._datasource_plugins: dict[str, type] = {}
+        self._visualizer_plugins: dict[str, type] = {}
         self._discover()
 
     def _discover(self):
-        from plugins.csv_datasource_plugin.csv_datasource_plugin import CsvDataSourcePlugin
-        from plugins.json_datasource.json_datasource_plugin import JsonDataSourcePlugin
-        for cls in [CsvDataSourcePlugin, JsonDataSourcePlugin]:
-            self._plugins[cls.static_identifier] = cls
+        for ep in entry_points(group=DATASOURCE_GROUP):
+            try:
+                plugin_class = ep.load()
+                if not issubclass(plugin_class, DataSourcePlugin):
+                    print(f"[PluginRegistry] '{ep.name}' does not implement DataSourcePlugin, skipping")
+                    continue
+                instance = plugin_class()
+                self._datasource_plugins[instance.plugin_id()] = plugin_class
+            except Exception as e:
+                print(f"[PluginRegistry] Failed to load datasource plugin '{ep.name}': {e}")
 
-    def get_all_plugins(self) -> List:
-        return list(self._plugins.values())
+        for ep in entry_points(group=VISUALIZER_GROUP):
+            try:
+                plugin_class = ep.load()
+                if not issubclass(plugin_class, VisualizerPlugin):
+                    print(f"[PluginRegistry] '{ep.name}' does not implement VisualizerPlugin, skipping")
+                    continue
+                instance = plugin_class()
+                self._visualizer_plugins[instance.plugin_id()] = plugin_class
+            except Exception as e:
+                print(f"[PluginRegistry] Failed to load visualizer plugin '{ep.name}': {e}")
 
-    def get_plugin(self, plugin_id: str) -> Optional[object]:
-        return self._plugins.get(plugin_id)
+    def get_plugin(self, plugin_id: str) -> Optional[type]:
+        return self._datasource_plugins.get(plugin_id)
 
-    def register(self, plugin):
-        self._plugins[plugin.plugin_id] = plugin
+    def get_all_plugins(self) -> list[type]:
+        return list(self._datasource_plugins.values())

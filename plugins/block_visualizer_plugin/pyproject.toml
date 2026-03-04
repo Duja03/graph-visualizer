@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = [".."]
 include = ["block_visualizer_plugin*"]
 
 [project.entry-points."graph_explorer.visualizer_plugins"]
