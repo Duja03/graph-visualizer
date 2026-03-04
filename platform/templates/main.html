@@ -71,4 +71,19 @@
 <script src="/static/graph.js"></script>
 <script src="/static/tree.js"></script>
 <script src="/static/cli.js"></script>
+
+<!-- ucitaj plugine u toolbar dropdown -->
+<script>
+    (async () => {
+        const plugins = await API.getPlugins();
+        const selector = document.getElementById('plugin-selector');
+        selector.innerHTML = '<option value="">Select plugin…</option>';
+        plugins.forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = p.id;
+            opt.textContent = p.name;
+            selector.appendChild(opt);
+        });
+    })();
+</script>
 {% endblock %}
