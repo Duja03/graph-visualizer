@@ -9,8 +9,8 @@ from django.views.decorators.http import require_POST, require_GET
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-from platform.src.core.workspace_store import WorkspaceStore
-from platform.src.core.plugin_registry import PluginRegistry
+from core.workspace_store import WorkspaceStore
+from core.plugin_registry import PluginRegistry
 
 store = WorkspaceStore()
 registry = PluginRegistry()

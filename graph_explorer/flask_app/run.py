@@ -1,9 +1,8 @@
 """
-run.py — development entry point for the Flask explorer API.
+run.py — development entry point for the Flask app.
 Run with: python run.py
 """
-
-from explorer import create_app
+from __init__ import create_app
 
 app = create_app()
 

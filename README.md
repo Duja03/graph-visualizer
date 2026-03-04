@@ -20,7 +20,7 @@ Then run the install script to install all components:
 
 **Windows:**
 ```bash
-scripts\install.bat
+scripts/installation/install.bat
 ```
 
 **Unix/Mac:**

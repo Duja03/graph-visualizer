@@ -1,7 +1,7 @@
 import time
-from api.src.api.model.graph import Graph
-from api.src.api.plugins.datasource_plugin import DataSourcePlugin
-from api.src.api.plugins.visualizer_plugin import VisualizerPlugin
+from api.model.graph import Graph
+from api.plugins.datasource_plugin import DataSourcePlugin
+from api.plugins.visualizer_plugin import VisualizerPlugin
 
 
 class Workspace:
