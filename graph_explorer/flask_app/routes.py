@@ -71,8 +71,8 @@ def list_plugins():
     plugins = registry.get_all_plugins()
     return jsonify([
         {
-            'id': p.static_identifier,
-            'name': p.static_identifier,
+            'id': p().plugin_id(),
+            'name': p().name(),
             'description': getattr(p, 'description', ''),
         }
         for p in plugins
