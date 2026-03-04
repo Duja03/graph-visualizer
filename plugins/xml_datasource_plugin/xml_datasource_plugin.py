@@ -125,6 +125,16 @@ class XmlDataSourcePlugin(DataSourcePlugin):
             if typed is not None:
                 node.set_attribute(attr_name, typed)
 
+                value_node_id = self._new_node_id()
+                graph.add_node(Node(id=value_node_id))
+                graph.get_node(value_node_id).set_attribute("value", typed)
+                graph.add_edge(Edge(
+                    id=self._new_edge_id(),
+                    source=node_id,
+                    target=value_node_id,
+                    attributes={"name": attr_name}
+                ))
+
         ref = element.get("reference")
         if ref and ref.strip() in self._id_registry:
             target_id = ref.strip()
@@ -138,8 +148,12 @@ class XmlDataSourcePlugin(DataSourcePlugin):
 
         for child in element:
             child_has_children = len(child) > 0
+            child_has_attributes = any(
+                k not in (XML_ID, "reference")
+                for k in child.attrib
+            )
 
-            if not child_has_children:
+            if not child_has_children and not child_has_attributes:
                 typed = _parse_typed_value((child.text or "").strip())
                 if typed is not None:
                     node.set_attribute(child.tag, typed)
