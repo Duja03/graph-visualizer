@@ -8,30 +8,42 @@
 4. Miomir Dujanović
 5. Sara	Stojkov
 
-### Running the Application
+## Running the Application
 
-The application has two servers that must both be running: a **Flask** backend and a **Django** frontend. Start them in the order below.
+Both Django and Flask are fully independent web applications. Each can be run
+and used on its own — they do not depend on each other.
 
-#### 1. Start the Flask server
+### Prerequisites
 
-Navigate to the `web` folder and run:
+From the root of the project, run the install script:
 
+**Windows:**
 ```bash
-cd web
-python -m explorer.run
+scripts\install.bat
 ```
 
-Flask will start on its default port. Keep this terminal open.
-
-#### 2. Start the Django server
-
-In a **separate terminal**, navigate to `web/graph_explorer` and run:
-
+**Unix/Mac:**
 ```bash
-cd web/graph_explorer
+./scripts/install.sh
+```
+
+### Running the Django app
+```bash
+cd graph_explorer/django_app
 python manage.py runserver
 ```
 
-Django will start at [http://127.0.0.1:8000](http://127.0.0.1:8000). Open this in your browser.
+Django will be available at http://127.0.0.1:8000
 
-> **Note:** Flask must be running before Django, as Django proxies API requests to the Flask backend.
+### Running the Flask app
+```bash
+cd graph_explorer/flask_app
+python -m run
+```
+
+Flask will be available at http://127.0.0.1:5000
+
+### Note
+
+Both apps provide the same functionality independently. You do not need to run
+both at the same time - each one is a complete standalone application.
