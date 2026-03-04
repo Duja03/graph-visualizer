@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xml-datasource"
+version = "1.0.0"
+description = "XML data source plugin for Graph Explorer"
+requires-python = ">=3.11"
+dependencies = [
+    "api",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["xml_datasource_plugin*"]
+
+[project.entry-points."graph_explorer.datasource_plugins"]
+xml_datasource = "xml_datasource_plugin:XmlDataSourcePlugin"
