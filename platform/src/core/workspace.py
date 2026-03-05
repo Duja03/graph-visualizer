@@ -3,21 +3,6 @@ from api.model.graph import Graph
 from api.plugins.datasource_plugin import DataSourcePlugin
 from api.plugins.visualizer_plugin import VisualizerPlugin
 
-<<<<<<< HEAD
-=======
-from api.model import Graph
-from api.plugins import DataSourcePlugin
-from api.plugins import VisualizerPlugin
-from csv_datasource import CsvDataSourcePlugin
-from json_datasource import JsonDataSourcePlugin
-from xml_datasource import XmlDataSourcePlugin
-
-data_sources = {
-    CsvDataSourcePlugin.static_identifier: CsvDataSourcePlugin,
-    JsonDataSourcePlugin.static_identifier: JsonDataSourcePlugin,
-    XmlDataSourcePlugin.static_identifier: XmlDataSourcePlugin,
-}
->>>>>>> main
 
 class Workspace:
     def __init__(self, data_source_plugin: DataSourcePlugin = None):

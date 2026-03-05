@@ -43,7 +43,4 @@ WSGI_APPLICATION = 'config.wsgi.application'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / '../../platform/static']
 
-# Flask API base URL (flask_app microservice)
-FLASK_API_URL = os.environ.get('FLASK_API_URL', 'http://localhost:5000')
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

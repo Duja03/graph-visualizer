@@ -4,6 +4,7 @@ In-memory store for active workspaces.
 """
 import uuid
 from typing import Dict, Optional
+from .workspace import Workspace
 
 class WorkspaceStore:
     def __init__(self):
