@@ -2,7 +2,9 @@
 run.py — development entry point for the Flask app.
 Run with: python run.py
 """
-from __init__ import create_app
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+from graph_explorer.flask_app import create_app
 
 app = create_app()
 

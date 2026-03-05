@@ -35,9 +35,9 @@ def api_plugins(request):
     plugins = registry.get_all_plugins()
     return JsonResponse([
         {
-            'id': p.static_identifier,
-            'name': p.static_identifier,
-            'description': getattr(p, 'description', ''),
+            'id': p().plugin_id(),
+            'name': p().name(),
+            'description': getattr(p(), 'description', ''),
         }
         for p in plugins
     ], safe=False)
@@ -47,9 +47,16 @@ def api_plugin_params(request, plugin_id):
     plugin_cls = registry.get_plugin(plugin_id)
     if not plugin_cls:
         return JsonResponse({'error': 'Plugin not found'}, status=404)
-    return JsonResponse([
-        {'name': 'file_path', 'label': 'File path', 'placeholder': '/path/to/file'}
-    ], safe=False)
+    plugin = plugin_cls()
+    params = [
+        {
+            'name': param_name,
+            'label': param_desc,
+            'placeholder': param_desc,
+        }
+        for param_name, param_desc in plugin.parameters().items()
+    ]
+    return JsonResponse(params, safe=False)
 
 
 @csrf_exempt
@@ -64,7 +71,7 @@ def api_load_graph(request):
 
     try:
         plugin_instance = plugin_cls()
-        graph = plugin_instance.load(file_path=params.get('file_path', ''))
+        graph = plugin_instance.load(**params)
         workspace_id = store.create_workspace(graph, plugin_instance)
         return JsonResponse({
             'workspace_id': workspace_id,

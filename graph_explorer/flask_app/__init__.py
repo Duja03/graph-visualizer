@@ -4,7 +4,7 @@ Serves frontend templates and API endpoints.
 Talks directly to platform and plugins — no Django dependency.
 """
 from flask import Flask
-from routes import api_bp
+from .routes import api_bp
 from flask_cors import CORS
 import os
 

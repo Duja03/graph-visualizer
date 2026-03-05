@@ -13,10 +13,10 @@ class WorkspaceStore:
     def create_workspace(self, graph, plugin, filepath: str = '') -> str:
         workspace_id = str(uuid.uuid4())
         ws = Workspace(data_source_plugin=plugin)
+        ws.id = workspace_id
         ws.filepath = filepath
-        ws._Workspace__graph = graph
-        ws._Workspace__initial_graph = graph
-        ws._Workspace__id = workspace_id
+        ws.graph = graph
+        ws.initial_graph = graph
         self._workspaces[workspace_id] = ws
         return workspace_id
 

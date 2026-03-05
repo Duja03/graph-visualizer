@@ -73,7 +73,7 @@ def list_plugins():
         {
             'id': p().plugin_id(),
             'name': p().name(),
-            'description': getattr(p, 'description', ''),
+            'description': getattr(p(), 'description', ''),
         }
         for p in plugins
     ])
@@ -84,9 +84,16 @@ def plugin_params(plugin_id):
     plugin_cls = registry.get_plugin(plugin_id)
     if not plugin_cls:
         return jsonify({'error': 'Plugin not found'}), 404
-    return jsonify([
-        {'name': 'file_path', 'label': 'File path', 'placeholder': '/path/to/file.json'}
-    ])
+    plugin = plugin_cls()
+    params = [
+        {
+            'name': param_name,
+            'label': param_desc,
+            'placeholder': param_desc,
+        }
+        for param_name, param_desc in plugin.parameters().items()
+    ]
+    return jsonify(params)
 
 
 @api_bp.route('/api/graph/load', methods=['POST'])
@@ -101,7 +108,7 @@ def load_graph():
 
     try:
         plugin_instance = plugin_cls()
-        graph = plugin_instance.load(file_path=params.get('file_path', ''))
+        graph = plugin_instance.load(**params)
         workspace_id = store.create_workspace(graph, plugin_instance)
         return jsonify({
             'workspace_id': workspace_id,

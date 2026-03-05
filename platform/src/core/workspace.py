@@ -6,7 +6,7 @@ from api.plugins.visualizer_plugin import VisualizerPlugin
 
 class Workspace:
     def __init__(self, data_source_plugin: DataSourcePlugin = None):
-        self.__id: int = int(time.time())
+        self.__id: str = str(int(time.time()))
         self.__filepath: str = ''
         self.__data_source_plugin: DataSourcePlugin | None = data_source_plugin
         self.__visualizer_plugin: VisualizerPlugin | None = None
@@ -14,8 +14,12 @@ class Workspace:
         self.__initial_graph: Graph | None = None
 
     @property
-    def id(self) -> int:
+    def id(self) -> str:
         return self.__id
+
+    @id.setter
+    def id(self, workspace_id: str) -> None:
+        self.__id = workspace_id
 
     @property
     def filepath(self) -> str:
