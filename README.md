@@ -36,6 +36,24 @@ and used on its own. They do not depend on each other.
 ### Running the Django app
 ```bash
 source .venv/bin/activate
+The application has two servers that must both be running: a **Flask** backend and a **Django** frontend. Start them in the order below.
+
+#### 1. Start the Flask server
+
+```bash
+source .venv/bin/activate
+cd graph_explorer
+python -m flask_app.run
+```
+
+Flask will start on its default port. Keep this terminal open.
+
+#### 2. Start the Django server
+
+In a **separate terminal** run:
+
+```bash
+source .venv/bin/activate
 cd graph_explorer/django_app
 python manage.py runserver
 ```

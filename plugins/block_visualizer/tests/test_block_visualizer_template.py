@@ -1,5 +1,5 @@
 from api.model import Graph, Node, Edge
-from block_visualizer_plugin import BlockVisualizerPlugin
+from block_visualizer.src.block_visualizer import BlockVisualizerPlugin
 
 graph = Graph(directed=True)
 

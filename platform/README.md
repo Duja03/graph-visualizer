@@ -7,8 +7,10 @@ Core platform library for graph visualizer. Provides graph manipulation logic in
 
 ## Installation
 ```bash
-pip install -e ../api
-pip install -e ../platform
+cd ..
+source .venv/bin/activate
+pip install -e api
+pip install -e platform
 ```
 
 ## Usage
