@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-where = [".."]
+where = ["src"]
 include = ["json_datasource*"]
 
 [project.entry-points."graph_explorer.datasource_plugins"]

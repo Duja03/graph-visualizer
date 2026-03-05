@@ -3,7 +3,7 @@ from datetime import date
 from pathlib import Path
 import csv
 
-from .csv_datasource_plugin import CsvDataSourcePlugin, _parse_typed_value
+from csv_datasource.src.csv_datasource.csv_datasource_plugin import CsvDataSourcePlugin, _parse_typed_value
 
 
 # ====== _parse_typed_value tests ======
@@ -40,7 +40,7 @@ def test_parse_bool():
 
 def make_csv(rows: list, tmp_path: Path, edge_column="connected_to") -> Path:
     fieldnames = ["id", "name", "age", "salary", "joined", edge_column]
-    p = tmp_path / "test.csv"
+    p = tmp_path / "tests.csv"
     with open(p, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -149,7 +149,7 @@ def test_missing_file_path_param(plugin):
 
 
 def test_skip_row_without_id(plugin, tmp_path):
-    p = tmp_path / "test.csv"
+    p = tmp_path / "tests.csv"
     with open(p, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["id", "name", "connected_to"])
         writer.writeheader()
@@ -162,7 +162,7 @@ def test_skip_row_without_id(plugin, tmp_path):
 
 
 def test_multiple_edges(plugin, tmp_path):
-    p = tmp_path / "test.csv"
+    p = tmp_path / "tests.csv"
     with open(p, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["id", "name", "connected_to"])
         writer.writeheader()

@@ -2,7 +2,7 @@ import pytest
 from datetime import date
 from pathlib import Path
 
-from .xml_datasource_plugin import XmlDataSourcePlugin, _parse_typed_value
+from xml_datasource.src.xml_datasource.xml_datasource_plugin import XmlDataSourcePlugin, _parse_typed_value
 
 
 def test_parse_int():
@@ -33,7 +33,7 @@ def test_parse_whitespace_only():
 
 
 def write_xml(content: str, tmp_path: Path) -> Path:
-    p = tmp_path / "test.xml"
+    p = tmp_path / "tests.xml"
     p.write_text(content, encoding="utf-8")
     return p
 

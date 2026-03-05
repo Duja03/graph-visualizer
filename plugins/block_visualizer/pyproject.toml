@@ -12,8 +12,8 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-where = [".."]
-include = ["block_visualizer_plugin*"]
+where = ["src"]
+include = ["block_visualizer*"]
 
 [project.entry-points."graph_explorer.visualizer_plugins"]
-block_visualizer = "block_visualizer_plugin:BlockVisualizerPlugin"
+block_visualizer = "block_visualizer:BlockVisualizerPlugin"

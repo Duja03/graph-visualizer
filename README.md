@@ -15,10 +15,10 @@ From the project root, install all components in order:
 source .venv/bin/activate
 pip install -e api
 pip install -e platform
-pip install -e plugins/csv_datasource_plugin
+pip install -e plugins/csv_datasource
 pip install -e plugins/json_datasource
-pip install -e plugins/xml_datasource_plugin
-pip install -e plugins/block_visualizer_plugin
+pip install -e plugins/xml_datasource
+pip install -e plugins/block_visualizer
 ```
 
 ### Running the Application
@@ -27,12 +27,10 @@ The application has two servers that must both be running: a **Flask** backend a
 
 #### 1. Start the Flask server
 
-Navigate to the `web` folder and run:
-
 ```bash
 source .venv/bin/activate
-cd web
-python -m explorer.run
+cd graph_explorer
+python -m flask_app.run
 ```
 
 Flask will start on its default port. Keep this terminal open.
@@ -43,7 +41,7 @@ In a **separate terminal** run:
 
 ```bash
 source .venv/bin/activate
-cd web/graph_explorer
+cd graph_explorer/django_app
 python manage.py runserver
 ```
 

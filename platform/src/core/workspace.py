@@ -3,9 +3,9 @@ import time
 from api.model import Graph
 from api.plugins import DataSourcePlugin
 from api.plugins import VisualizerPlugin
-from plugins.csv_datasource_plugin import CsvDataSourcePlugin
-from plugins.json_datasource import JsonDataSourcePlugin
-from plugins.xml_datasource_plugin import XmlDataSourcePlugin
+from csv_datasource import CsvDataSourcePlugin
+from json_datasource import JsonDataSourcePlugin
+from xml_datasource import XmlDataSourcePlugin
 
 data_sources = {
     CsvDataSourcePlugin.static_identifier: CsvDataSourcePlugin,
