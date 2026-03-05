@@ -4,7 +4,9 @@ Core API library for graph visualizer. Provides graph model classes (`Graph`, `N
 
 ## Installation
 ```bash
-pip install -e ../api
+cd ..
+source .venv/bin/activate
+pip install -e api
 ```
 
 ## Usage

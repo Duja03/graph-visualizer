@@ -1,6 +1,6 @@
 """
-explorer — Flask microservice.
-Exposes the graph data API consumed by the Django graph_explorer app.
+flask_app — Flask microservice.
+Exposes the graph data API consumed by the Django django_app app.
 All heavy logic is delegated to the platform library and installed plugins.
 """
 

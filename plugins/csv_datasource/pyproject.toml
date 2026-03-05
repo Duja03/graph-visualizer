@@ -12,8 +12,8 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-where = [".."]
-include = ["csv_datasource_plugin*"]
+where = ["src"]
+include = ["csv_datasource*"]
 
 [project.entry-points."graph_explorer.datasource_plugins"]
-csv_datasource = "csv_datasource_plugin:CsvDataSourcePlugin"
+csv_datasource = "csv_datasource:CsvDataSourcePlugin"

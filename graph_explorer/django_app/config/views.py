@@ -1,6 +1,6 @@
 """
 Thin Django views — each view only renders a template and passes minimal context.
-All data logic is delegated to the Flask API (explorer microservice).
+All data logic is delegated to the Flask API (flask_app microservice).
 """
 
 from django.shortcuts import render
@@ -16,7 +16,7 @@ def main_view(request):
 
 
 def tree_view(request):
-    """Tree View: package-explorer-style collapsible tree."""
+    """Tree View: package-flask_app-style collapsible tree."""
     return render(request, 'tree-view.html', {
         'flask_api_url': settings.FLASK_API_URL,
         'active_view': 'tree',

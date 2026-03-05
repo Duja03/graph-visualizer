@@ -1,4 +1,4 @@
-from plugins.json_datasource.json_datasource_plugin import JsonDataSourcePlugin
+from json_datasource.src.json_datasource.json_datasource_plugin import JsonDataSourcePlugin
 
 
 def main():

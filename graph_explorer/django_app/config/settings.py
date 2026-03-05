@@ -1,5 +1,5 @@
 """
-Django settings for graph_explorer project.
+Django settings for django_app project.
 """
 
 import os
@@ -15,7 +15,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.staticfiles',
-    'graph_explorer',
+    'config',
 ]
 
 MIDDLEWARE = [
@@ -23,7 +23,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-ROOT_URLCONF = 'graph_explorer.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -38,12 +38,12 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'graph_explorer.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / '../../platform/static']
 
-# Flask API base URL (explorer microservice)
+# Flask API base URL (flask_app microservice)
 FLASK_API_URL = os.environ.get('FLASK_API_URL', 'http://localhost:5000')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
