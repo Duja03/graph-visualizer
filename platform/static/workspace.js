@@ -21,6 +21,12 @@ document.getElementById('plugin-selector')?.addEventListener('change', async fun
     const pluginId = this.value;
     if (!pluginId) return;
     const params = await API.getPluginParams(pluginId);
+    if (!Array.isArray(params)) {
+        console.error('Failed to load plugin params:', params);
+        document.getElementById('plugin-params').innerHTML =
+            '<p style="color:red;font-size:0.85rem;">Could not load plugin parameters.</p>';
+        return;
+    }
     renderPluginParams(params);
 });
 

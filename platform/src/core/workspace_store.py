@@ -1,32 +1,23 @@
 """
 workspace_store.py
 In-memory store for active workspaces.
-Each workspace holds a loaded graph and its source plugin reference.
 """
-
 import uuid
-from dataclasses import dataclass
 from typing import Dict, Optional
-
-
-@dataclass
-class Workspace:
-    workspace_id: str
-    graph: object          # platform.model.Graph instance
-    plugin: object         # DataSourcePlugin instance
-
+from .workspace import Workspace
 
 class WorkspaceStore:
     def __init__(self):
         self._workspaces: Dict[str, Workspace] = {}
 
-    def create_workspace(self, graph, plugin) -> str:
+    def create_workspace(self, graph, plugin, filepath: str = '') -> str:
         workspace_id = str(uuid.uuid4())
-        self._workspaces[workspace_id] = Workspace(
-            workspace_id=workspace_id,
-            graph=graph,
-            plugin=plugin,
-        )
+        ws = Workspace(data_source_plugin=plugin)
+        ws.id = workspace_id
+        ws.filepath = filepath
+        ws.graph = graph
+        ws.initial_graph = graph
+        self._workspaces[workspace_id] = ws
         return workspace_id
 
     def get_workspace(self, workspace_id: str) -> Optional[Workspace]:

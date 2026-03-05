@@ -6,45 +6,52 @@
 2. Maksim Vasić
 3. Milan Kačarević
 4. Miomir Dujanović
-5. Sara	Stojkov
+5. Sara Stojkov
 
 ### Installation
 
-From the project root, install all components in order:
+First, activate your virtual environment from the project root:
 ```bash
-source .venv/bin/activate
-pip install -e api
-pip install -e platform
-pip install -e plugins/csv_datasource
-pip install -e plugins/json_datasource
-pip install -e plugins/xml_datasource
-pip install -e plugins/block_visualizer
+source .venv/bin/activate  # Unix/Mac
+.venv\Scripts\activate     # Windows
+```
+
+Then run the install script to install all components:
+
+**Windows:**
+```bash
+scripts/installation/install.bat
+```
+
+**Unix/Mac:**
+```bash
+./scripts/install.sh
 ```
 
 ### Running the Application
 
-The application has two servers that must both be running: a **Flask** backend and a **Django** frontend. Start them in the order below.
+Both Django and Flask are fully independent web applications. Each can be run
+and used on its own. They do not depend on each other.
 
-#### 1. Start the Flask server
-
-```bash
-source .venv/bin/activate
-cd graph_explorer
-python -m flask_app.run
-```
-
-Flask will start on its default port. Keep this terminal open.
-
-#### 2. Start the Django server
-
-In a **separate terminal** run:
-
+### Running the Django app
 ```bash
 source .venv/bin/activate
 cd graph_explorer/django_app
 python manage.py runserver
 ```
 
-Django will start at [http://127.0.0.1:8000](http://127.0.0.1:8000). Open this in your browser.
+Django will be available at http://127.0.0.1:8000
 
-> **Note:** Flask must be running before Django, as Django proxies API requests to the Flask backend.
+### Running the Flask app
+```bash
+source .venv/bin/activate
+cd graph_explorer/flask_app
+python -m run
+```
+
+Flask will be available at http://127.0.0.1:5000
+
+### Note
+
+Both apps provide the same functionality independently. You do not need to run
+both at the same time — each one is a complete standalone application.

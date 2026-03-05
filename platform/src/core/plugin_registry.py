@@ -2,8 +2,8 @@
 plugin_registry.py
 Auto-discovers installed plugins via importlib.metadata entry_points.
 
-Datasource plugins must register under: django_app.datasource_plugins
-Visualizer plugins must register under:  django_app.visualizer_plugins
+Datasource plugins must register under: graph_explorer.datasource_plugins
+Visualizer plugins must register under:  graph_explorer.visualizer_plugins
 """
 
 from importlib.metadata import entry_points
@@ -50,3 +50,9 @@ class PluginRegistry:
 
     def get_all_plugins(self) -> list[type]:
         return list(self._datasource_plugins.values())
+
+    def get_visualizer_plugin(self, plugin_id: str) -> Optional[type]:
+        return self._visualizer_plugins.get(plugin_id)
+
+    def get_all_visualizer_plugins(self) -> list[type]:
+        return list(self._visualizer_plugins.values())
