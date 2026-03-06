@@ -98,6 +98,7 @@ def api_search_graph(request, workspace_id):
     from core.search_engine import SearchEngine
     try:
         subgraph = SearchEngine(workspace.graph).search(query)
+        workspace.graph = subgraph
         return JsonResponse(serialize_graph(subgraph))
     except ValueError as e:
         return JsonResponse({'error': str(e)}, status=400)
@@ -113,10 +114,18 @@ def api_filter_graph(request, workspace_id):
     from core.filter_engine import FilterEngine
     try:
         subgraph = FilterEngine.filter(workspace.graph, filter_expr)
+        workspace.graph = subgraph
         return JsonResponse(serialize_graph(subgraph))
     except ValueError as e:
         return JsonResponse({'error': str(e)}, status=400)
 
+@csrf_exempt
+def api_reset_graph(request, workspace_id):
+    workspace = store.get_workspace(workspace_id)
+    if not workspace:
+        return JsonResponse({'error': 'Workspace not found'}, status=404)
+    workspace.graph = workspace.initial_graph
+    return JsonResponse(serialize_graph(workspace.initial_graph))
 
 def serialize_graph(graph):
     from datetime import date

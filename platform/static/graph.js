@@ -154,8 +154,11 @@ document.getElementById('btn-filter')?.addEventListener('click', async () => {
     drawBirdView(subgraph);
 });
 
-document.getElementById('btn-reset')?.addEventListener('click', () => {
-    if (State.currentWorkspaceId) renderGraph(State.currentWorkspaceId);
+document.getElementById('btn-reset')?.addEventListener('click', async () => {
+    if (!State.currentWorkspaceId) return;
+    const graphData = await API.resetGraph(State.currentWorkspaceId);
+    drawMainView(graphData);
+    drawBirdView(graphData);
 });
 
 const params = new URLSearchParams(window.location.search);

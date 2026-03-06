@@ -136,6 +136,7 @@ def search_graph(workspace_id):
         return jsonify({'error': 'Workspace not found'}), 404
     try:
         subgraph = SearchEngine(workspace.graph).search(query)
+        workspace.graph = subgraph
         return jsonify(serialize_graph(subgraph))
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
@@ -150,6 +151,7 @@ def filter_graph(workspace_id):
         return jsonify({'error': 'Workspace not found'}), 404
     try:
         subgraph = FilterEngine.filter(workspace.graph, filter_expr)
+        workspace.graph = subgraph
         return jsonify(serialize_graph(subgraph))
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
@@ -161,3 +163,11 @@ def run_cli(workspace_id):
     if not workspace:
         return jsonify({'error': 'Workspace not found'}), 404
     return jsonify({'error': 'CLI engine not yet implemented'}), 501
+
+@api_bp.route('/api/graph/<workspace_id>/reset', methods=['POST'])
+def reset_graph(workspace_id):
+    workspace = store.get_workspace(workspace_id)
+    if not workspace:
+        return jsonify({'error': 'Workspace not found'}), 404
+    workspace.graph = workspace.initial_graph
+    return jsonify(serialize_graph(workspace.initial_graph))
