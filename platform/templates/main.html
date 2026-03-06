@@ -8,7 +8,6 @@
     <div class="toolbar">
         <span class="material-icons" style="color:var(--violet-300);font-size:1.1rem;flex-shrink:0;">tune</span>
         <select id="plugin-selector" class="toolbar-select">
-            <option value="">Loading plugins...</option>
         </select>
         <input type="text" id="search-input" class="toolbar-input" placeholder="Search nodes…" style="flex:1;min-width:120px;">
         <input type="text" id="filter-input" class="toolbar-input" placeholder="Filter: Age > 30" style="flex:1;min-width:120px;">
@@ -77,7 +76,9 @@
     (async () => {
         const plugins = await API.getVisualizerPlugins();
         const selector = document.getElementById('plugin-selector');
-        selector.innerHTML = '<option value="">Select plugin…</option>';
+        if (plugins.length === 0) {
+            selector.innerHTML = '<option value="">No plugins found :(</option>';
+        }
         plugins.forEach(p => {
             const opt = document.createElement('option');
             opt.value = p.id;

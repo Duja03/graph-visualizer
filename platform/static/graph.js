@@ -9,8 +9,10 @@ let simulation = null;
 async function renderGraph(workspaceId) {
     State.currentWorkspaceId = workspaceId;
     const graphData = await API.getGraph(workspaceId);
+    console.log(graphData);
     drawMainView(graphData);
     drawBirdView(graphData);
+    renderTree(graphData.nodes, graphData.edges);
 }
 
 function drawMainView(graphData) {
@@ -144,6 +146,7 @@ document.getElementById('btn-search')?.addEventListener('click', async () => {
     const subgraph = await API.searchGraph(State.currentWorkspaceId, q);
     drawMainView(subgraph);
     drawBirdView(subgraph);
+    renderTree(graphData.nodes, graphData.edges);
 });
 
 document.getElementById('btn-filter')?.addEventListener('click', async () => {
@@ -152,6 +155,7 @@ document.getElementById('btn-filter')?.addEventListener('click', async () => {
     const subgraph = await API.filterGraph(State.currentWorkspaceId, expr);
     drawMainView(subgraph);
     drawBirdView(subgraph);
+    renderTree(graphData.nodes, graphData.edges);
 });
 
 document.getElementById('btn-reset')?.addEventListener('click', async () => {
@@ -159,6 +163,7 @@ document.getElementById('btn-reset')?.addEventListener('click', async () => {
     const graphData = await API.resetGraph(State.currentWorkspaceId);
     drawMainView(graphData);
     drawBirdView(graphData);
+    renderTree(graphData.nodes, graphData.edges);
 });
 
 const params = new URLSearchParams(window.location.search);
