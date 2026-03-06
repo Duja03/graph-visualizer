@@ -92,7 +92,7 @@
         selector.addEventListener('change', async () => {
             State.activeVisualizerPlugin = selector.value;
 
-            await fetch(`/api/graph/${State.currentWorkspaceId}/visualizer`, {
+            await fetch(`/api/graph/${State.currentWorkspaceId}/visualizer/set`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ plugin_id: selector.value }),
