@@ -166,8 +166,6 @@ const workspaceId = params.get('workspace');
 if (workspaceId) {
     renderGraph(workspaceId);
 } else {
-    const workspaces = State.getWorkspaces();
-    if (workspaces.length > 0) {
-        renderGraph(workspaces[workspaces.length - 1].workspace_id);
-    }
+    const lastId = State.currentWorkspaceId;
+    if (lastId) renderGraph(lastId);
 }

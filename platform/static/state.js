@@ -10,11 +10,11 @@ const State = {
     _listeners: [],
 
     get currentWorkspaceId() {
-        return this._currentWorkspaceId;
+    return sessionStorage.getItem('currentWorkspaceId');
     },
 
     set currentWorkspaceId(id) {
-        this._currentWorkspaceId = id;
+        sessionStorage.setItem('currentWorkspaceId', id);
         this._notify();
     },
 
