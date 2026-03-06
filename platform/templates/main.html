@@ -85,6 +85,20 @@
             opt.textContent = p.name;
             selector.appendChild(opt);
         });
+
+        const saved = State.activeVisualizerPlugin;
+        if (saved) selector.value = saved;
+
+        selector.addEventListener('change', async () => {
+            State.activeVisualizerPlugin = selector.value;
+
+            await fetch(`/api/graph/${State.currentWorkspaceId}/visualizer`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ plugin_id: selector.value }),
+            });
+        });
+
     })();
 </script>
 {% endblock %}

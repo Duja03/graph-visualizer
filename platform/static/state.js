@@ -18,6 +18,15 @@ const State = {
         this._notify();
     },
 
+    get activeVisualizerPlugin() {
+        return sessionStorage.getItem('activeVisualizerPlugin');
+    },
+
+    set activeVisualizerPlugin(id) {
+        sessionStorage.setItem('activeVisualizerPlugin', id);
+        this._notify();
+    },
+
     addWorkspace(ws) {
         const workspaces = this.getWorkspaces();
         if (!workspaces.find(w => w.workspace_id === ws.workspace_id)) {

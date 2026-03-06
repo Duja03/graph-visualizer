@@ -37,6 +37,10 @@ class Workspace:
     def visualizer_plugin(self) -> VisualizerPlugin:
         return self.__visualizer_plugin
 
+    @visualizer_plugin.setter
+    def visualizer_plugin(self, plugin: VisualizerPlugin) -> None:
+        self.__visualizer_plugin = plugin
+
     @property
     def graph(self) -> Graph:
         return self.__graph
