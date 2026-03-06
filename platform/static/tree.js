@@ -5,31 +5,38 @@
  */
 
 function getRootNodes(nodes, edges) {
-  const hasParent = new Set(edges.map(e => e.target.id));
-  return nodes.filter(n => !hasParent.has(n.id));
+    const hasParent = new Set(edges.map(e => getEdgeId(e.target)));
+    return nodes.filter(n => !hasParent.has(n.id));
+}
+
+function getEdgeId(endpoint) {
+    // After D3 simulation: endpoint is a full object { id, x, y, ... }
+    // From raw API response: endpoint is a string
+    return typeof endpoint === 'object' ? endpoint.id : endpoint;
 }
 
 function renderTree(nodes, edges) {
-  const container = document.getElementById('tree-container');
-  if (!container) return;
-  container.innerHTML = '';
+    const container = document.getElementById('tree-container');
+    if (!container) return;
+    container.innerHTML = '';
 
-  const nodeMap = Object.fromEntries(nodes.map(n => [n.id, n]));
-  const childrenMap = Object.fromEntries(nodes.map(n => [n.id, []]));
+    const nodeMap = Object.fromEntries(nodes.map(n => [n.id, n]));
+    const childrenMap = Object.fromEntries(nodes.map(n => [n.id, []]));
 
-  edges.forEach(edge => {
-    const sourceId = edge.source.id;
-    const targetId = edge.target.id;
-    if (childrenMap[sourceId] !== undefined) childrenMap[sourceId].push(targetId);
-  });
+    edges.forEach(edge => {
+        const sourceId = getEdgeId(edge.source);
+        const targetId = getEdgeId(edge.target);
+        if (childrenMap[sourceId] !== undefined) childrenMap[sourceId].push(targetId);
+    });
 
-  const roots = getRootNodes(nodes, edges);
-  const topLevel = roots.length ? roots : [nodes[0]];
+    const roots = getRootNodes(nodes, edges);
+    const topLevel = roots.length ? roots : [nodes[0]];
 
-  topLevel.forEach(root => {
-    container.appendChild(buildTreeNode(root, childrenMap, nodeMap, new Set()));
-  });
+    topLevel.forEach(root => {
+        container.appendChild(buildTreeNode(root, childrenMap, nodeMap, new Set()));
+    });
 }
+
 function buildTreeNode(node, childrenMap, nodeMap, visited) {
     const childIds = childrenMap[node.id] || [];
     const hasChildren = childIds.length > 0;
@@ -39,7 +46,6 @@ function buildTreeNode(node, childrenMap, nodeMap, visited) {
     item.className = 'tree-node';
     item.dataset.id = node.id;
 
-    // Wrapper holds header + attrPanel together
     const wrapper = document.createElement('div');
     wrapper.className = 'tree-node-wrapper';
 

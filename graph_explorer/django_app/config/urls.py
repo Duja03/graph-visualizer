@@ -20,6 +20,7 @@ urlpatterns = [
     path('api/graph/<str:workspace_id>/reset', views.api_reset_graph),
     path('api/graph/<str:workspace_id>/cli', views.api_cli_graph),
     path('api/graph/<str:workspace_id>/visualizer/set', views.api_set_visualizer),
+    path('api/graph/<str:workspace_id>/visualize', views.api_visualize_graph),
 
     re_path(r'^.*$', lambda request: redirect('main', permanent=False)),
 ]

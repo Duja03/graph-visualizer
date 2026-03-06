@@ -4,70 +4,44 @@
  * Populated by data fetched from the Flask API via api.js.
  */
 
-let simulation = null;
-
 async function renderGraph(workspaceId) {
     State.currentWorkspaceId = workspaceId;
     const graphData = await API.getGraph(workspaceId);
-    console.log(graphData);
-    drawMainView(graphData);
-    drawBirdView(graphData);
+    await renderVisualizer(workspaceId);
+    // drawBirdView(graphData);
     renderTree(graphData.nodes, graphData.edges);
 }
 
-function drawMainView(graphData) {
-    const svg = d3.select('#main-canvas');
-    svg.selectAll('*').remove();
+async function renderVisualizer(workspaceId) {
+    const html = await API.visualizeGraph(workspaceId);
+    const container = document.getElementById('visualizer-container');
 
-    const width = svg.node().clientWidth || 800;
-    const height = svg.node().clientHeight || 600;
+    container.innerHTML = '';
 
-    // Pan + zoom
-    const g = svg.append('g');
-    const zoom = d3.zoom().on('zoom', (event) => {
-        g.attr('transform', event.transform);
-        syncBirdViewport(event.transform, width, height);
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    doc.querySelectorAll('style').forEach(style => {
+        const s = document.createElement('style');
+        s.textContent = style.textContent;
+        document.head.appendChild(s);
     });
-    svg.call(zoom);
 
-    // Force simulation
-    simulation = d3.forceSimulation(graphData.nodes)
-        .force('link', d3.forceLink(graphData.edges).id(d => d.id).distance(80))
-        .force('charge', d3.forceManyBody().strength(-200))
-        .force('center', d3.forceCenter(width / 2, height / 2));
+    doc.body.childNodes.forEach(node => {
+        if (node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+            container.appendChild(document.importNode(node, true));
+        }
+    });
 
-    // Edges
-    const link = g.append('g').selectAll('line')
-        .data(graphData.edges)
-        .join('line')
-        .attr('class', 'edge');
-
-    // Nodes
-    const node = g.append('g').selectAll('circle')
-        .data(graphData.nodes)
-        .join('circle')
-        .attr('class', 'node')
-        .attr('r', 10)
-        .call(d3.drag()
-            .on('start', dragStart)
-            .on('drag', dragged)
-            .on('end', dragEnd))
-        .on('mouseover', showNodeDetails)
-        .on('click', (event, d) => focusNode(d.id));
-
-    // Labels
-    const label = g.append('g').selectAll('text')
-        .data(graphData.nodes)
-        .join('text')
-        .attr('class', 'node-label')
-        .text(d => d.label || d.id);
-
-    simulation.on('tick', () => {
-        link
-            .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
-            .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
-        node.attr('cx', d => d.x).attr('cy', d => d.y);
-        label.attr('x', d => d.x + 12).attr('y', d => d.y + 4);
+    doc.querySelectorAll('script').forEach(oldScript => {
+        const s = document.createElement('script');
+        if (oldScript.src) {
+            if (document.querySelector(`script[src="${oldScript.src}"]`)) return;
+            s.src = oldScript.src;
+        } else {
+            s.textContent = oldScript.textContent;
+        }
+        document.body.appendChild(s);
     });
 }
 
@@ -117,51 +91,29 @@ function syncBirdViewport(transform, mainW, mainH) {
         .attr('width', vw).attr('height', vh);
 }
 
-function showNodeDetails(event, d) {
-    // TODO: show tooltip with node attributes
-    console.log('Node details:', d);
-}
-
-function focusNode(nodeId) {
-    // Highlight node across all three views
-    d3.selectAll('.node').classed('focused', d => d.id === nodeId);
-    d3.selectAll('.tree-node').classed('focused', d => d.id === nodeId);
-    d3.selectAll('.bird-node').classed('focused', d => d.id === nodeId);
-}
-
-function dragStart(event, d) {
-    if (!event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x; d.fy = d.y;
-}
-function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
-function dragEnd(event, d) {
-    if (!event.active) simulation.alphaTarget(0);
-    d.fx = null; d.fy = null;
-}
-
 // Search / filter triggers
 document.getElementById('btn-search')?.addEventListener('click', async () => {
     const q = document.getElementById('search-input').value;
     if (!State.currentWorkspaceId || !q) return;
     const subgraph = await API.searchGraph(State.currentWorkspaceId, q);
-    drawMainView(subgraph);
+    await renderVisualizer(State.currentWorkspaceId);
     drawBirdView(subgraph);
-    renderTree(graphData.nodes, graphData.edges);
+    renderTree(subgraph.nodes, subgraph.edges);
 });
 
 document.getElementById('btn-filter')?.addEventListener('click', async () => {
     const expr = document.getElementById('filter-input').value;
     if (!State.currentWorkspaceId || !expr) return;
     const subgraph = await API.filterGraph(State.currentWorkspaceId, expr);
-    drawMainView(subgraph);
+    await renderVisualizer(State.currentWorkspaceId);
     drawBirdView(subgraph);
-    renderTree(graphData.nodes, graphData.edges);
+    renderTree(subgraph.nodes, subgraph.edges);
 });
 
 document.getElementById('btn-reset')?.addEventListener('click', async () => {
     if (!State.currentWorkspaceId) return;
     const graphData = await API.resetGraph(State.currentWorkspaceId);
-    drawMainView(graphData);
+    await renderVisualizer(State.currentWorkspaceId);
     drawBirdView(graphData);
     renderTree(graphData.nodes, graphData.edges);
 });
