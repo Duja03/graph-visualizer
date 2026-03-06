@@ -3,6 +3,7 @@ routes.py — Flask web application routes.
 Serves frontend templates and API endpoints.
 Talks directly to platform and plugins — no Django dependency.
 """
+import sys
 
 from flask import Blueprint, jsonify, request, render_template, redirect, url_for
 
@@ -103,14 +104,19 @@ def load_graph():
     plugin_id = data.get('plugin_id')
     params = data.get('params', {})
 
-    plugin_cls = registry.get_plugin(plugin_id)
-    if not plugin_cls:
+    data_source_plugin_cls = registry.get_plugin(plugin_id)
+    if not data_source_plugin_cls:
+        return jsonify({'error': f'Plugin "{plugin_id}" not found'}), 404
+
+    visualizer_plugin_cls = registry.get_visualizer_plugin("block_visualizer")
+    if not visualizer_plugin_cls:
         return jsonify({'error': f'Plugin "{plugin_id}" not found'}), 404
 
     try:
-        plugin_instance = plugin_cls()
-        graph = plugin_instance.load(**params)
-        workspace_id = platform.create_workspace(graph, plugin_instance)
+        data_source_plugin_instance = data_source_plugin_cls()
+        visualizer_plugin_instance = visualizer_plugin_cls()
+        graph = data_source_plugin_instance.load(**params)
+        workspace_id = platform.create_workspace(graph, data_source_plugin_instance, visualizer_plugin_instance)
         return jsonify({
             'workspace_id': workspace_id,
             'plugin_name': plugin_id,
@@ -186,3 +192,12 @@ def set_visualizer(workspace_id):
 @api_bp.route('/<path:path>')
 def catch_all(path):
     return redirect(url_for('api.main_view'))
+
+@api_bp.route('/api/graph/<workspace_id>/visualize', methods=['GET'])
+def visualize_graph(workspace_id):
+    workspace = platform.get_workspace(workspace_id)
+    if not workspace:
+        return jsonify({'error': 'Workspace not found'}), 404
+    plugin = workspace.visualizer_plugin
+    html = plugin.render(workspace.graph)
+    return html, 200, {'Content-Type': 'text/html'}

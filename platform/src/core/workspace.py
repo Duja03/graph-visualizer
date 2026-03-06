@@ -5,11 +5,11 @@ from api.plugins.visualizer_plugin import VisualizerPlugin
 
 
 class Workspace:
-    def __init__(self, data_source_plugin: DataSourcePlugin = None):
+    def __init__(self, data_source_plugin: DataSourcePlugin = None, visualizer_plugin: VisualizerPlugin = None):
         self.__id: str = str(int(time.time()))
         self.__filepath: str = ''
         self.__data_source_plugin: DataSourcePlugin | None = data_source_plugin
-        self.__visualizer_plugin: VisualizerPlugin | None = None
+        self.__visualizer_plugin: VisualizerPlugin | None = visualizer_plugin
         self.__graph: Graph | None = None
         self.__initial_graph: Graph | None = None
 

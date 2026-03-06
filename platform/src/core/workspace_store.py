@@ -10,9 +10,9 @@ class WorkspaceStore:
     def __init__(self):
         self._workspaces: Dict[str, Workspace] = {}
 
-    def create_workspace(self, graph, plugin, filepath: str = '') -> str:
+    def create_workspace(self, graph, data_source_plugin, visualizer_plugin, filepath: str = '') -> str:
         workspace_id = str(uuid.uuid4())
-        ws = Workspace(data_source_plugin=plugin)
+        ws = Workspace(data_source_plugin=data_source_plugin, visualizer_plugin=visualizer_plugin)
         ws.id = workspace_id
         ws.filepath = filepath
         ws.graph = graph

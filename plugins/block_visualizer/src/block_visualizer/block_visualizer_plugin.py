@@ -1,8 +1,15 @@
 import json
 import os
+from datetime import date, datetime
 
 from api.model import Graph
 from api.plugins import VisualizerPlugin
+
+class DateSerializer(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (date, datetime)):
+            return obj.isoformat()
+        return super().default(obj)
 
 class BlockVisualizerPlugin(VisualizerPlugin):
 
@@ -33,7 +40,7 @@ class BlockVisualizerPlugin(VisualizerPlugin):
                 'edges': serialized_edges
             }
 
-        graph_json = json.dumps(graph_data)
+        graph_json = json.dumps(graph_data, cls=DateSerializer)  # ← fix here
 
         template_path = os.path.join(os.path.dirname(__file__), 'block_visualizer_template.html')
         with open(template_path, 'r') as f:

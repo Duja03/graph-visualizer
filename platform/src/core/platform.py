@@ -9,8 +9,8 @@ class Platform:
     def __init__(self):
         self._store = WorkspaceStore()
 
-    def create_workspace(self, graph: Graph, plugin, filepath: str = '') -> str:
-        return self._store.create_workspace(graph, plugin, filepath)
+    def create_workspace(self, graph: Graph, data_source_plugin, visualizer_plugin, filepath: str = '') -> str:
+        return self._store.create_workspace(graph, data_source_plugin, visualizer_plugin, filepath)
 
     def get_workspace(self, workspace_id: str) -> Optional[Workspace]:
         return self._store.get_workspace(workspace_id)
