@@ -4,7 +4,7 @@
  */
 
 async function initWorkspacePage() {
-    const plugins = await API.getPlugins();
+    const plugins = await API.getDataSourcePlugins();
     const selector = document.getElementById('plugin-selector');
     selector.innerHTML = '<option value="">Select data source plugin...</option>';
     plugins.forEach(p => {
