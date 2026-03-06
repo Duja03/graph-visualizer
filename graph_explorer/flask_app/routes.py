@@ -166,6 +166,22 @@ def reset_graph(workspace_id):
         return jsonify({'error': 'Workspace not found'}), 404
     return jsonify(serialize_graph(graph))
 
+@api_bp.route('/api/graph/<workspace_id>/visualizer/set', methods=['POST'])
+def set_visualizer(workspace_id):
+    data = request.get_json()
+    plugin_id = data.get('plugin_id')
+
+    workspace = platform.get_workspace(workspace_id)
+    if not workspace:
+        return jsonify({'error': 'Workspace not found'}), 404
+
+    plugin_cls = registry.get_visualizer_plugin(plugin_id)
+    if not plugin_cls:
+        return jsonify({'error': 'Plugin not found'}), 404
+
+    workspace.visualizer_plugin = plugin_cls()
+    return jsonify({'ok': True})
+
 @api_bp.errorhandler(404)
 @api_bp.route('/<path:path>')
 def catch_all(path):

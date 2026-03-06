@@ -130,6 +130,23 @@ def api_cli_graph(request, workspace_id):
     workspace = platform.get_workspace(workspace_id)
     return JsonResponse(serialize_graph(workspace.graph))
 
+
+@csrf_exempt
+def api_set_visualizer(request, workspace_id):
+    data = json.loads(request.body)
+    plugin_id = data.get('plugin_id')
+
+    workspace = platform.get_workspace(workspace_id)
+    if not workspace:
+        return JsonResponse({'error': 'Workspace not found'}, status=404)
+
+    plugin_cls = registry.get_visualizer_plugin(plugin_id)
+    if not plugin_cls:
+        return JsonResponse({'error': 'Plugin not found'}, status=404)
+
+    workspace.visualizer_plugin = plugin_cls()
+    return JsonResponse({'ok': True})
+
 def serialize_graph(graph):
     from datetime import date
     def serialize_value(v):

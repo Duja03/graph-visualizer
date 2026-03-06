@@ -18,6 +18,11 @@ async function initWorkspacePage() {
 
     // re-render list if State already has workspaces (e.g. back navigation)
     renderWorkspaceList();
+    if (plugins.length > 0) {
+        selector.value = plugins[0].id;
+        const params = await API.getPluginParams(plugins[0].id);
+        renderPluginParams(params);
+    }
 }
 
 document.getElementById('plugin-selector')?.addEventListener('change', async function () {
