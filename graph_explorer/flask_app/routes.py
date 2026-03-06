@@ -4,7 +4,7 @@ Serves frontend templates and API endpoints.
 Talks directly to platform and plugins — no Django dependency.
 """
 
-from flask import Blueprint, jsonify, request, render_template
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for
 
 from core import Platform
 from core.plugin_registry import PluginRegistry
@@ -50,18 +50,9 @@ def serialize_graph(graph):
 def main_view():
     return render_template('main.html', active_view='main')
 
-@api_bp.route('/tree/')
-def tree_view():
-    return render_template('tree-view.html', active_view='tree')
-
-@api_bp.route('/map/')
-def map_view():
-    return render_template('map-view.html', active_view='map')
-
 @api_bp.route('/workspace/')
 def workspace_view():
     return render_template('workspace.html', active_view='workspace')
-
 
 # API endpoints 
 
@@ -174,3 +165,8 @@ def reset_graph(workspace_id):
     if graph is None:
         return jsonify({'error': 'Workspace not found'}), 404
     return jsonify(serialize_graph(graph))
+
+@api_bp.errorhandler(404)
+@api_bp.route('/<path:path>')
+def catch_all(path):
+    return redirect(url_for('api.main_view'))
