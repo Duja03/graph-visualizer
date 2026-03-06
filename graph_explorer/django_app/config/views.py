@@ -19,12 +19,6 @@ registry = PluginRegistry()
 def main_view(request):
     return render(request, 'main.html', {'active_view': 'main'})
 
-def tree_view(request):
-    return render(request, 'tree-view.html', {'active_view': 'tree'})
-
-def map_view(request):
-    return render(request, 'map-view.html', {'active_view': 'map'})
-
 def workspace_view(request):
     return render(request, 'workspace.html', {'active_view': 'workspace'})
 
