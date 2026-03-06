@@ -19,7 +19,7 @@ class SimpleVisualizerPlugin(VisualizerPlugin):
             graph_data = {'nodes': [], 'edges': []}
         else:
             serialized_nodes = [
-                {'id': node.id, 'attributes': node.attributes}
+                {'id': node.id}
                 for node in graph.nodes.values()
             ]
 
@@ -35,7 +35,7 @@ class SimpleVisualizerPlugin(VisualizerPlugin):
 
         graph_json = json.dumps(graph_data)
 
-        template_path = os.path.join(os.path.dirname(__file__), 'block_visualizer_template.html')
+        template_path = os.path.join(os.path.dirname(__file__), 'simple_visualizer_template.html')
         with open(template_path, 'r') as f:
             html = f.read()
 
