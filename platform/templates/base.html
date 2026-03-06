@@ -309,6 +309,95 @@
             padding: 0.5rem 0;
             border-bottom: 1px solid var(--violet-100);
         }
+        /* ── TREE ── */
+        .tree-node {
+            font-size: 0.9rem;
+            color: var(--gray-700);
+            border-left: none;
+        }
+
+        .tree-node-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.5rem;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .tree-node-header:hover {
+            background: var(--violet-100);
+        }
+
+        .tree-toggle,
+        .tree-leaf-marker,
+        .tree-cycle-marker {
+            width: 1.25rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--violet-600);
+            flex-shrink: 0;
+        }
+
+        .tree-label {
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+        .tree-label:hover {
+            color: var(--violet-600);
+        }
+
+        .tree-cycle-marker {
+            color: var(--violet-300);
+            cursor: default;
+        }
+
+        .tree-children {
+            padding-left: 1rem;
+            margin-left: 0.85rem;
+            border-left: 1px solid var(--violet-200);
+        }
+
+        .tree-attr-toggle {
+            margin-left: auto;
+            font-size: 0.75rem;
+            font-family: 'Roboto Mono', monospace;
+            color: var(--violet-300);
+            padding: 0.1rem 0.4rem;
+            border: 1px solid var(--violet-200);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        .tree-attr-toggle:hover,
+        .tree-attr-toggle.active {
+            background: var(--violet-600);
+            color: white;
+            border-color: var(--violet-600);
+        }
+
+        .tree-attr-panel {
+            margin: 0.25rem 0 0.25rem 2.5rem;
+            border: 1px solid var(--violet-100);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.82rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+        .tree-attr-row {
+            display: flex;
+            gap: 1rem;
+            padding: 0.3rem 0.75rem;
+            border-bottom: 1px solid var(--violet-100);
+        }
+        .tree-attr-row:last-child { border-bottom: none; }
+        .tree-attr-key {
+            color: var(--violet-600);
+            min-width: 8rem;
+            flex-shrink: 0;
+        }
+        .tree-attr-val { color: var(--gray-700); }
     </style>
     {% block extra_head %}{% endblock %}
 </head>

@@ -5,13 +5,12 @@ Talks directly to platform and plugins — no Django dependency.
 """
 
 from flask import Blueprint, jsonify, request, render_template
-from core.workspace_store import WorkspaceStore
+
+from core import Platform
 from core.plugin_registry import PluginRegistry
-from core.search_engine import SearchEngine
-from core.filter_engine import FilterEngine
 
 api_bp = Blueprint('api', __name__)
-store = WorkspaceStore()
+platform = Platform()
 registry = PluginRegistry()
 
 
@@ -66,9 +65,9 @@ def workspace_view():
 
 # API endpoints 
 
-@api_bp.route('/api/plugins', methods=['GET'])
-def list_plugins():
-    plugins = registry.get_all_plugins()
+@api_bp.route('/api/plugins/datasource', methods=['GET'])
+def list_datasource_plugins():
+    plugins = registry.get_all_datasource_plugins()
     return jsonify([
         {
             'id': p().plugin_id(),
@@ -78,6 +77,17 @@ def list_plugins():
         for p in plugins
     ])
 
+@api_bp.route('/api/plugins/visualizer', methods=['GET'])
+def list_visualizer_plugins():
+    plugins = registry.get_all_visualizer_plugins()
+    return jsonify([
+        {
+            'id': p().plugin_id(),
+            'name': p().name(),
+            'description': getattr(p(), 'description', ''),
+        }
+        for p in plugins
+    ])
 
 @api_bp.route('/api/plugins/<plugin_id>/params', methods=['GET'])
 def plugin_params(plugin_id):
@@ -109,7 +119,7 @@ def load_graph():
     try:
         plugin_instance = plugin_cls()
         graph = plugin_instance.load(**params)
-        workspace_id = store.create_workspace(graph, plugin_instance)
+        workspace_id = platform.create_workspace(graph, plugin_instance)
         return jsonify({
             'workspace_id': workspace_id,
             'plugin_name': plugin_id,
@@ -122,52 +132,45 @@ def load_graph():
 
 @api_bp.route('/api/graph/<workspace_id>', methods=['GET'])
 def get_graph(workspace_id):
-    workspace = store.get_workspace(workspace_id)
+    workspace = platform.get_workspace(workspace_id)
     if not workspace:
         return jsonify({'error': 'Workspace not found'}), 404
     return jsonify(serialize_graph(workspace.graph))
 
 
+
 @api_bp.route('/api/graph/<workspace_id>/search', methods=['GET'])
 def search_graph(workspace_id):
-    query = request.args.get('q', '')
-    workspace = store.get_workspace(workspace_id)
-    if not workspace:
-        return jsonify({'error': 'Workspace not found'}), 404
-    try:
-        subgraph = SearchEngine(workspace.graph).search(query)
-        workspace.graph = subgraph
-        return jsonify(serialize_graph(subgraph))
-    except ValueError as e:
-        return jsonify({'error': str(e)}), 400
+    result = platform.search(workspace_id, request.args.get('q', ''))
+    if isinstance(result, str):
+        return jsonify({'error': result}), 400
+    return jsonify(serialize_graph(result))
 
 
 @api_bp.route('/api/graph/<workspace_id>/filter', methods=['POST'])
 def filter_graph(workspace_id):
-    data = request.get_json()
-    filter_expr = data.get('filter', '')
-    workspace = store.get_workspace(workspace_id)
-    if not workspace:
-        return jsonify({'error': 'Workspace not found'}), 404
-    try:
-        subgraph = FilterEngine.filter(workspace.graph, filter_expr)
-        workspace.graph = subgraph
-        return jsonify(serialize_graph(subgraph))
-    except ValueError as e:
-        return jsonify({'error': str(e)}), 400
+    result = platform.filter(workspace_id, request.get_json().get('filter', ''))
+    if isinstance(result, str):
+        return jsonify({'error': result}), 400
+    return jsonify(serialize_graph(result))
 
 
 @api_bp.route('/api/graph/<workspace_id>/cli', methods=['POST'])
 def run_cli(workspace_id):
-    workspace = store.get_workspace(workspace_id)
-    if not workspace:
-        return jsonify({'error': 'Workspace not found'}), 404
-    return jsonify({'error': 'CLI engine not yet implemented'}), 501
+    command_str = (request.get_json().get('command') or '').strip()
+    if not command_str:
+        return jsonify({'error': 'No command provided'}), 400
+
+    result = platform.execute_cli(workspace_id, command_str)
+    if isinstance(result, str):
+        return jsonify({'error': result}), 400
+
+    workspace = platform.get_workspace(workspace_id)
+    return jsonify(serialize_graph(workspace.graph))
 
 @api_bp.route('/api/graph/<workspace_id>/reset', methods=['POST'])
 def reset_graph(workspace_id):
-    workspace = store.get_workspace(workspace_id)
-    if not workspace:
+    graph = platform.reset_workspace(workspace_id)
+    if graph is None:
         return jsonify({'error': 'Workspace not found'}), 404
-    workspace.graph = workspace.initial_graph
-    return jsonify(serialize_graph(workspace.initial_graph))
+    return jsonify(serialize_graph(graph))

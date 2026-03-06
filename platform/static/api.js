@@ -1,8 +1,12 @@
 // api.js — calls Django's own API endpoints, no Flask dependency
 
 const API = {
-    async getPlugins() {
-        const res = await fetch(`/api/plugins`);
+    async getDataSourcePlugins() {
+        const res = await fetch(`/api/plugins/datasource`);
+        return res.json();
+    },
+    async getVisualizerPlugins() {
+        const res = await fetch(`/api/plugins/visualizer`);
         return res.json();
     },
     async getPluginParams(pluginId) {
@@ -35,6 +39,14 @@ const API = {
     },
     async resetGraph(workspaceId) {
         const res = await fetch(`/api/graph/${workspaceId}/reset`, { method: 'POST' });
+        return res.json();
+    },
+        async runCli(workspaceId, command) {
+        const res = await fetch(`/api/graph/${workspaceId}/cli`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ command }),
+        });
         return res.json();
     },
 };
