@@ -12,7 +12,7 @@ dependencies = ["api"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["core*"]
+include = ["core*", "commands*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["..", "."]

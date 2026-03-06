@@ -18,4 +18,5 @@ urlpatterns = [
     path('api/graph/<str:workspace_id>/search', views.api_search_graph),
     path('api/graph/<str:workspace_id>/filter', views.api_filter_graph),
     path('api/graph/<str:workspace_id>/reset', views.api_reset_graph),
+    path('api/graph/<str:workspace_id>/cli', views.api_cli_graph),
 ]

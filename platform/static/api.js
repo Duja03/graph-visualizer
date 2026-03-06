@@ -41,4 +41,12 @@ const API = {
         const res = await fetch(`/api/graph/${workspaceId}/reset`, { method: 'POST' });
         return res.json();
     },
+        async runCli(workspaceId, command) {
+        const res = await fetch(`/api/graph/${workspaceId}/cli`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ command }),
+        });
+        return res.json();
+    },
 };
