@@ -19,20 +19,20 @@ async function runCommand(command) {
     if (!command.trim()) return;
     cliPrint(`> ${command}`);
 
-    if (!currentWorkspaceId) {
+    if (!State.currentWorkspaceId) {
         cliPrint('No workspace loaded. Load a graph first.', true);
         return;
     }
 
     try {
-        const result = await API.runCli(currentWorkspaceId, command);
+        const result = await API.runCli(State.currentWorkspaceId, command);
         if (result.error) {
             cliPrint(result.error, true);
         } else {
             cliPrint(result.message || 'OK');
             // Re-render graph after mutation commands
             if (['create', 'edit', 'delete', 'filter', 'search'].some(cmd => command.startsWith(cmd))) {
-                await renderGraph(currentWorkspaceId);
+                await renderGraph(State.currentWorkspaceId);
             }
         }
     } catch (e) {

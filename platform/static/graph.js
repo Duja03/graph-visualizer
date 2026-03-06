@@ -4,11 +4,10 @@
  * Populated by data fetched from the Flask API via api.js.
  */
 
-let currentWorkspaceId = null;
 let simulation = null;
 
 async function renderGraph(workspaceId) {
-    currentWorkspaceId = workspaceId;
+    State.currentWorkspaceId = workspaceId;
     const graphData = await API.getGraph(workspaceId);
     drawMainView(graphData);
     drawBirdView(graphData);
@@ -141,27 +140,32 @@ function dragEnd(event, d) {
 // Search / filter triggers
 document.getElementById('btn-search')?.addEventListener('click', async () => {
     const q = document.getElementById('search-input').value;
-    if (!currentWorkspaceId || !q) return;
-    const subgraph = await API.searchGraph(currentWorkspaceId, q);
+    if (!State.currentWorkspaceId || !q) return;
+    const subgraph = await API.searchGraph(State.currentWorkspaceId, q);
     drawMainView(subgraph);
     drawBirdView(subgraph);
 });
 
 document.getElementById('btn-filter')?.addEventListener('click', async () => {
     const expr = document.getElementById('filter-input').value;
-    if (!currentWorkspaceId || !expr) return;
-    const subgraph = await API.filterGraph(currentWorkspaceId, expr);
+    if (!State.currentWorkspaceId || !expr) return;
+    const subgraph = await API.filterGraph(State.currentWorkspaceId, expr);
     drawMainView(subgraph);
     drawBirdView(subgraph);
 });
 
-document.getElementById('btn-reset')?.addEventListener('click', () => {
-    if (currentWorkspaceId) renderGraph(currentWorkspaceId);
+document.getElementById('btn-reset')?.addEventListener('click', async () => {
+    if (!State.currentWorkspaceId) return;
+    const graphData = await API.resetGraph(State.currentWorkspaceId);
+    drawMainView(graphData);
+    drawBirdView(graphData);
 });
 
 const params = new URLSearchParams(window.location.search);
 const workspaceId = params.get('workspace');
 if (workspaceId) {
-    currentWorkspaceId = workspaceId;
     renderGraph(workspaceId);
+} else {
+    const lastId = State.currentWorkspaceId;
+    if (lastId) renderGraph(lastId);
 }

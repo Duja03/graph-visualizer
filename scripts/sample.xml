@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<company xml:id="company_1" founded="2015-03-10">
+    <name>GraphSoft</name>
+
+    <employees>
+        <employee xml:id="emp_1" age="23" salary="3500.5">
+            <name>Sara</name>
+            <manager reference="emp_3"/>
+        </employee>
+
+        <employee xml:id="emp_2" age="30">
+            <name>Marko</name>
+            <manager reference="emp_3"/>
+        </employee>
+
+        <employee xml:id="emp_3" age="40">
+            <name>Luka</name>
+            <department xml:id="dep_1">
+                <name>Engineering</name>
+            </department>
+        </employee>
+    </employees>
+
+    <main_department reference="dep_1"/>
+</company>

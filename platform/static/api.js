@@ -33,4 +33,8 @@ const API = {
         });
         return res.json();
     },
+    async resetGraph(workspaceId) {
+        const res = await fetch(`/api/graph/${workspaceId}/reset`, { method: 'POST' });
+        return res.json();
+    },
 };
