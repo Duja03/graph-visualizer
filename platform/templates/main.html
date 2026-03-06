@@ -75,7 +75,7 @@
 <!-- ucitaj plugine u toolbar dropdown -->
 <script>
     (async () => {
-        const plugins = await API.getPlugins();
+        const plugins = await API.getVisualizerPlugins();
         const selector = document.getElementById('plugin-selector');
         selector.innerHTML = '<option value="">Select plugin…</option>';
         plugins.forEach(p => {

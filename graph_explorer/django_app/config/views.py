@@ -31,8 +31,8 @@ def workspace_view(request):
 
 # API endpoints 
 
-def api_plugins(request):
-    plugins = registry.get_all_plugins()
+def api_datasource_plugins(request):
+    plugins = registry.get_all_datasource_plugins()
     return JsonResponse([
         {
             'id': p().plugin_id(),
@@ -42,6 +42,16 @@ def api_plugins(request):
         for p in plugins
     ], safe=False)
 
+def api_visualizer_plugins(request):
+    plugins = registry.get_all_visualizer_plugins()
+    return JsonResponse([
+        {
+            'id': p().plugin_id(),
+            'name': p().name(),
+            'description': getattr(p(), 'description', ''),
+        }
+        for p in plugins
+    ], safe=False)
 
 def api_plugin_params(request, plugin_id):
     plugin_cls = registry.get_plugin(plugin_id)

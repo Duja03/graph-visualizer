@@ -48,7 +48,7 @@ class PluginRegistry:
     def get_plugin(self, plugin_id: str) -> Optional[type]:
         return self._datasource_plugins.get(plugin_id)
 
-    def get_all_plugins(self) -> list[type]:
+    def get_all_datasource_plugins(self) -> list[type]:
         return list(self._datasource_plugins.values())
 
     def get_visualizer_plugin(self, plugin_id: str) -> Optional[type]:

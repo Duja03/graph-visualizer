@@ -66,9 +66,9 @@ def workspace_view():
 
 # API endpoints 
 
-@api_bp.route('/api/plugins', methods=['GET'])
-def list_plugins():
-    plugins = registry.get_all_plugins()
+@api_bp.route('/api/plugins/datasource', methods=['GET'])
+def list_datasource_plugins():
+    plugins = registry.get_all_datasource_plugins()
     return jsonify([
         {
             'id': p().plugin_id(),
@@ -78,6 +78,17 @@ def list_plugins():
         for p in plugins
     ])
 
+@api_bp.route('/api/plugins/visualizer', methods=['GET'])
+def list_visualizer_plugins():
+    plugins = registry.get_all_visualizer_plugins()
+    return jsonify([
+        {
+            'id': p().plugin_id(),
+            'name': p().name(),
+            'description': getattr(p(), 'description', ''),
+        }
+        for p in plugins
+    ])
 
 @api_bp.route('/api/plugins/<plugin_id>/params', methods=['GET'])
 def plugin_params(plugin_id):
