@@ -1,179 +1,214 @@
-import re
-from datetime import date
-from pathlib import Path
-from typing import Any, Dict, Optional
-from xml.etree import ElementTree
+# Graph Visualization Tool — Class Diagram
 
-from api.model.graph import Graph
-from api.model.node import Node
-from api.model.edge import Edge
-from api.plugins.datasource_plugin import DataSourcePlugin
+> **Software Patterns & Components** · `api` / `platform` / `data_source_plugin` / `visualizer_plugin`
 
-_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-XML_ID = "{http://www.w3.org/XML/1998/namespace}id"
+```mermaid
+classDiagram
 
-def _parse_typed_value(v: Any) -> Optional[str | int | float | date]:
-    if v is None:
-        return None
+    %% ── Enums / type aliases ────────────────────────────────────────────────
 
-    if isinstance(v, str):
-        s = v.strip()
+    class AttributeType {
+        <<enumeration>>
+        INT = "int"
+        FLOAT = "float"
+        STRING = "string"
+        DATE = "date"
+    }
 
-        if not s:
-            return None
+    class AttributeValue {
+        <<type alias>>
+        Union[int, float, str, date]
+    }
 
-        if _DATE_RE.match(s):
-            try:
-                y, m, d = s.split("-")
-                return date(int(y), int(m), int(d))
-            except ValueError:
-                return s
+    %% ── Core model ──────────────────────────────────────────────────────────
 
-        if s.isdigit() or (s.startswith("-") and s[1:].isdigit()):
-            return int(s)
+    class Node {
+        <<dataclass>>
+        +str id
+        +Dict~str, AttributeValue~ attributes
+        +set_attribute(name: str, value: AttributeValue) None
+        +get_attribute(name: str) AttributeValue
+    }
 
-        try:
-            if "." in s or "e" in s.lower():
-                return float(s)
-        except ValueError:
-            pass
+    class Edge {
+        <<dataclass>>
+        +str id
+        +str source
+        +str target
+        +Dict~str, AttributeValue~ attributes
+        +set_attribute(name: str, value: AttributeValue) None
+    }
 
-        return s
+    class Graph {
+        <<class>>
+        +bool directed
+        +Dict~str, Node~ nodes
+        +Dict~str, Edge~ edges
+        -Dict~str, Set~ _outgoing
+        -Dict~str, Set~ _incoming
+        +add_node(node: Node) None
+        +get_node(node_id: str) Node
+        +add_edge(edge: Edge) None
+        +get_edge(edge_id: str) Edge
+        +remove_node(node_id: str) None
+        +remove_edge(edge_id: str) None
+        +neighbors(node_id: str) Iterable~Node~
+        +subgraph(node_ids: Set) Graph
+        +has_node(node_id: str) bool
+        +has_edge(edge_id: str) bool
+        +node_count() int
+        +edge_count() int
+        +iter_edges() Iterable~Edge~
+        +is_directed bool
+    }
 
-    return None
+    %% ── API abstractions ────────────────────────────────────────────────────
 
+    class Plugin {
+        <<abstract>>
+        +plugin_id()* str
+        +name()* str
+    }
 
-class XmlDataSourcePlugin(DataSourcePlugin):
+    class DataSourcePlugin {
+        <<abstract>>
+        +parameters()* Dict~str, str~
+        +load(**kwargs)* Graph
+    }
 
-    static_identifier = "XML"
+    class VisualizerPlugin {
+        <<abstract>>
+        +render(graph: Graph)* str
+    }
 
-    def __init__(self):
-        self._edge_counter: int = 0
-        self._node_counter: int = 0
-        self._id_registry: Dict[str, str] = {}
+    %% ── Platform ────────────────────────────────────────────────────────────
 
-    def plugin_id(self) -> str:
-        return "xml_datasource"
+    class Platform {
+        <<platform>>
+        -Dict~int, Workspace~ __workspaces
+        +add_workspace(workspace: Workspace) None
+        +get_workspace(workspace_id: int) Workspace
+    }
 
-    def name(self) -> str:
-        return "XML Data Source"
+    class Workspace {
+        <<class>>
+        -str __id
+        -str __filepath
+        -DataSourcePlugin __data_source_plugin
+        -VisualizerPlugin __visualizer_plugin
+        -Graph __graph
+        -Graph __initial_graph
+        +id str
+        +id(workspace_id: str) None
+        +filepath str
+        +filepath(filepath: str) None
+        +source_plugin() DataSourcePlugin
+        +visualizer_plugin() VisualizerPlugin
+        +graph() Graph
+        +graph(graph: Graph) None
+        +initial_graph() Graph
+        +initial_graph(graph: Graph) None
+    }
 
-    def parameters(self) -> Dict[str, str]:
-        return {
-            "file_path": "Path to the XML file to load."
-        }
+    %% ── Data source plugins ─────────────────────────────────────────────────
 
-    def load(self, **kwargs: Any) -> Graph:
-        file_path = kwargs.get("file_path")
-        if not file_path:
-            raise ValueError("Missing parameter: file_path")
+    class JsonDataSourcePlugin {
+        <<plugin>>
+        +str static_identifier = "JSON"
+        +plugin_id() str
+        +name() str
+        +parameters() Dict~str, str~
+        +load(**kwargs) Graph
+        -_collect_ids(value: Any) None
+        -_visit(value, parent_node_id, rel_name) str
+    }
 
-        p = Path(str(file_path))
-        if not p.exists() or not p.is_file():
-            raise ValueError(f"XML file not found: {p}")
+    class XmlDataSourcePlugin {
+        <<plugin>>
+        +str static_identifier = "XML"
+        -int _edge_counter
+        -int _node_counter
+        -Dict~str, str~ _id_registry
+        +plugin_id() str
+        +name() str
+        +parameters() Dict~str, str~
+        +load(**kwargs) Graph
+        -_collect_ids(element: Element) None
+        -_visit(graph: Graph, element: Element) str
+        -_new_edge_id() str
+        -_new_node_id() str
+        -_ensure_node(graph: Graph, node_id: str) None
+    }
 
-        try:
-            tree = ElementTree.parse(str(p))
-        except ElementTree.ParseError as e:
-            raise ValueError(f"XML parse error: {e}")
+    class CsvDataSourcePlugin {
+        <<plugin>>
+        +str static_identifier = "CSV"
+        +plugin_id() str
+        +name() str
+        +parameters() Dict~str, str~
+        +load(**kwargs) Graph
+    }
 
-        xml_root = tree.getroot()
+    %% ── Visualizer plugins ──────────────────────────────────────────────────
 
-        graph = Graph(directed=True)
+    class BlockVisualizerPlugin {
+        <<plugin>>
+        +str static_identifier = "BLOCK"
+        +plugin_id() str
+        +name() str
+        +render(graph: Graph) str
+    }
 
-        self._edge_counter = 0
-        self._node_counter = 0
-        self._id_registry = {}
+    class SimpleVisualizerPlugin {
+        <<plugin>>
+        +str static_identifier = "SIMPLE"
+        +plugin_id() str
+        +name() str
+        +render(graph: Graph) str
+    }
 
-        self._collect_ids(xml_root)
-        self._visit(graph, xml_root)
+    %% ── Relationships ───────────────────────────────────────────────────────
 
-        return graph
+    Node ..> AttributeValue : uses
+    Edge ..> AttributeValue : uses
 
-    def _new_edge_id(self) -> str:
-        self._edge_counter += 1
-        return f"e{self._edge_counter}"
+    Graph "1" *-- "0..*" Node : nodes
+    Graph "1" *-- "0..*" Edge : edges
 
-    def _new_node_id(self) -> str:
-        self._node_counter += 1
-        return f"n{self._node_counter}"
+    DataSourcePlugin --|> Plugin
+    VisualizerPlugin --|> Plugin
 
-    @staticmethod
-    def _ensure_node(graph: Graph, node_id: str) -> None:
-        if not graph.has_node(node_id):
-            graph.add_node(Node(id=node_id))
+    JsonDataSourcePlugin   ..|> DataSourcePlugin
+    XmlDataSourcePlugin    ..|> DataSourcePlugin
+    CsvDataSourcePlugin    ..|> DataSourcePlugin
+    BlockVisualizerPlugin  ..|> VisualizerPlugin
+    SimpleVisualizerPlugin ..|> VisualizerPlugin
 
-    def _collect_ids(self, element: ElementTree.Element) -> None:
-        xml_id = element.get(XML_ID)
-        if xml_id and xml_id.strip():
-            self._id_registry[xml_id.strip()] = xml_id.strip()
-        for child in element:
-            self._collect_ids(child)
+    Platform "1" *-- "0..*" Workspace : __workspaces
 
-    def _visit(self, graph: Graph, element: ElementTree.Element) -> str:
-        xml_id = element.get(XML_ID)
-        node_id = xml_id.strip() if (xml_id and xml_id.strip()) else self._new_node_id()
+    Workspace o-- DataSourcePlugin : __data_source_plugin
+    Workspace o-- VisualizerPlugin : __visualizer_plugin
+    Workspace o-- Graph            : __graph / __initial_graph
+```
 
-        self._ensure_node(graph, node_id)
-        node = graph.get_node(node_id)
-        node.set_attribute("_tag", element.tag)
+---
 
-        for attr_name, attr_val in element.attrib.items():
-            if attr_name in (XML_ID, "reference"):
-                continue
-            typed = _parse_typed_value(attr_val)
-            if typed is not None:
-                node.set_attribute(attr_name, typed)
+## Component Overview
 
-                value_node_id = self._new_node_id()
-                graph.add_node(Node(id=value_node_id))
-                graph.get_node(value_node_id).set_attribute("value", typed)
-                graph.add_edge(Edge(
-                    id=self._new_edge_id(),
-                    source=node_id,
-                    target=value_node_id,
-                    attributes={"name": attr_name}
-                ))
+| Layer | Classes | Package |
+|---|---|---|
+| **Model** | `Node`, `Edge`, `Graph`, `AttributeType`, `AttributeValue` | `api` |
+| **Abstractions** | `Plugin`, `DataSourcePlugin`, `VisualizerPlugin` | `api` |
+| **Platform** | `Platform`, `Workspace` | `platform` |
+| **Data source plugins** | `JsonDataSourcePlugin`, `XmlDataSourcePlugin`, `CsvDataSourcePlugin` | `*_data_source_plugin` |
+| **Visualizer plugins** | `BlockVisualizerPlugin`, `SimpleVisualizerPlugin` *(pending)* | `block_visualizer`, `simple_visualizer` |
 
-        ref = element.get("reference")
-        if ref and ref.strip() in self._id_registry:
-            target_id = ref.strip()
-            self._ensure_node(graph, target_id)
-            graph.add_edge(Edge(
-                id=self._new_edge_id(),
-                source=node_id,
-                target=target_id,
-                attributes={"name": "reference"},
-            ))
+## Relationship Key
 
-        for child in element:
-            child_has_children = len(child) > 0
-            child_has_attributes = any(
-                k not in (XML_ID, "reference")
-                for k in child.attrib
-            )
-
-            if not child_has_children and not child_has_attributes:
-                typed = _parse_typed_value((child.text or "").strip())
-                if typed is not None:
-                    node.set_attribute(child.tag, typed)
-
-                if child.get(XML_ID) or child.get("reference"):
-                    child_id = self._visit(graph, child)
-                    graph.add_edge(Edge(
-                        id=self._new_edge_id(),
-                        source=node_id,
-                        target=child_id,
-                        attributes={"name": child.tag},
-                    ))
-
-            else:
-                child_id = self._visit(graph, child)
-                graph.add_edge(Edge(
-                    id=self._new_edge_id(),
-                    source=node_id,
-                    target=child_id,
-                    attributes={"name": child.tag},
-                ))
-
-        return node_id
+| Notation | Meaning |
+|---|---|
+| `*--` | Composition |
+| `o--` | Aggregation |
+| `--|>` | Inheritance (extends) |
+| `..|>` | Implementation (realization) |
+| `..>` | Dependency / uses |
