@@ -149,7 +149,7 @@ def filter_graph(workspace_id):
     if not workspace:
         return jsonify({'error': 'Workspace not found'}), 404
     try:
-        subgraph = FilterEngine.apply(workspace.graph, filter_expr)
+        subgraph = FilterEngine.filter(workspace.graph, filter_expr)
         return jsonify(serialize_graph(subgraph))
     except ValueError as e:
         return jsonify({'error': str(e)}), 400

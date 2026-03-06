@@ -3,8 +3,6 @@
  * Loads available plugins and manages workspace creation.
  */
 
-let workspaces = [];
-
 async function initWorkspacePage() {
     const plugins = await API.getPlugins();
     const selector = document.getElementById('plugin-selector');
@@ -15,6 +13,9 @@ async function initWorkspacePage() {
         opt.textContent = p.name;
         selector.appendChild(opt);
     });
+
+    // re-render list if State already has workspaces (e.g. back navigation)
+    renderWorkspaceList();
 }
 
 document.getElementById('plugin-selector')?.addEventListener('change', async function () {
@@ -56,7 +57,7 @@ document.getElementById('btn-load')?.addEventListener('click', async () => {
 
     const result = await API.loadGraph(pluginId, params);
     if (result.workspace_id) {
-        workspaces.push(result);
+        State.addWorkspace(result);
         renderWorkspaceList();
     }
 });
@@ -64,11 +65,16 @@ document.getElementById('btn-load')?.addEventListener('click', async () => {
 function renderWorkspaceList() {
     const container = document.getElementById('workspace-list-container');
     container.innerHTML = '';
+    const workspaces = State.getWorkspaces();
+    if (workspaces.length === 0) {
+        container.innerHTML = '<p class="empty-state">No workspaces loaded yet.</p>';
+        return;
+    }
     workspaces.forEach(ws => {
         const item = document.createElement('div');
         item.className = 'workspace-item';
         item.innerHTML = `
-            <strong>${ws.plugin_name}</strong> - ${ws.node_count} nodes
+            <strong>${ws.plugin_name}</strong> — ${ws.node_count} nodes, ${ws.edge_count} edges
             <a href="/?workspace=${ws.workspace_id}" class="btn btn-sm">Open</a>
         `;
         container.appendChild(item);

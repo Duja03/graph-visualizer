@@ -112,7 +112,7 @@ def api_filter_graph(request, workspace_id):
         return JsonResponse({'error': 'Workspace not found'}, status=404)
     from core.filter_engine import FilterEngine
     try:
-        subgraph = FilterEngine.apply(workspace.graph, filter_expr)
+        subgraph = FilterEngine.filter(workspace.graph, filter_expr)
         return JsonResponse(serialize_graph(subgraph))
     except ValueError as e:
         return JsonResponse({'error': str(e)}, status=400)

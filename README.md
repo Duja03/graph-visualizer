@@ -11,9 +11,16 @@
 ### Installation
 
 First, activate your virtual environment from the project root:
+
+**Windows:**
 ```bash
-source .venv/bin/activate  # Unix/Mac
-.venv\Scripts\activate     # Windows
+.venv\Scripts\activate
+
+```
+
+**Unix/Mac:**
+```bash
+source .venv/bin/activate
 ```
 
 Then run the install script to install all components:
@@ -25,7 +32,12 @@ scripts/installation/install.bat
 
 **Unix/Mac:**
 ```bash
-./scripts/install.sh
+./scripts/installation/install.sh
+```
+If the script is not executable, run:
+```bash
+chmod +x scripts/installation/install.sh
+./scripts/installation/install.sh
 ```
 
 ### Running the Application
@@ -35,7 +47,6 @@ and used on its own. They do not depend on each other.
 
 ### Running the Django app
 ```bash
-source .venv/bin/activate
 cd graph_explorer/django_app
 python manage.py runserver
 ```
@@ -44,7 +55,6 @@ Django will be available at http://127.0.0.1:8000
 
 ### Running the Flask app
 ```bash
-source .venv/bin/activate
 cd graph_explorer/flask_app
 python -m run
 ```
