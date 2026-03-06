@@ -4,29 +4,44 @@
  * Each node can be expanded (+) or collapsed (−).
  */
 
-function renderTree(nodes, rootId) {
-    const container = document.getElementById('tree-container');
-    if (!container) return;
-    container.innerHTML = '';
-
-    // Build adjacency map
-    const childrenMap = {};
-    nodes.forEach(n => { childrenMap[n.id] = n.children || []; });
-
-    const root = nodes.find(n => n.id === rootId) || nodes[0];
-    if (!root) return;
-
-    container.appendChild(buildTreeNode(root, childrenMap, new Set()));
+function getRootNodes(nodes, edges) {
+  const hasParent = new Set(edges.map(e => e.target.id));
+  return nodes.filter(n => !hasParent.has(n.id));
 }
 
-function buildTreeNode(node, childrenMap, visited) {
-    const children = childrenMap[node.id] || [];
-    const hasChildren = children.length > 0;
+function renderTree(nodes, edges) {
+  const container = document.getElementById('tree-container');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const nodeMap = Object.fromEntries(nodes.map(n => [n.id, n]));
+  const childrenMap = Object.fromEntries(nodes.map(n => [n.id, []]));
+
+  edges.forEach(edge => {
+    const sourceId = edge.source.id;
+    const targetId = edge.target.id;
+    if (childrenMap[sourceId] !== undefined) childrenMap[sourceId].push(targetId);
+  });
+
+  const roots = getRootNodes(nodes, edges);
+  const topLevel = roots.length ? roots : [nodes[0]];
+
+  topLevel.forEach(root => {
+    container.appendChild(buildTreeNode(root, childrenMap, nodeMap, new Set()));
+  });
+}
+function buildTreeNode(node, childrenMap, nodeMap, visited) {
+    const childIds = childrenMap[node.id] || [];
+    const hasChildren = childIds.length > 0;
     const isCycle = visited.has(node.id);
 
     const item = document.createElement('div');
     item.className = 'tree-node';
     item.dataset.id = node.id;
+
+    // Wrapper holds header + attrPanel together
+    const wrapper = document.createElement('div');
+    wrapper.className = 'tree-node-wrapper';
 
     const header = document.createElement('div');
     header.className = 'tree-node-header';
@@ -52,10 +67,42 @@ function buildTreeNode(node, childrenMap, visited) {
     const label = document.createElement('span');
     label.className = 'tree-label';
     label.textContent = node.label || node.id;
-    label.onclick = () => focusNode(node.id);
+    label.onclick = () => focusNode(node);
     header.appendChild(label);
 
-    item.appendChild(header);
+    const attrs = node.attributes || {};
+    const attrEntries = Object.entries(attrs);
+    if (attrEntries.length > 0) {
+        const attrToggle = document.createElement('span');
+        attrToggle.className = 'tree-attr-toggle';
+        attrToggle.textContent = '{}';
+        attrToggle.title = 'Show attributes';
+        header.appendChild(attrToggle);
+
+        const attrPanel = document.createElement('div');
+        attrPanel.className = 'tree-attr-panel';
+        attrPanel.style.display = 'none';
+        attrEntries.forEach(([key, val]) => {
+            const row = document.createElement('div');
+            row.className = 'tree-attr-row';
+            row.innerHTML = `<span class="tree-attr-key">${key}</span><span class="tree-attr-val">${val}</span>`;
+            attrPanel.appendChild(row);
+        });
+
+        attrToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isOpen = attrPanel.style.display !== 'none';
+            attrPanel.style.display = isOpen ? 'none' : 'block';
+            attrToggle.classList.toggle('active', !isOpen);
+        });
+
+        wrapper.appendChild(header);
+        wrapper.appendChild(attrPanel); // ← attrPanel inside wrapper, after header
+    } else {
+        wrapper.appendChild(header);
+    }
+
+    item.appendChild(wrapper); // ← wrapper first
 
     if (hasChildren && !isCycle) {
         const childContainer = document.createElement('div');
@@ -64,12 +111,11 @@ function buildTreeNode(node, childrenMap, visited) {
         const newVisited = new Set(visited);
         newVisited.add(node.id);
 
-        children.forEach(childId => {
-            const childNode = { id: childId, label: childId, children: childrenMap[childId] || [] };
-            childContainer.appendChild(buildTreeNode(childNode, childrenMap, newVisited));
+        childIds.forEach(childId => {
+            const childNode = nodeMap[childId];
+            if (childNode) childContainer.appendChild(buildTreeNode(childNode, childrenMap, nodeMap, newVisited));
         });
 
-        // Toggle expand/collapse
         header.querySelector('.tree-toggle').addEventListener('click', function () {
             const isExpanded = this.textContent === '−';
             this.textContent = isExpanded ? '+' : '−';
@@ -77,7 +123,7 @@ function buildTreeNode(node, childrenMap, visited) {
             childContainer.style.display = isExpanded ? 'none' : 'block';
         });
 
-        item.appendChild(childContainer);
+        item.appendChild(childContainer); // ← childContainer after wrapper
     }
 
     return item;
