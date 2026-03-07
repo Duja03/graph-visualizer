@@ -16,6 +16,9 @@ async function renderVisualizer(workspaceId) {
     const container = document.getElementById('visualizer-container');
     container.innerHTML = '';
 
+    const birdCanvas = document.getElementById('bird-canvas');
+    if (birdCanvas) birdCanvas.querySelectorAll('g').forEach(g => g.remove())
+
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
 
