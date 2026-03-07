@@ -42,19 +42,27 @@ async function runCommand(command) {
         return;
     }
 
+    let result;
     try {
-        const result = await API.runCli(State.currentWorkspaceId, command);
-        if (result.error) {
-            cliPrint(result.error, true);
-        } else {
-            cliPrint(result.message || 'OK');
-            // Re-render graph after mutation commands
-            if (['create', 'edit', 'delete', 'filter', 'search'].some(cmd => command.startsWith(cmd))) {
-                await renderGraph(State.currentWorkspaceId);
-            }
-        }
+        result = await API.runCli(State.currentWorkspaceId, command);
     } catch (e) {
-        cliPrint(`Error: ${e.message}`, true);
+        cliPrint(`Network error: ${e.message}`, true);
+        return;
+    }
+
+    if (result.error) {
+        cliPrint(result.error, true);
+        return;
+    }
+
+    cliPrint('OK');
+
+    if (['create', 'edit', 'delete', 'filter', 'search'].some(cmd => command.trim().startsWith(cmd))) {
+        try {
+            await renderGraph(State.currentWorkspaceId);
+        } catch (e) {
+            console.warn('Re-render failed after CLI command:', e);
+        }
     }
 }
 
