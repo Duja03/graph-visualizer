@@ -1,6 +1,6 @@
-# Graph Visualization Tool - Class Diagram
+# Graph Visualization Tool — Class Diagram
 
-> **Project done for Software Patterns & Components** 
+> **Software Patterns & Components** · `api` / `platform` / `core` / `commands` / plugins
 
 ```mermaid
 classDiagram
@@ -112,6 +112,26 @@ classDiagram
         +initial_graph(graph: Graph) None
     }
 
+    class WorkspaceStore {
+        <<class>>
+        -Dict~str, Workspace~ _workspaces
+        +create_workspace(graph, plugin, filepath) str
+        +get_workspace(workspace_id: str) Optional~Workspace~
+        +list_workspaces() List~Workspace~
+        +delete_workspace(workspace_id: str) bool
+    }
+
+    class PluginRegistry {
+        <<class>>
+        -dict~str, type~ _datasource_plugins
+        -dict~str, type~ _visualizer_plugins
+        -_discover() None
+        +get_plugin(plugin_id: str) Optional~type~
+        +get_all_plugins() List~type~
+        +get_visualizer_plugin(plugin_id: str) Optional~type~
+        +get_all_visualizer_plugins() List~type~
+    }
+
     %% ── Data source plugins ─────────────────────────────────────────────────
 
     class JsonDataSourcePlugin {
@@ -172,29 +192,204 @@ classDiagram
         +render(graph: Graph) str
     }
 
+    %% ── Command pattern ─────────────────────────────────────────────────────
+
+    class Command {
+        <<abstract>>
+        +execute()* Any
+    }
+
+    class CreateNodeCommand {
+        <<command>>
+        +Graph graph
+        +str node_id
+        +Dict~str, AttributeValue~ attributes
+        +execute() None
+    }
+
+    class EditNodeCommand {
+        <<command>>
+        +Graph graph
+        +str node_id
+        +Dict~str, AttributeValue~ attributes
+        +execute() None
+    }
+
+    class DeleteNodeCommand {
+        <<command>>
+        +Graph graph
+        +str node_id
+        +execute() None
+    }
+
+    class CreateEdgeCommand {
+        <<command>>
+        +Graph graph
+        +str edge_id
+        +str source
+        +str target
+        +Dict~str, AttributeValue~ attributes
+        +execute() None
+    }
+
+    class EditEdgeCommand {
+        <<command>>
+        +Graph graph
+        +str edge_id
+        +Dict~str, AttributeValue~ attributes
+        +execute() None
+    }
+
+    class DeleteEdgeCommand {
+        <<command>>
+        +Graph graph
+        +str edge_id
+        +execute() None
+    }
+
+    class DeleteGraphCommand {
+        <<command>>
+        +Graph graph
+        +execute() None
+    }
+
+    class FilterCommand {
+        <<command>>
+        +Graph graph
+        +str filter_str
+        +execute() Graph
+    }
+
+    class SearchCommand {
+        <<command>>
+        +Graph graph
+        +str query
+        +execute() Graph
+    }
+
+    %% ── CLI ─────────────────────────────────────────────────────────────────
+
+    class Method {
+        <<enumeration>>
+        CREATE = "create"
+        EDIT = "edit"
+        DELETE = "delete"
+        FILTER = "filter"
+        SEARCH = "search"
+    }
+
+    class Subject {
+        <<enumeration>>
+        NODE = "node"
+        EDGE = "edge"
+        GRAPH = "graph"
+    }
+
+    class CLIParser {
+        <<class>>
+        +parse(command: str, graph: Graph)$ Command
+        -_parse_method(command: str)$ Method
+        -_parse_subject(command: str)$ Subject
+        -_parse_id(command: str)$ str
+        -_parse_attributes(command: str)$ Dict
+        -_parse_search_arguments(command: str)$ str
+        -_parse_create_node_arguments(command: str)$ Tuple
+        -_parse_edit_node_arguments(command: str)$ Tuple
+        -_parse_delete_node_arguments(command: str)$ str
+        -_parse_create_edge_arguments(command: str)$ Tuple
+        -_parse_edit_edge_arguments(command: str)$ Tuple
+        -_parse_delete_edge_arguments(command: str)$ str
+    }
+
+    class CLIExecutor {
+        <<class>>
+        +execute(command: Command)$ Any
+    }
+
+    class CLIParseError {
+        <<exception>>
+    }
+
+    %% ── Core engines ────────────────────────────────────────────────────────
+
+    class FilterEngine {
+        <<class>>
+        +filter(graph: Graph, filter_str: str)$ Graph
+    }
+
+    class FilterError {
+        <<exception>>
+    }
+
+    class SearchEngine {
+        <<class>>
+        -Graph _graph
+        +search(query: str) Graph
+        -_node_matches(node: Node, query_lower: str)$ bool
+    }
+
     %% ── Relationships ───────────────────────────────────────────────────────
 
+    %% model
     Node ..> AttributeValue : uses
     Edge ..> AttributeValue : uses
-
     Graph "1" *-- "0..*" Node : nodes
     Graph "1" *-- "0..*" Edge : edges
 
+    %% plugin abstractions
     DataSourcePlugin --|> Plugin
     VisualizerPlugin --|> Plugin
 
-    SimpleVisualizerPlugin ..> DateSerializer : uses for JSON
+    %% plugin implementations
     JsonDataSourcePlugin   ..|> DataSourcePlugin
     XmlDataSourcePlugin    ..|> DataSourcePlugin
     CsvDataSourcePlugin    ..|> DataSourcePlugin
     BlockVisualizerPlugin  ..|> VisualizerPlugin
     SimpleVisualizerPlugin ..|> VisualizerPlugin
+    SimpleVisualizerPlugin ..> DateSerializer : uses
 
+    %% platform
     Platform "1" *-- "0..*" Workspace : __workspaces
+    Workspace o-- DataSourcePlugin : source_plugin
+    Workspace o-- VisualizerPlugin : visualizer_plugin
+    Workspace o-- Graph            : graph / initial_graph
+    WorkspaceStore "1" *-- "0..*" Workspace : _workspaces
+    PluginRegistry ..> DataSourcePlugin : discovers
+    PluginRegistry ..> VisualizerPlugin : discovers
 
-    Workspace o-- DataSourcePlugin : __data_source_plugin
-    Workspace o-- VisualizerPlugin : __visualizer_plugin
-    Workspace o-- Graph            : __graph / __initial_graph
+    %% command pattern
+    CreateNodeCommand    ..|> Command
+    EditNodeCommand      ..|> Command
+    DeleteNodeCommand    ..|> Command
+    CreateEdgeCommand    ..|> Command
+    EditEdgeCommand      ..|> Command
+    DeleteEdgeCommand    ..|> Command
+    DeleteGraphCommand   ..|> Command
+    FilterCommand        ..|> Command
+    SearchCommand        ..|> Command
+
+    CreateNodeCommand  ..> Graph : mutates
+    EditNodeCommand    ..> Graph : mutates
+    DeleteNodeCommand  ..> Graph : mutates
+    CreateEdgeCommand  ..> Graph : mutates
+    EditEdgeCommand    ..> Graph : mutates
+    DeleteEdgeCommand  ..> Graph : mutates
+    DeleteGraphCommand ..> Graph : clears
+    FilterCommand      ..> FilterEngine : delegates
+    SearchCommand      ..> SearchEngine : delegates
+
+    %% CLI
+    CLIParser ..> Command   : creates
+    CLIParser ..> Method    : uses
+    CLIParser ..> Subject   : uses
+    CLIParser ..> CLIParseError : raises
+    CLIExecutor ..> Command : executes
+    CLIExecutor ..> FilterError : catches
+
+    %% engines
+    FilterEngine ..> Graph : returns subgraph
+    FilterEngine ..> FilterError : raises
+    SearchEngine ..> Graph : returns subgraph
 ```
 
 ---
@@ -205,16 +400,22 @@ classDiagram
 |---|---|---|
 | **Model** | `Node`, `Edge`, `Graph`, `AttributeType`, `AttributeValue` | `api` |
 | **Abstractions** | `Plugin`, `DataSourcePlugin`, `VisualizerPlugin` | `api` |
-| **Platform** | `Platform`, `Workspace` | `platform` |
+| **Platform** | `Platform`, `Workspace`, `WorkspaceStore`, `PluginRegistry` | `platform` |
 | **Data source plugins** | `JsonDataSourcePlugin`, `XmlDataSourcePlugin`, `CsvDataSourcePlugin` | `*_data_source_plugin` |
 | **Visualizer plugins** | `BlockVisualizerPlugin`, `SimpleVisualizerPlugin` | `block_visualizer`, `simple_visualizer` |
+| **Commands** | `Command`, `CreateNodeCommand`, `EditNodeCommand`, `DeleteNodeCommand`, `CreateEdgeCommand`, `EditEdgeCommand`, `DeleteEdgeCommand`, `DeleteGraphCommand`, `FilterCommand`, `SearchCommand` | `commands` |
+| **CLI** | `CLIParser`, `CLIExecutor`, `CLIParseError`, `Method`, `Subject` | `commands` |
+| **Core engines** | `FilterEngine`, `FilterError`, `SearchEngine` | `core` |
 
 ## Relationship Key
 
-| Notation | Line style | Meaning                                         | Example in diagram                           |
-|----------|---|-------------------------------------------------|----------------------------------------------|
-| `--\|>`  | Solid + open arrowhead                          | Inheritance - abstract extends abstract base | `DataSourcePlugin` extends `Plugin` |
-| `..\|>`  | Dashed + open arrowhead                         | Inheritance - concrete extends abstract base | `JsonDataSourcePlugin` extends `DataSourcePlugin` |
-| `*--`    | Solid + filled diamond | Composition - owner controls lifecycle of part  | `Graph` composes `Node`, `Edge`              |
-| `o--`    | Solid + open diamond | Aggregation - owner references but does not own | `Workspace` aggregates `Graph`               |
-| `..>`    | Dashed arrow | Dependency / uses                               | `Node` uses `AttributeValue`                 |
+| Notation | Line style | Meaning | Example in diagram |
+|---|---|---|---|
+| `--\|>` | Solid + open arrowhead | Inheritance — abstract extends abstract base | `DataSourcePlugin` extends `Plugin` |
+| `..\|>` | Dashed + open arrowhead | Inheritance — concrete extends abstract base | `JsonDataSourcePlugin` extends `DataSourcePlugin` |
+| `*--` | Solid + filled diamond | Composition — owner controls lifecycle of part | `Graph` composes `Node`, `Edge` |
+| `o--` | Solid + open diamond | Aggregation — owner references but does not own | `Workspace` aggregates `Graph` |
+| `..>` | Dashed arrow | Dependency / uses | `Node` uses `AttributeValue` |
+
+> **Note:** Both `--\|>` and `..\|>` represent Python class inheritance (`class X(Y)`).
+> The solid line is used between two abstract classes, and the dashed line when a concrete class extends an abstract one — following standard UML convention.
