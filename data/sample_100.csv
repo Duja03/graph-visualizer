@@ -1,0 +1,101 @@
+id,first_name,last_name,role,specialization,department,age,salary,hired,experience_years,shift,patients_today,performance_rating,connected_to,edge_weight,edge_type
+staff_001,Aleksa,Petrovic,Chief of Medicine,Cardiology,ward_a,32,51000,2023-04-07,18,morning,7,3.45,,,
+staff_002,Bojana,Jovanovic,Head Physician,Neurology,ward_b,31,184000,1993-11-25,28,afternoon,1,3.06,staff_001,4,reports_to
+staff_003,Darko,Nikolic,Head Physician,Pediatrics,ward_c,39,174000,2017-01-02,2,night,17,3.4,staff_001,9,reports_to
+staff_004,Elena,Markovic,Head Physician,Orthopedics,icu,51,101000,2010-02-24,18,morning,0,4.52,staff_001,3,reports_to
+staff_005,Filip,Ilic,Head Physician,Oncology,outpatient,52,132000,2002-06-19,10,afternoon,6,4.91,staff_001,6,reports_to
+staff_006,Gordana,Djordjevic,Head Physician,Dermatology,ward_a,31,68000,2007-01-16,7,night,11,4.69,staff_001,10,reports_to
+staff_007,Hana,Stojanovic,Surgeon,Radiology,ward_b,27,162000,2014-01-20,8,morning,12,3.16,staff_002,5,reports_to
+staff_008,Ivan,Pavlovic,Specialist,Psychiatry,ward_c,48,192000,1998-08-17,5,afternoon,1,4.32,staff_003,5,reports_to
+staff_009,Jelena,Stankovic,Doctor,Surgery,icu,39,70000,2007-01-19,18,night,14,4.27,staff_004,6,reports_to
+staff_010,Kosta,Simic,Nurse,Emergency,outpatient,48,135000,1999-05-26,18,morning,20,3.14,staff_005,3,reports_to
+staff_011,Lena,Popovic,Head Physician,Cardiology,ward_a,40,86000,2010-09-26,25,afternoon,8,4.98,staff_006,9,reports_to
+staff_012,Marko,Lazarevic,Nurse,Neurology,ward_b,45,59000,2000-04-10,3,night,10,3.8,staff_002,2,reports_to
+staff_013,Nada,Petrovic,Nurse,Pediatrics,ward_c,61,125000,1999-07-16,32,morning,12,4.77,staff_003,8,reports_to
+staff_014,Ognjen,Jovanovic,Nurse,Orthopedics,icu,41,80000,2001-01-23,35,afternoon,8,4.49,staff_004,7,reports_to
+staff_015,Petra,Nikolic,Head Physician,Oncology,outpatient,50,137000,1999-11-03,9,night,16,3.99,staff_005,1,reports_to
+staff_016,Radovan,Markovic,Doctor,Dermatology,ward_a,34,85000,2020-07-11,28,morning,19,3.13,staff_006,7,reports_to
+staff_017,Sara,Ilic,Head Physician,Radiology,ward_b,54,180000,2001-04-12,1,afternoon,3,4.36,staff_002,9,reports_to
+staff_018,Tamara,Djordjevic,Surgeon,Psychiatry,ward_c,46,73000,2003-03-02,28,night,5,3.91,staff_003,5,reports_to
+staff_019,Uros,Stojanovic,Head Physician,Surgery,icu,36,174000,1994-10-10,20,morning,20,4.02,staff_004,4,reports_to
+staff_020,Vera,Pavlovic,Nurse,Emergency,outpatient,48,86000,2014-03-13,34,afternoon,0,4.2,staff_005,8,reports_to
+staff_021,Zoran,Stankovic,Doctor,Cardiology,ward_a,32,137000,2003-10-18,16,night,1,3.48,staff_006,10,reports_to
+staff_022,Ana,Simic,Doctor,Neurology,ward_b,30,169000,1993-02-07,35,morning,4,3.26,staff_002,8,reports_to
+staff_023,Branko,Popovic,Head Physician,Pediatrics,ward_c,35,112000,2013-09-02,28,afternoon,6,4.86,staff_003,4,reports_to
+staff_024,Ceda,Lazarevic,Specialist,Orthopedics,icu,44,147000,2020-02-17,24,night,14,4.8,staff_004,8,reports_to
+staff_025,Dunja,Petrovic,Doctor,Oncology,outpatient,40,102000,1992-11-15,22,morning,0,4.18,staff_005,4,reports_to
+staff_026,Aleksa,Jovanovic,Head Physician,Dermatology,ward_a,39,46000,1993-03-09,4,afternoon,7,3.13,staff_006,1,reports_to
+staff_027,Bojana,Nikolic,Surgeon,Radiology,ward_b,29,176000,2000-09-04,18,night,15,3.43,staff_002,3,reports_to
+staff_028,Darko,Markovic,Specialist,Psychiatry,ward_c,61,192000,2011-03-16,16,morning,15,4.61,staff_003,4,reports_to
+staff_029,Elena,Ilic,Doctor,Surgery,icu,31,155000,2005-11-22,28,afternoon,13,3.93,staff_004,1,reports_to
+staff_030,Filip,Djordjevic,Specialist,Emergency,outpatient,31,60000,2008-01-23,22,night,3,3.5,staff_005,4,reports_to
+staff_031,Gordana,Stojanovic,Head Physician,Cardiology,ward_a,53,80000,2008-12-04,12,morning,8,3.93,staff_006,2,reports_to
+staff_032,Hana,Pavlovic,Resident,Neurology,ward_b,60,70000,1992-04-08,35,afternoon,0,4.94,staff_002,4,reports_to
+staff_033,Ivan,Stankovic,Nurse,Pediatrics,ward_c,51,169000,2011-08-05,14,night,12,4.8,staff_003,3,reports_to
+staff_034,Jelena,Simic,Resident,Orthopedics,icu,25,144000,2001-11-24,30,morning,9,3.85,staff_004,9,reports_to
+staff_035,Kosta,Popovic,Specialist,Oncology,outpatient,56,84000,1998-07-09,19,afternoon,6,4.94,staff_005,10,reports_to
+staff_036,Lena,Lazarevic,Specialist,Dermatology,ward_a,59,60000,2023-07-21,21,night,1,3.1,staff_006,8,reports_to
+staff_037,Marko,Petrovic,Head Physician,Radiology,ward_b,58,85000,1992-07-20,33,morning,2,4.7,staff_002,2,reports_to
+staff_038,Nada,Jovanovic,Head Physician,Psychiatry,ward_c,29,105000,2008-02-11,8,afternoon,18,3.49,staff_003,10,reports_to
+staff_039,Ognjen,Nikolic,Doctor,Surgery,icu,30,152000,2019-06-28,34,night,10,4.87,staff_004,4,reports_to
+staff_040,Petra,Markovic,Specialist,Emergency,outpatient,45,106000,2001-11-30,26,morning,4,4.34,staff_005,5,reports_to
+staff_041,Radovan,Ilic,Resident,Cardiology,ward_a,45,63000,1990-06-02,30,afternoon,19,5.0,staff_006,2,reports_to
+staff_042,Sara,Djordjevic,Doctor,Neurology,ward_b,59,99000,2012-09-10,17,night,4,4.87,staff_002,2,reports_to
+staff_043,Tamara,Stojanovic,Nurse,Pediatrics,ward_c,48,117000,1997-01-28,29,morning,17,4.41,staff_003,10,reports_to
+staff_044,Uros,Pavlovic,Specialist,Orthopedics,icu,58,47000,2019-12-17,20,afternoon,3,4.88,staff_004,3,reports_to
+staff_045,Vera,Stankovic,Surgeon,Oncology,outpatient,32,72000,2023-04-21,10,night,8,3.56,staff_005,4,reports_to
+staff_046,Zoran,Simic,Specialist,Dermatology,ward_a,46,97000,2020-11-02,17,morning,16,3.98,staff_006,1,reports_to
+staff_047,Ana,Popovic,Doctor,Radiology,ward_b,52,115000,1991-12-24,1,afternoon,10,4.54,staff_002,5,reports_to
+staff_048,Branko,Lazarevic,Nurse,Psychiatry,ward_c,53,186000,2021-08-27,28,night,17,3.02,staff_003,2,reports_to
+staff_049,Ceda,Petrovic,Specialist,Surgery,icu,34,184000,1991-08-14,24,morning,18,4.11,staff_004,7,reports_to
+staff_050,Dunja,Jovanovic,Nurse,Emergency,outpatient,27,123000,2006-05-11,3,afternoon,11,3.42,staff_005,4,reports_to
+staff_051,Aleksa,Nikolic,Specialist,Cardiology,ward_a,31,135000,2015-02-12,27,night,19,4.5,staff_006,4,reports_to
+staff_052,Bojana,Markovic,Nurse,Neurology,ward_b,36,150000,1991-02-11,12,morning,10,4.56,staff_002,7,reports_to
+staff_053,Darko,Ilic,Specialist,Pediatrics,ward_c,40,113000,1997-02-21,7,afternoon,12,4.74,staff_003,8,reports_to
+staff_054,Elena,Djordjevic,Nurse,Orthopedics,icu,37,162000,2005-09-07,20,night,7,3.45,staff_004,4,reports_to
+staff_055,Filip,Stojanovic,Resident,Oncology,outpatient,46,116000,1993-02-11,18,morning,11,4.28,staff_005,7,reports_to
+staff_056,Gordana,Pavlovic,Specialist,Dermatology,ward_a,59,129000,1991-03-29,8,afternoon,8,3.36,staff_006,5,reports_to
+staff_057,Hana,Stankovic,Doctor,Radiology,ward_b,31,197000,2009-06-29,23,night,10,3.87,staff_002,9,reports_to
+staff_058,Ivan,Simic,Doctor,Psychiatry,ward_c,49,192000,1998-07-12,17,morning,1,4.42,staff_003,1,reports_to
+staff_059,Jelena,Popovic,Head Physician,Surgery,icu,59,95000,2006-05-04,28,afternoon,2,4.9,staff_004,6,reports_to
+staff_060,Kosta,Lazarevic,Head Physician,Emergency,outpatient,45,76000,2022-04-15,20,night,16,3.62,staff_005,7,reports_to
+staff_061,Lena,Petrovic,Surgeon,Cardiology,ward_a,50,120000,2014-11-14,9,morning,6,3.84,staff_006,7,reports_to
+staff_062,Marko,Jovanovic,Specialist,Neurology,ward_b,36,190000,2003-07-02,26,afternoon,17,4.67,staff_002,5,reports_to
+staff_063,Nada,Nikolic,Surgeon,Pediatrics,ward_c,38,155000,2016-01-07,21,night,14,3.88,staff_003,4,reports_to
+staff_064,Ognjen,Markovic,Head Physician,Orthopedics,icu,55,88000,2019-07-22,6,morning,9,4.03,staff_004,10,reports_to
+staff_065,Petra,Ilic,Surgeon,Oncology,outpatient,30,105000,2020-03-07,20,afternoon,7,4.61,staff_005,3,reports_to
+staff_066,Radovan,Djordjevic,Doctor,Dermatology,ward_a,27,107000,2011-04-25,5,night,14,3.83,staff_006,10,reports_to
+staff_067,Sara,Stojanovic,Nurse,Radiology,ward_b,49,171000,2007-12-05,16,morning,4,4.31,staff_002,1,reports_to
+staff_068,Tamara,Pavlovic,Doctor,Psychiatry,ward_c,52,101000,1997-11-21,34,afternoon,14,3.1,staff_003,4,reports_to
+staff_069,Uros,Stankovic,Doctor,Surgery,icu,54,79000,2010-11-04,34,night,17,4.19,staff_004,8,reports_to
+staff_070,Vera,Simic,Head Physician,Emergency,outpatient,57,154000,2014-07-30,29,morning,5,4.49,staff_005,8,reports_to
+staff_071,Zoran,Popovic,Resident,Cardiology,ward_a,41,108000,2018-08-09,18,afternoon,16,3.97,staff_006,4,reports_to
+staff_072,Ana,Lazarevic,Surgeon,Neurology,ward_b,53,64000,2022-01-03,19,night,7,3.54,staff_002,6,reports_to
+staff_073,Branko,Petrovic,Head Physician,Pediatrics,ward_c,30,80000,1996-10-07,15,morning,12,4.39,staff_003,4,reports_to
+staff_074,Ceda,Jovanovic,Doctor,Orthopedics,icu,51,149000,2004-11-04,35,afternoon,14,3.83,staff_004,4,reports_to
+staff_075,Dunja,Nikolic,Resident,Oncology,outpatient,49,194000,2021-03-14,2,night,18,3.76,staff_005,1,reports_to
+staff_076,Aleksa,Markovic,Surgeon,Dermatology,ward_a,44,144000,2008-10-18,35,morning,17,4.6,staff_006,4,reports_to
+staff_077,Bojana,Ilic,Resident,Radiology,ward_b,39,114000,2009-07-20,32,afternoon,0,3.78,staff_002,7,reports_to
+staff_078,Darko,Djordjevic,Specialist,Psychiatry,ward_c,35,164000,1995-09-23,35,night,0,4.81,staff_003,10,reports_to
+staff_079,Elena,Stojanovic,Head Physician,Surgery,icu,26,66000,2018-10-31,28,morning,4,4.73,staff_004,3,reports_to
+staff_080,Filip,Pavlovic,Doctor,Emergency,outpatient,41,142000,2004-09-07,14,afternoon,14,3.65,staff_005,7,reports_to
+staff_081,Gordana,Stankovic,Surgeon,Cardiology,ward_a,51,109000,1993-09-03,31,night,0,4.5,staff_006,1,reports_to
+staff_082,Hana,Simic,Surgeon,Neurology,ward_b,39,62000,2019-03-28,3,morning,0,4.9,staff_002,4,reports_to
+staff_083,Ivan,Popovic,Doctor,Pediatrics,ward_c,34,106000,1995-08-31,31,afternoon,3,4.13,staff_003,4,reports_to
+staff_084,Jelena,Lazarevic,Resident,Orthopedics,icu,41,139000,1997-07-12,8,night,5,4.93,staff_004,2,reports_to
+staff_085,Kosta,Petrovic,Head Physician,Oncology,outpatient,26,124000,2015-10-30,25,morning,12,4.88,staff_005,4,reports_to
+staff_086,Lena,Jovanovic,Doctor,Dermatology,ward_a,62,107000,1994-07-28,20,afternoon,19,4.61,staff_006,10,reports_to
+staff_087,Marko,Nikolic,Doctor,Radiology,ward_b,47,181000,2009-03-20,24,night,2,4.01,staff_002,6,reports_to
+staff_088,Nada,Markovic,Doctor,Psychiatry,ward_c,51,170000,1994-09-26,28,morning,11,4.27,staff_003,8,reports_to
+staff_089,Ognjen,Ilic,Specialist,Surgery,icu,34,156000,1997-11-25,34,afternoon,20,3.54,staff_004,9,reports_to
+staff_090,Petra,Djordjevic,Resident,Emergency,outpatient,54,156000,2022-10-17,18,night,10,4.7,staff_005,2,reports_to
+staff_091,Radovan,Stojanovic,Surgeon,Cardiology,ward_a,53,107000,2023-08-31,30,morning,18,4.22,staff_006,7,reports_to
+staff_092,Sara,Pavlovic,Surgeon,Neurology,ward_b,26,171000,2004-07-31,12,afternoon,15,3.42,staff_002,5,reports_to
+staff_093,Tamara,Stankovic,Surgeon,Pediatrics,ward_c,42,197000,2021-06-15,18,night,17,3.02,staff_003,4,reports_to
+staff_094,Uros,Simic,Doctor,Orthopedics,icu,40,149000,2011-12-01,16,morning,15,4.29,staff_004,8,reports_to
+staff_095,Vera,Popovic,Resident,Oncology,outpatient,26,68000,2003-03-14,15,afternoon,12,4.38,staff_005,5,reports_to
+staff_096,Zoran,Lazarevic,Specialist,Dermatology,ward_a,62,139000,2011-03-25,34,night,11,3.85,staff_006,9,reports_to
+staff_097,Ana,Petrovic,Surgeon,Radiology,ward_b,47,161000,2002-02-25,20,morning,8,3.46,staff_002,4,reports_to
+staff_098,Branko,Jovanovic,Surgeon,Psychiatry,ward_c,32,182000,2020-12-16,12,afternoon,6,3.43,staff_003,8,reports_to
+staff_099,Ceda,Nikolic,Surgeon,Surgery,icu,62,179000,2016-10-08,19,night,3,4.67,staff_004,5,reports_to
+staff_100,Dunja,Markovic,Nurse,Emergency,outpatient,48,90000,2003-07-24,1,morning,17,3.25,staff_005,1,reports_to
