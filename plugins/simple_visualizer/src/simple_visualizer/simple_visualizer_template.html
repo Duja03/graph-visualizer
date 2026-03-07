@@ -1,47 +1,22 @@
 {% load static %}
 <style>
-    :root {
-        --violet-50:  #f5f3ff;
-        --violet-100: #ede9fe;
-        --violet-200: #e2d9f3;
-        --violet-300: #c4b5fd;
-        --violet-500: #8b5cf6;
-        --violet-600: #7c3aed;
-        --violet-700: #6d28d9;
-        --violet-800: #5b21b6;
-        --violet-900: #6b21a8;
-        --gray-100:   #f3f4f6;
-        --gray-500:   #6b7280;
-        --gray-700:   #374151;
-        --gray-800:   #4b5563;
-    }
-
     .node-group circle {
         fill: var(--violet-600);
         stroke: white;
         stroke-width: 2;
         cursor: grab;
     }
-
-    .node-group:active {
-        cursor: grabbing;
-    }
-
-    .node-group circle:hover {
-        fill: var(--violet-800);
-    }
-
+    .node-group:active { cursor: grabbing; }
+    .node-group circle:hover { fill: var(--violet-800); }
     .link {
         stroke: var(--violet-300);
         stroke-opacity: 0.6;
         stroke-width: 1.5;
     }
-
     .link.connected {
         stroke: var(--violet-600);
         stroke-width: 3;
     }
-
     .label {
         fill: var(--gray-700);
         font-family: Arial, sans-serif;
@@ -49,7 +24,6 @@
         text-anchor: middle;
         pointer-events: none;
     }
-
     .simple-svg-container, .container-simple {
         width: 100%;
         height: 100%;
@@ -62,14 +36,15 @@
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-    var graphData = JSON.parse('{{ graph_json | safe }}');
+(function() {
+    var graphData = {{ graph_json | safe }};
 
-    var svg = d3.select(".container-simple");
+    var svg = d3.select("#container-simple");
     var zoomG = svg.append("g").attr("class", "zoom-layer");
 
     var simulation = d3.forceSimulation()
         .nodes(graphData.nodes)
-        .force("link", d3.forceLink(graphData.edges).id(d => d.id).distance(100))
+        .force("link", d3.forceLink(graphData.edges).id(function(d) { return d.id; }).distance(100))
         .force("charge", d3.forceManyBody().strength(-300))
         .force("center", d3.forceCenter(400, 300))
         .force("collide", d3.forceCollide().radius(30).iterations(3));
@@ -87,9 +62,9 @@
         .attr("class", "node-group")
         .on("click", function(event, d) {
             var idx = d.index;
-            link.attr("class", l =>
-                (l.source.index === idx || l.target.index === idx) ? "link connected" : "link"
-            );
+            link.attr("class", function(l) {
+                return (l.source.index === idx || l.target.index === idx) ? "link connected" : "link";
+            });
         })
         .call(
             d3.drag()
@@ -100,48 +75,63 @@
 
     nodeGroup.each(function(d) {
         var g = d3.select(this);
-
-        g.append("circle")
-            .attr("r", 20);
-
-        g.append("text")
-            .attr("class", "label")
-            .attr("y", 35)
-            .text(d.id);
+        g.append("circle").attr("r", 20);
+        g.append("text").attr("class", "label").attr("y", 35).text(d.id);
     });
 
     simulation.on("tick", function() {
         link
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
+            .attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+        nodeGroup.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
-        nodeGroup.attr("transform", d => `translate(${d.x},${d.y})`);
+        // Always broadcast positions so bird view tracks node movement
+        window.dispatchEvent(new CustomEvent("visualizer:positions", {
+            detail: { nodes: graphData.nodes }
+        }));
     });
 
     var zoom = d3.zoom()
-        .scaleExtent([0.3, 5])
+        .scaleExtent([0.1, 10])
         .on("zoom", function(event) {
             zoomG.attr("transform", event.transform);
+
+            // Broadcast zoom/pan transform to bird view
+            var svgEl = svg.node();
+            window.dispatchEvent(new CustomEvent("visualizer:zoom", {
+                detail: {
+                    transform: {
+                        x: event.transform.x,
+                        y: event.transform.y,
+                        k: event.transform.k
+                    },
+                    mainW: svgEl.clientWidth  || svgEl.getBoundingClientRect().width,
+                    mainH: svgEl.clientHeight || svgEl.getBoundingClientRect().height
+                }
+            }));
         });
 
     svg.call(zoom);
 
     function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
+        d.fx = d.x; d.fy = d.y;
     }
-
     function dragged(event, d) {
-        d.fx = event.x;
-        d.fy = event.y;
+        d.fx = event.x; d.fy = event.y;
     }
-
     function dragended(event, d) {
         if (!event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
+        d.fx = null; d.fy = null;
+        // Emit final positions after drag, in case simulation already stopped
+        window.dispatchEvent(new CustomEvent("visualizer:positions", {
+            detail: { nodes: graphData.nodes }
+        }));
     }
+
+    // Expose simulation node positions for bird view initial draw
+    window.__mainSimNodes = graphData.nodes;
+})();
 </script>
