@@ -1,0 +1,470 @@
+<?xml version='1.0' encoding='utf-8'?>
+<university xml:id="uni1" founded="1965-10-15">
+    <name>University of Novi Sad</name>
+    <city>Novi Sad</city>
+    <departments>
+        <department xml:id="dept1" budget="60000">
+            <name>Computer Science</name>
+        </department>
+        <department xml:id="dept2" budget="70000">
+            <name>Mathematics</name>
+        </department>
+        <department xml:id="dept3" budget="80000">
+            <name>Physics</name>
+        </department>
+        <department xml:id="dept4" budget="90000">
+            <name>Chemistry</name>
+        </department>
+    </departments>
+    <professors>
+        <professor xml:id="prof1" experience="6" rating="2">
+            <name>Prof Jovic</name>
+            <department reference="dept1" />
+            <top_student reference="s1" />
+        </professor>
+        <professor xml:id="prof2" experience="7" rating="3">
+            <name>Prof Petrovic</name>
+            <department reference="dept2" />
+            <top_student reference="s4" />
+        </professor>
+        <professor xml:id="prof3" experience="8" rating="4">
+            <name>Prof Nikolic</name>
+            <department reference="dept3" />
+            <top_student reference="s7" />
+        </professor>
+        <professor xml:id="prof4" experience="9" rating="5">
+            <name>Prof Markovic</name>
+            <department reference="dept4" />
+            <top_student reference="s10" />
+        </professor>
+        <professor xml:id="prof5" experience="10" rating="1">
+            <name>Prof Popovic</name>
+            <department reference="dept1" />
+            <top_student reference="s13" />
+        </professor>
+        <professor xml:id="prof6" experience="11" rating="2">
+            <name>Prof Ivanovic</name>
+            <department reference="dept2" />
+            <top_student reference="s16" />
+        </professor>
+        <professor xml:id="prof7" experience="12" rating="3">
+            <name>Prof Djordjevic</name>
+            <department reference="dept3" />
+            <top_student reference="s19" />
+        </professor>
+        <professor xml:id="prof8" experience="13" rating="4">
+            <name>Prof Kovacevic</name>
+            <department reference="dept4" />
+            <top_student reference="s22" />
+        </professor>
+        <professor xml:id="prof9" experience="14" rating="5">
+            <name>Prof Stojanovic</name>
+            <department reference="dept1" />
+            <top_student reference="s25" />
+        </professor>
+        <professor xml:id="prof10" experience="15" rating="1">
+            <name>Prof Simic</name>
+            <department reference="dept2" />
+            <top_student reference="s28" />
+        </professor>
+        <professor xml:id="prof11" experience="16" rating="2">
+            <name>Prof Milovanovic</name>
+            <department reference="dept3" />
+            <top_student reference="s31" />
+        </professor>
+        <professor xml:id="prof12" experience="17" rating="3">
+            <name>Prof Pavlovic</name>
+            <department reference="dept4" />
+            <top_student reference="s34" />
+        </professor>
+    </professors>
+    <courses>
+        <course xml:id="course1" credits="4" capacity="25">
+            <title>Mathematics</title>
+            <taught_by reference="prof1" />
+        </course>
+        <course xml:id="course2" credits="5" capacity="30">
+            <title>Physics</title>
+            <taught_by reference="prof2" />
+        </course>
+        <course xml:id="course3" credits="6" capacity="35">
+            <title>Chemistry</title>
+            <taught_by reference="prof3" />
+        </course>
+        <course xml:id="course4" credits="3" capacity="40">
+            <title>Biology</title>
+            <taught_by reference="prof4" />
+        </course>
+        <course xml:id="course5" credits="4" capacity="45">
+            <title>History</title>
+            <taught_by reference="prof5" />
+        </course>
+        <course xml:id="course6" credits="5" capacity="50">
+            <title>Geography</title>
+            <taught_by reference="prof6" />
+        </course>
+        <course xml:id="course7" credits="6" capacity="55">
+            <title>English</title>
+            <taught_by reference="prof7" />
+        </course>
+        <course xml:id="course8" credits="3" capacity="60">
+            <title>Programming</title>
+            <taught_by reference="prof8" />
+        </course>
+        <course xml:id="course9" credits="4" capacity="65">
+            <title>Databases</title>
+            <taught_by reference="prof9" />
+        </course>
+        <course xml:id="course10" credits="5" capacity="20">
+            <title>Algorithms</title>
+            <taught_by reference="prof10" />
+        </course>
+        <course xml:id="course11" credits="6" capacity="25">
+            <title>Networks</title>
+            <taught_by reference="prof11" />
+        </course>
+        <course xml:id="course12" credits="3" capacity="30">
+            <title>OOP</title>
+            <taught_by reference="prof12" />
+        </course>
+        <course xml:id="course13" credits="4" capacity="35">
+            <title>Statistics</title>
+            <taught_by reference="prof1" />
+        </course>
+        <course xml:id="course14" credits="5" capacity="40">
+            <title>Linear Algebra</title>
+            <taught_by reference="prof2" />
+        </course>
+        <course xml:id="course15" credits="6" capacity="45">
+            <title>Operating Systems</title>
+            <taught_by reference="prof3" />
+        </course>
+        <course xml:id="course16" credits="3" capacity="50">
+            <title>Compilers</title>
+            <taught_by reference="prof4" />
+        </course>
+        <course xml:id="course17" credits="4" capacity="55">
+            <title>Computer Graphics</title>
+            <taught_by reference="prof5" />
+        </course>
+        <course xml:id="course18" credits="5" capacity="60">
+            <title>Machine Learning</title>
+            <taught_by reference="prof6" />
+        </course>
+        <course xml:id="course19" credits="6" capacity="65">
+            <title>Data Structures</title>
+            <taught_by reference="prof7" />
+        </course>
+        <course xml:id="course20" credits="3" capacity="20">
+            <title>Calculus</title>
+            <taught_by reference="prof8" />
+        </course>
+        <course xml:id="course21" credits="4" capacity="25">
+            <title>Discrete Math</title>
+            <taught_by reference="prof9" />
+        </course>
+        <course xml:id="course22" credits="5" capacity="30">
+            <title>Software Engineering</title>
+            <taught_by reference="prof10" />
+        </course>
+        <course xml:id="course23" credits="6" capacity="35">
+            <title>Web Development</title>
+            <taught_by reference="prof11" />
+        </course>
+        <course xml:id="course24" credits="3" capacity="40">
+            <title>Cryptography</title>
+            <taught_by reference="prof12" />
+        </course>
+        <course xml:id="course25" credits="4" capacity="45">
+            <title>Artificial Intelligence</title>
+            <taught_by reference="prof1" />
+        </course>
+        <course xml:id="course26" credits="5" capacity="50">
+            <title>Robotics</title>
+            <taught_by reference="prof2" />
+        </course>
+        <course xml:id="course27" credits="6" capacity="55">
+            <title>Embedded Systems</title>
+            <taught_by reference="prof3" />
+        </course>
+        <course xml:id="course28" credits="3" capacity="60">
+            <title>Logic</title>
+            <taught_by reference="prof4" />
+        </course>
+        <course xml:id="course29" credits="4" capacity="65">
+            <title>Numerical Methods</title>
+            <taught_by reference="prof5" />
+        </course>
+        <course xml:id="course30" credits="5" capacity="20">
+            <title>Probability</title>
+            <taught_by reference="prof6" />
+        </course>
+        <course xml:id="course31" credits="6" capacity="25">
+            <title>Topology</title>
+            <taught_by reference="prof7" />
+        </course>
+        <course xml:id="course32" credits="3" capacity="30">
+            <title>Mechanics</title>
+            <taught_by reference="prof8" />
+        </course>
+        <course xml:id="course33" credits="4" capacity="35">
+            <title>Electronics</title>
+            <taught_by reference="prof9" />
+        </course>
+        <course xml:id="course34" credits="5" capacity="40">
+            <title>Thermodynamics</title>
+            <taught_by reference="prof10" />
+        </course>
+        <course xml:id="course35" credits="6" capacity="45">
+            <title>Quantum Physics</title>
+            <taught_by reference="prof11" />
+        </course>
+    </courses>
+    <students>
+        <student xml:id="s1" age="20" gpa="3.50">
+            <name>Ana</name>
+            <enrolled reference="course1" />
+            <advisor reference="prof1" />
+        </student>
+        <student xml:id="s2" age="21" gpa="3.75">
+            <name>Marko</name>
+            <enrolled reference="course2" />
+            <advisor reference="prof2" />
+        </student>
+        <student xml:id="s3" age="22" gpa="4.00">
+            <name>Maja</name>
+            <enrolled reference="course3" />
+            <advisor reference="prof3" />
+        </student>
+        <student xml:id="s4" age="23" gpa="2.80">
+            <name>Ivan</name>
+            <enrolled reference="course4" />
+            <advisor reference="prof4" />
+        </student>
+        <student xml:id="s5" age="24" gpa="3.20">
+            <name>Sara</name>
+            <enrolled reference="course5" />
+            <advisor reference="prof5" />
+        </student>
+        <student xml:id="s6" age="19" gpa="3.90">
+            <name>Petar</name>
+            <enrolled reference="course6" />
+            <advisor reference="prof6" />
+        </student>
+        <student xml:id="s7" age="20" gpa="4.20">
+            <name>Nikola</name>
+            <enrolled reference="course7" />
+            <advisor reference="prof7" />
+        </student>
+        <student xml:id="s8" age="21" gpa="2.95">
+            <name>Jovana</name>
+            <enrolled reference="course8" />
+            <advisor reference="prof8" />
+        </student>
+        <student xml:id="s9" age="22" gpa="3.60">
+            <name>Stefan</name>
+            <enrolled reference="course9" />
+            <advisor reference="prof9" />
+        </student>
+        <student xml:id="s10" age="23" gpa="4.10">
+            <name>Milica</name>
+            <enrolled reference="course10" />
+            <advisor reference="prof10" />
+        </student>
+        <student xml:id="s11" age="24" gpa="3.30">
+            <name>Luka</name>
+            <enrolled reference="course11" />
+            <advisor reference="prof11" />
+        </student>
+        <student xml:id="s12" age="19" gpa="3.85">
+            <name>Tamara</name>
+            <enrolled reference="course12" />
+            <advisor reference="prof12" />
+        </student>
+        <student xml:id="s13" age="20" gpa="4.50">
+            <name>Filip</name>
+            <enrolled reference="course13" />
+            <advisor reference="prof1" />
+        </student>
+        <student xml:id="s14" age="21" gpa="2.75">
+            <name>Jelena</name>
+            <enrolled reference="course14" />
+            <advisor reference="prof2" />
+        </student>
+        <student xml:id="s15" age="22" gpa="3.45">
+            <name>Aleksandar</name>
+            <enrolled reference="course15" />
+            <advisor reference="prof3" />
+        </student>
+        <student xml:id="s16" age="23" gpa="4.30">
+            <name>Bojana</name>
+            <enrolled reference="course16" />
+            <advisor reference="prof4" />
+        </student>
+        <student xml:id="s17" age="24" gpa="3.15">
+            <name>Nemanja</name>
+            <enrolled reference="course17" />
+            <advisor reference="prof5" />
+        </student>
+        <student xml:id="s18" age="19" gpa="3.70">
+            <name>Katarina</name>
+            <enrolled reference="course18" />
+            <advisor reference="prof6" />
+        </student>
+        <student xml:id="s19" age="20" gpa="4.15">
+            <name>Milos</name>
+            <enrolled reference="course19" />
+            <advisor reference="prof7" />
+        </student>
+        <student xml:id="s20" age="21" gpa="2.90">
+            <name>Teodora</name>
+            <enrolled reference="course20" />
+            <advisor reference="prof8" />
+        </student>
+        <student xml:id="s21" age="22" gpa="3.50">
+            <name>Vuk</name>
+            <enrolled reference="course21" />
+            <advisor reference="prof9" />
+        </student>
+        <student xml:id="s22" age="23" gpa="3.75">
+            <name>Dragana</name>
+            <enrolled reference="course22" />
+            <advisor reference="prof10" />
+        </student>
+        <student xml:id="s23" age="24" gpa="4.00">
+            <name>Ognjen</name>
+            <enrolled reference="course23" />
+            <advisor reference="prof11" />
+        </student>
+        <student xml:id="s24" age="19" gpa="2.80">
+            <name>Sanja</name>
+            <enrolled reference="course24" />
+            <advisor reference="prof12" />
+        </student>
+        <student xml:id="s25" age="20" gpa="3.20">
+            <name>Uros</name>
+            <enrolled reference="course25" />
+            <advisor reference="prof1" />
+        </student>
+        <student xml:id="s26" age="21" gpa="3.90">
+            <name>Marina</name>
+            <enrolled reference="course26" />
+            <advisor reference="prof2" />
+        </student>
+        <student xml:id="s27" age="22" gpa="4.20">
+            <name>Bojan</name>
+            <enrolled reference="course27" />
+            <advisor reference="prof3" />
+        </student>
+        <student xml:id="s28" age="23" gpa="2.95">
+            <name>Ivana</name>
+            <enrolled reference="course28" />
+            <advisor reference="prof4" />
+        </student>
+        <student xml:id="s29" age="24" gpa="3.60">
+            <name>Dejan</name>
+            <enrolled reference="course29" />
+            <advisor reference="prof5" />
+        </student>
+        <student xml:id="s30" age="19" gpa="4.10">
+            <name>Andreja</name>
+            <enrolled reference="course30" />
+            <advisor reference="prof6" />
+        </student>
+        <student xml:id="s31" age="20" gpa="3.30">
+            <name>Miroslav</name>
+            <enrolled reference="course31" />
+            <advisor reference="prof7" />
+        </student>
+        <student xml:id="s32" age="21" gpa="3.85">
+            <name>Natalija</name>
+            <enrolled reference="course32" />
+            <advisor reference="prof8" />
+        </student>
+        <student xml:id="s33" age="22" gpa="4.50">
+            <name>Zdravko</name>
+            <enrolled reference="course33" />
+            <advisor reference="prof9" />
+        </student>
+        <student xml:id="s34" age="23" gpa="2.75">
+            <name>Vesna</name>
+            <enrolled reference="course34" />
+            <advisor reference="prof10" />
+        </student>
+        <student xml:id="s35" age="24" gpa="3.45">
+            <name>Branko</name>
+            <enrolled reference="course35" />
+            <advisor reference="prof11" />
+        </student>
+        <student xml:id="s36" age="19" gpa="4.30">
+            <name>Sonja</name>
+            <enrolled reference="course1" />
+            <advisor reference="prof12" />
+        </student>
+        <student xml:id="s37" age="20" gpa="3.15">
+            <name>Vladan</name>
+            <enrolled reference="course2" />
+            <advisor reference="prof1" />
+        </student>
+        <student xml:id="s38" age="21" gpa="3.70">
+            <name>Tijana</name>
+            <enrolled reference="course3" />
+            <advisor reference="prof2" />
+        </student>
+        <student xml:id="s39" age="22" gpa="4.15">
+            <name>Goran</name>
+            <enrolled reference="course4" />
+            <advisor reference="prof3" />
+        </student>
+        <student xml:id="s40" age="23" gpa="2.90">
+            <name>Milena</name>
+            <enrolled reference="course5" />
+            <advisor reference="prof4" />
+        </student>
+        <student xml:id="s41" age="24" gpa="3.50">
+            <name>Dusan</name>
+            <enrolled reference="course6" />
+            <advisor reference="prof5" />
+        </student>
+        <student xml:id="s42" age="19" gpa="3.75">
+            <name>Nina</name>
+            <enrolled reference="course7" />
+            <advisor reference="prof6" />
+        </student>
+        <student xml:id="s43" age="20" gpa="4.00">
+            <name>Zoran</name>
+            <enrolled reference="course8" />
+            <advisor reference="prof7" />
+        </student>
+        <student xml:id="s44" age="21" gpa="2.80">
+            <name>Biljana</name>
+            <enrolled reference="course9" />
+            <advisor reference="prof8" />
+        </student>
+        <student xml:id="s45" age="22" gpa="3.20">
+            <name>Nenad</name>
+            <enrolled reference="course10" />
+            <advisor reference="prof9" />
+        </student>
+        <student xml:id="s46" age="23" gpa="3.90">
+            <name>Kristina</name>
+            <enrolled reference="course11" />
+            <advisor reference="prof10" />
+        </student>
+        <student xml:id="s47" age="24" gpa="4.20">
+            <name>Slobodan</name>
+            <enrolled reference="course12" />
+            <advisor reference="prof11" />
+        </student>
+        <student xml:id="s48" age="19" gpa="2.95">
+            <name>Gordana</name>
+            <enrolled reference="course13" />
+            <advisor reference="prof12" />
+        </student>
+        <student xml:id="s49" age="20" gpa="3.60">
+            <name>Radovan</name>
+            <enrolled reference="course14" />
+            <advisor reference="prof1" />
+        </student>
+    </students>
+</university>

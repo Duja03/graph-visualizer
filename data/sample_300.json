@@ -1,0 +1,3324 @@
+{
+  "@id": "uni:state",
+  "name": "State University",
+  "founded": "1965-09-01",
+  "student_count": 12400,
+  "ranking": 47,
+  "tuition_fee": 2800.0,
+  "faculties": [
+    {
+      "@id": "faculty:0",
+      "name": "Computer Science",
+      "floor": 1,
+      "established": "1974-12-30",
+      "annual_budget": 562526.89,
+      "professors": [
+        {
+          "@id": "prof:0_0",
+          "first_name": "Jelena",
+          "last_name": "Markovic",
+          "age": 42,
+          "salary": 68372.28,
+          "hired": "1994-08-07",
+          "publications": 74,
+          "h_index": 4,
+          "tenured": 1,
+          "research_area": "AI"
+        },
+        {
+          "@id": "prof:0_1",
+          "first_name": "Aleksa",
+          "last_name": "Jovanovic",
+          "age": 41,
+          "salary": 73959.65,
+          "hired": "2017-01-02",
+          "publications": 8,
+          "h_index": 19,
+          "tenured": 0,
+          "research_area": "NLP"
+        },
+        {
+          "@id": "prof:0_2",
+          "first_name": "Zoran",
+          "last_name": "Lazarevic",
+          "age": 52,
+          "salary": 85171.19,
+          "hired": "2010-02-24",
+          "publications": 80,
+          "h_index": 10,
+          "tenured": 0,
+          "research_area": "Computer Vision"
+        },
+        {
+          "@id": "prof:0_3",
+          "first_name": "Gordana",
+          "last_name": "Lazarevic",
+          "age": 48,
+          "salary": 80415.03,
+          "hired": "1996-12-22",
+          "publications": 32,
+          "h_index": 12,
+          "tenured": 0,
+          "research_area": "AI"
+        }
+      ],
+      "courses": [
+        {
+          "@id": "course:0_0",
+          "title": "Mathematics",
+          "credits": 4,
+          "semester": 2,
+          "max_students": 90,
+          "pass_rate": 0.91,
+          "created": "2013-07-16",
+          "instructor": "prof:0_2"
+        },
+        {
+          "@id": "course:0_1",
+          "title": "Algorithms",
+          "credits": 3,
+          "semester": 8,
+          "max_students": 30,
+          "pass_rate": 0.97,
+          "created": "2008-06-27",
+          "instructor": "prof:0_0"
+        },
+        {
+          "@id": "course:0_2",
+          "title": "Databases",
+          "credits": 6,
+          "semester": 5,
+          "max_students": 90,
+          "pass_rate": 0.8,
+          "created": "2015-10-20",
+          "instructor": "prof:0_0"
+        }
+      ],
+      "dean": "prof:0_0"
+    },
+    {
+      "@id": "faculty:1",
+      "name": "Electrical Engineering",
+      "floor": 2,
+      "established": "1972-01-21",
+      "annual_budget": 2153158.3,
+      "professors": [
+        {
+          "@id": "prof:1_0",
+          "first_name": "Dunja",
+          "last_name": "Ilic",
+          "age": 37,
+          "salary": 111319.06,
+          "hired": "1994-07-13",
+          "publications": 53,
+          "h_index": 10,
+          "tenured": 1,
+          "research_area": "NLP"
+        },
+        {
+          "@id": "prof:1_1",
+          "first_name": "Marko",
+          "last_name": "Nikolic",
+          "age": 46,
+          "salary": 81316.24,
+          "hired": "2020-01-24",
+          "publications": 39,
+          "h_index": 24,
+          "tenured": 0,
+          "research_area": "Robotics"
+        },
+        {
+          "@id": "prof:1_2",
+          "first_name": "Zoran",
+          "last_name": "Nikolic",
+          "age": 52,
+          "salary": 103747.61,
+          "hired": "1997-05-01",
+          "publications": 64,
+          "h_index": 14,
+          "tenured": 1,
+          "research_area": "NLP"
+        },
+        {
+          "@id": "prof:1_3",
+          "first_name": "Branko",
+          "last_name": "Stankovic",
+          "age": 42,
+          "salary": 101076.86,
+          "hired": "1992-07-05",
+          "publications": 34,
+          "h_index": 3,
+          "tenured": 1,
+          "research_area": "Bioinformatics"
+        }
+      ],
+      "courses": [
+        {
+          "@id": "course:1_0",
+          "title": "AI",
+          "credits": 4,
+          "semester": 2,
+          "max_students": 60,
+          "pass_rate": 0.94,
+          "created": "2012-09-20",
+          "instructor": "prof:1_2"
+        },
+        {
+          "@id": "course:1_1",
+          "title": "OOP",
+          "credits": 3,
+          "semester": 8,
+          "max_students": 120,
+          "pass_rate": 0.93,
+          "created": "2014-06-02",
+          "instructor": "prof:1_3"
+        },
+        {
+          "@id": "course:1_2",
+          "title": "Operating Systems",
+          "credits": 3,
+          "semester": 5,
+          "max_students": 60,
+          "pass_rate": 0.66,
+          "created": "2012-08-03",
+          "instructor": "prof:1_2"
+        }
+      ],
+      "dean": "prof:1_0"
+    },
+    {
+      "@id": "faculty:2",
+      "name": "Mathematics",
+      "floor": 3,
+      "established": "1989-03-21",
+      "annual_budget": 2744557.21,
+      "professors": [
+        {
+          "@id": "prof:2_0",
+          "first_name": "Nada",
+          "last_name": "Djordjevic",
+          "age": 42,
+          "salary": 119839.55,
+          "hired": "1996-03-16",
+          "publications": 70,
+          "h_index": 17,
+          "tenured": 0,
+          "research_area": "Computer Vision"
+        },
+        {
+          "@id": "prof:2_1",
+          "first_name": "Bojana",
+          "last_name": "Jovanovic",
+          "age": 39,
+          "salary": 97646.76,
+          "hired": "2020-07-11",
+          "publications": 59,
+          "h_index": 21,
+          "tenured": 0,
+          "research_area": "Bioinformatics"
+        },
+        {
+          "@id": "prof:2_2",
+          "first_name": "Nada",
+          "last_name": "Simic",
+          "age": 49,
+          "salary": 91746.86,
+          "hired": "2014-10-26",
+          "publications": 6,
+          "h_index": 23,
+          "tenured": 0,
+          "research_area": "NLP"
+        },
+        {
+          "@id": "prof:2_3",
+          "first_name": "Tamara",
+          "last_name": "Ilic",
+          "age": 59,
+          "salary": 98457.71,
+          "hired": "1995-01-02",
+          "publications": 42,
+          "h_index": 15,
+          "tenured": 0,
+          "research_area": "Bioinformatics"
+        }
+      ],
+      "courses": [
+        {
+          "@id": "course:2_0",
+          "title": "Statistics",
+          "credits": 3,
+          "semester": 5,
+          "max_students": 60,
+          "pass_rate": 0.77,
+          "created": "2002-05-21",
+          "instructor": "prof:2_2"
+        },
+        {
+          "@id": "course:2_1",
+          "title": "Calculus",
+          "credits": 6,
+          "semester": 4,
+          "max_students": 60,
+          "pass_rate": 0.71,
+          "created": "2003-08-16",
+          "instructor": "prof:2_0"
+        },
+        {
+          "@id": "course:2_2",
+          "title": "Linear Algebra",
+          "credits": 6,
+          "semester": 6,
+          "max_students": 120,
+          "pass_rate": 0.56,
+          "created": "2008-02-21",
+          "instructor": "prof:2_2"
+        }
+      ],
+      "dean": "prof:2_0"
+    },
+    {
+      "@id": "faculty:3",
+      "name": "Information Systems",
+      "floor": 4,
+      "established": "1980-09-28",
+      "annual_budget": 644812.92,
+      "professors": [
+        {
+          "@id": "prof:3_0",
+          "first_name": "Uros",
+          "last_name": "Jovanovic",
+          "age": 37,
+          "salary": 103914.46,
+          "hired": "1993-02-07",
+          "publications": 73,
+          "h_index": 6,
+          "tenured": 0,
+          "research_area": "NLP"
+        },
+        {
+          "@id": "prof:3_1",
+          "first_name": "Radovan",
+          "last_name": "Stankovic",
+          "age": 40,
+          "salary": 75903.4,
+          "hired": "2017-03-18",
+          "publications": 59,
+          "h_index": 8,
+          "tenured": 0,
+          "research_area": "NLP"
+        },
+        {
+          "@id": "prof:3_2",
+          "first_name": "Kosta",
+          "last_name": "Stojanovic",
+          "age": 56,
+          "salary": 98992.68,
+          "hired": "2009-08-26",
+          "publications": 71,
+          "h_index": 16,
+          "tenured": 0,
+          "research_area": "Distributed Systems"
+        },
+        {
+          "@id": "prof:3_3",
+          "first_name": "Ivan",
+          "last_name": "Jovanovic",
+          "age": 45,
+          "salary": 61262.06,
+          "hired": "2014-11-06",
+          "publications": 34,
+          "h_index": 20,
+          "tenured": 0,
+          "research_area": "AI"
+        }
+      ],
+      "courses": [
+        {
+          "@id": "course:3_0",
+          "title": "Computer Architecture",
+          "credits": 3,
+          "semester": 1,
+          "max_students": 60,
+          "pass_rate": 0.58,
+          "created": "2000-09-14",
+          "instructor": "prof:3_2"
+        },
+        {
+          "@id": "course:3_1",
+          "title": "Cryptography",
+          "credits": 3,
+          "semester": 4,
+          "max_students": 90,
+          "pass_rate": 0.84,
+          "created": "2004-10-21",
+          "instructor": "prof:3_1"
+        },
+        {
+          "@id": "course:3_2",
+          "title": "Machine Learning",
+          "credits": 6,
+          "semester": 8,
+          "max_students": 60,
+          "pass_rate": 0.89,
+          "created": "2009-02-16",
+          "instructor": "prof:3_1"
+        },
+        {
+          "@id": "course:3_3",
+          "title": "Data Structures",
+          "credits": 3,
+          "semester": 2,
+          "max_students": 120,
+          "pass_rate": 0.7,
+          "created": "2009-03-21",
+          "instructor": "prof:3_3"
+        }
+      ],
+      "dean": "prof:3_0"
+    },
+    {
+      "@id": "faculty:4",
+      "name": "Cybersecurity",
+      "floor": 5,
+      "established": "1972-06-06",
+      "annual_budget": 2183411.37,
+      "professors": [
+        {
+          "@id": "prof:4_0",
+          "first_name": "Zoran",
+          "last_name": "Jovanovic",
+          "age": 36,
+          "salary": 84157.28,
+          "hired": "2005-03-22",
+          "publications": 18,
+          "h_index": 9,
+          "tenured": 0,
+          "research_area": "Distributed Systems"
+        },
+        {
+          "@id": "prof:4_1",
+          "first_name": "Tamara",
+          "last_name": "Pavlovic",
+          "age": 39,
+          "salary": 85312.9,
+          "hired": "2002-06-30",
+          "publications": 64,
+          "h_index": 9,
+          "tenured": 0,
+          "research_area": "Bioinformatics"
+        },
+        {
+          "@id": "prof:4_2",
+          "first_name": "Tamara",
+          "last_name": "Jovanovic",
+          "age": 36,
+          "salary": 99128.69,
+          "hired": "2014-04-01",
+          "publications": 6,
+          "h_index": 4,
+          "tenured": 0,
+          "research_area": "Distributed Systems"
+        },
+        {
+          "@id": "prof:4_3",
+          "first_name": "Ognjen",
+          "last_name": "Pavlovic",
+          "age": 50,
+          "salary": 72824.84,
+          "hired": "2007-12-28",
+          "publications": 12,
+          "h_index": 7,
+          "tenured": 1,
+          "research_area": "AI"
+        }
+      ],
+      "courses": [
+        {
+          "@id": "course:4_0",
+          "title": "Web Development",
+          "credits": 4,
+          "semester": 5,
+          "max_students": 120,
+          "pass_rate": 0.67,
+          "created": "2015-08-16",
+          "instructor": "prof:4_3"
+        },
+        {
+          "@id": "course:4_1",
+          "title": "Embedded Systems",
+          "credits": 3,
+          "semester": 4,
+          "max_students": 90,
+          "pass_rate": 0.64,
+          "created": "2001-04-24",
+          "instructor": "prof:4_0"
+        },
+        {
+          "@id": "course:4_2",
+          "title": "Mathematics",
+          "credits": 6,
+          "semester": 6,
+          "max_students": 30,
+          "pass_rate": 0.57,
+          "created": "2010-09-10",
+          "instructor": "prof:4_1"
+        },
+        {
+          "@id": "course:4_3",
+          "title": "Algorithms",
+          "credits": 3,
+          "semester": 2,
+          "max_students": 60,
+          "pass_rate": 0.58,
+          "created": "2001-07-10",
+          "instructor": "prof:4_1"
+        }
+      ],
+      "dean": "prof:4_0"
+    }
+  ],
+  "research_labs": [
+    {
+      "@id": "lab:0",
+      "name": "Bioinformatics Lab 1",
+      "founded": "2007-09-10",
+      "grant_amount": 756197.1,
+      "head": "prof:4_2",
+      "capacity": 12
+    },
+    {
+      "@id": "lab:1",
+      "name": "Robotics Lab 2",
+      "founded": "2018-05-03",
+      "grant_amount": 79806.25,
+      "head": "prof:0_2",
+      "capacity": 18
+    },
+    {
+      "@id": "lab:2",
+      "name": "NLP Lab 3",
+      "founded": "2018-02-03",
+      "grant_amount": 473920.19,
+      "head": "prof:2_2",
+      "capacity": 13
+    },
+    {
+      "@id": "lab:3",
+      "name": "Distributed Systems Lab 4",
+      "founded": "2020-01-09",
+      "grant_amount": 587143.85,
+      "head": "prof:1_3",
+      "capacity": 13
+    },
+    {
+      "@id": "lab:4",
+      "name": "Bioinformatics Lab 5",
+      "founded": "2007-12-09",
+      "grant_amount": 553767.67,
+      "head": "prof:2_1",
+      "capacity": 19
+    }
+  ],
+  "students": [
+    {
+      "@id": "student:0",
+      "first_name": "Lena",
+      "last_name": "Jovanovic",
+      "age": 26,
+      "gpa": 7.06,
+      "enrolled": "2021-11-30",
+      "status": "active",
+      "scholarship": 4396.35,
+      "skill": "Go",
+      "advisor": "prof:2_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:0",
+          "course": "course:0_0",
+          "grade": 10,
+          "year": 2023,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:1",
+          "course": "course:4_1",
+          "grade": 6,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:1",
+      "first_name": "Gordana",
+      "last_name": "Pavlovic",
+      "age": 19,
+      "gpa": 8.97,
+      "enrolled": "2019-09-29",
+      "status": "inactive",
+      "scholarship": 1408.78,
+      "skill": "SQL",
+      "advisor": "prof:2_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:2",
+          "course": "course:3_0",
+          "grade": 10,
+          "year": 2021,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:3",
+          "course": "course:0_0",
+          "grade": 7,
+          "year": 2021,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:2",
+      "first_name": "Hana",
+      "last_name": "Popovic",
+      "age": 18,
+      "gpa": 7.33,
+      "enrolled": "2019-06-20",
+      "status": "graduated",
+      "scholarship": 4898.99,
+      "skill": "C++",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:4",
+          "course": "course:2_2",
+          "grade": 8,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:5",
+          "course": "course:4_2",
+          "grade": 9,
+          "year": 2021,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:3",
+      "first_name": "Tamara",
+      "last_name": "Lazarevic",
+      "age": 27,
+      "gpa": 8.21,
+      "enrolled": "2022-10-27",
+      "status": "active",
+      "scholarship": 209.14,
+      "skill": "Go",
+      "advisor": "prof:0_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:6",
+          "course": "course:4_0",
+          "grade": 6,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:7",
+          "course": "course:0_0",
+          "grade": 10,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:4",
+      "first_name": "Marko",
+      "last_name": "Markovic",
+      "age": 21,
+      "gpa": 9.46,
+      "enrolled": "2019-12-27",
+      "status": "inactive",
+      "scholarship": 123.93,
+      "skill": "Go",
+      "advisor": "prof:3_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:8",
+          "course": "course:2_1",
+          "grade": 8,
+          "year": 2023,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:9",
+          "course": "course:1_0",
+          "grade": 10,
+          "year": 2024,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:5",
+      "first_name": "Ana",
+      "last_name": "Lazarevic",
+      "age": 21,
+      "gpa": 6.8,
+      "enrolled": "2023-03-01",
+      "status": "inactive",
+      "scholarship": 1525.95,
+      "skill": "SQL",
+      "advisor": "prof:1_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:10",
+          "course": "course:2_1",
+          "grade": 7,
+          "year": 2024,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:11",
+          "course": "course:2_2",
+          "grade": 9,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:6",
+      "first_name": "Aleksa",
+      "last_name": "Popovic",
+      "age": 26,
+      "gpa": 7.32,
+      "enrolled": "2018-04-24",
+      "status": "active",
+      "scholarship": 4385.19,
+      "skill": "JavaScript",
+      "advisor": "prof:1_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:12",
+          "course": "course:2_0",
+          "grade": 8,
+          "year": 2021,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:13",
+          "course": "course:3_3",
+          "grade": 8,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:7",
+      "first_name": "Uros",
+      "last_name": "Ilic",
+      "age": 24,
+      "gpa": 9.6,
+      "enrolled": "2020-02-18",
+      "status": "inactive",
+      "scholarship": 221.93,
+      "skill": "Rust",
+      "advisor": "prof:0_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:14",
+          "course": "course:0_1",
+          "grade": 10,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:15",
+          "course": "course:1_0",
+          "grade": 8,
+          "year": 2022,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:8",
+      "first_name": "Sara",
+      "last_name": "Stankovic",
+      "age": 22,
+      "gpa": 8.03,
+      "enrolled": "2022-07-31",
+      "status": "inactive",
+      "scholarship": 2012.0,
+      "skill": "JavaScript",
+      "advisor": "prof:4_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:16",
+          "course": "course:2_0",
+          "grade": 9,
+          "year": 2019,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:17",
+          "course": "course:3_2",
+          "grade": 10,
+          "year": 2021,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:9",
+      "first_name": "Filip",
+      "last_name": "Markovic",
+      "age": 22,
+      "gpa": 7.15,
+      "enrolled": "2022-10-27",
+      "status": "graduated",
+      "scholarship": 3033.31,
+      "skill": "Go",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:18",
+          "course": "course:4_0",
+          "grade": 7,
+          "year": 2023,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:19",
+          "course": "course:3_3",
+          "grade": 9,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:10",
+      "first_name": "Petra",
+      "last_name": "Pavlovic",
+      "age": 19,
+      "gpa": 9.27,
+      "enrolled": "2020-08-20",
+      "status": "graduated",
+      "scholarship": 1552.1,
+      "skill": "SQL",
+      "advisor": "prof:1_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:20",
+          "course": "course:2_0",
+          "grade": 7,
+          "year": 2024,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:21",
+          "course": "course:4_2",
+          "grade": 8,
+          "year": 2023,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:11",
+      "first_name": "Aleksa",
+      "last_name": "Petrovic",
+      "age": 24,
+      "gpa": 7.98,
+      "enrolled": "2020-09-26",
+      "status": "active",
+      "scholarship": 3280.29,
+      "skill": "Python",
+      "advisor": "prof:0_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:22",
+          "course": "course:2_1",
+          "grade": 10,
+          "year": 2019,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:23",
+          "course": "course:4_2",
+          "grade": 9,
+          "year": 2024,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:12",
+      "first_name": "Dunja",
+      "last_name": "Stojanovic",
+      "age": 25,
+      "gpa": 6.53,
+      "enrolled": "2023-03-19",
+      "status": "graduated",
+      "scholarship": 2655.66,
+      "skill": "Docker",
+      "advisor": "prof:4_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:24",
+          "course": "course:2_1",
+          "grade": 10,
+          "year": 2022,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:25",
+          "course": "course:1_2",
+          "grade": 10,
+          "year": 2020,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:13",
+      "first_name": "Lena",
+      "last_name": "Pavlovic",
+      "age": 21,
+      "gpa": 9.36,
+      "enrolled": "2021-02-09",
+      "status": "graduated",
+      "scholarship": 2422.99,
+      "skill": "SQL",
+      "advisor": "prof:2_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:26",
+          "course": "course:4_3",
+          "grade": 10,
+          "year": 2022,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:27",
+          "course": "course:4_0",
+          "grade": 9,
+          "year": 2022,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:14",
+      "first_name": "Petra",
+      "last_name": "Jovanovic",
+      "age": 20,
+      "gpa": 6.93,
+      "enrolled": "2019-09-18",
+      "status": "graduated",
+      "scholarship": 1069.76,
+      "skill": "Rust",
+      "advisor": "prof:3_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:28",
+          "course": "course:3_0",
+          "grade": 8,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:29",
+          "course": "course:2_1",
+          "grade": 10,
+          "year": 2019,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:15",
+      "first_name": "Lena",
+      "last_name": "Stankovic",
+      "age": 27,
+      "gpa": 7.52,
+      "enrolled": "2018-01-25",
+      "status": "inactive",
+      "scholarship": 1493.06,
+      "skill": "Rust",
+      "advisor": "prof:3_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:30",
+          "course": "course:4_1",
+          "grade": 6,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:31",
+          "course": "course:4_0",
+          "grade": 9,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:16",
+      "first_name": "Tamara",
+      "last_name": "Lazarevic",
+      "age": 23,
+      "gpa": 8.68,
+      "enrolled": "2022-07-15",
+      "status": "graduated",
+      "scholarship": 825.22,
+      "skill": "DevOps",
+      "advisor": "prof:1_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:32",
+          "course": "course:2_1",
+          "grade": 7,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:33",
+          "course": "course:4_2",
+          "grade": 9,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:17",
+      "first_name": "Vera",
+      "last_name": "Stankovic",
+      "age": 20,
+      "gpa": 9.47,
+      "enrolled": "2020-01-15",
+      "status": "active",
+      "scholarship": 1300.78,
+      "skill": "Go",
+      "advisor": "prof:1_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:34",
+          "course": "course:0_0",
+          "grade": 10,
+          "year": 2023,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:35",
+          "course": "course:3_3",
+          "grade": 6,
+          "year": 2024,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:18",
+      "first_name": "Petra",
+      "last_name": "Djordjevic",
+      "age": 26,
+      "gpa": 6.21,
+      "enrolled": "2021-12-04",
+      "status": "active",
+      "scholarship": 3250.72,
+      "skill": "Python",
+      "advisor": "prof:0_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:36",
+          "course": "course:3_1",
+          "grade": 8,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:37",
+          "course": "course:3_3",
+          "grade": 6,
+          "year": 2022,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:19",
+      "first_name": "Ivan",
+      "last_name": "Markovic",
+      "age": 25,
+      "gpa": 8.8,
+      "enrolled": "2022-02-19",
+      "status": "active",
+      "scholarship": 3029.46,
+      "skill": "Java",
+      "advisor": "prof:1_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:38",
+          "course": "course:0_0",
+          "grade": 7,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:39",
+          "course": "course:1_1",
+          "grade": 6,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:20",
+      "first_name": "Kosta",
+      "last_name": "Jovanovic",
+      "age": 19,
+      "gpa": 8.37,
+      "enrolled": "2020-09-21",
+      "status": "active",
+      "scholarship": 3485.97,
+      "skill": "JavaScript",
+      "advisor": "prof:4_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:40",
+          "course": "course:0_0",
+          "grade": 10,
+          "year": 2024,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:41",
+          "course": "course:3_0",
+          "grade": 9,
+          "year": 2024,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:21",
+      "first_name": "Elena",
+      "last_name": "Simic",
+      "age": 18,
+      "gpa": 9.4,
+      "enrolled": "2023-07-01",
+      "status": "active",
+      "scholarship": 2167.62,
+      "skill": "Go",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:42",
+          "course": "course:0_1",
+          "grade": 10,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:43",
+          "course": "course:3_2",
+          "grade": 6,
+          "year": 2023,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:22",
+      "first_name": "Branko",
+      "last_name": "Nikolic",
+      "age": 25,
+      "gpa": 7.74,
+      "enrolled": "2021-01-04",
+      "status": "inactive",
+      "scholarship": 4258.57,
+      "skill": "Java",
+      "advisor": "prof:2_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:44",
+          "course": "course:4_0",
+          "grade": 10,
+          "year": 2024,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:45",
+          "course": "course:1_2",
+          "grade": 10,
+          "year": 2023,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:23",
+      "first_name": "Petra",
+      "last_name": "Markovic",
+      "age": 21,
+      "gpa": 7.42,
+      "enrolled": "2020-11-24",
+      "status": "inactive",
+      "scholarship": 1398.29,
+      "skill": "JavaScript",
+      "advisor": "prof:4_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:46",
+          "course": "course:4_1",
+          "grade": 8,
+          "year": 2019,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:47",
+          "course": "course:3_3",
+          "grade": 8,
+          "year": 2020,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:24",
+      "first_name": "Aleksa",
+      "last_name": "Stankovic",
+      "age": 25,
+      "gpa": 8.58,
+      "enrolled": "2023-07-04",
+      "status": "inactive",
+      "scholarship": 3964.66,
+      "skill": "Java",
+      "advisor": "prof:2_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:48",
+          "course": "course:2_0",
+          "grade": 7,
+          "year": 2024,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:49",
+          "course": "course:0_2",
+          "grade": 9,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:25",
+      "first_name": "Ivan",
+      "last_name": "Stojanovic",
+      "age": 24,
+      "gpa": 9.99,
+      "enrolled": "2021-09-16",
+      "status": "inactive",
+      "scholarship": 3514.27,
+      "skill": "JavaScript",
+      "advisor": "prof:2_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:50",
+          "course": "course:2_1",
+          "grade": 10,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:51",
+          "course": "course:3_0",
+          "grade": 10,
+          "year": 2023,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:26",
+      "first_name": "Jelena",
+      "last_name": "Markovic",
+      "age": 22,
+      "gpa": 8.9,
+      "enrolled": "2023-11-19",
+      "status": "graduated",
+      "scholarship": 1414.99,
+      "skill": "Java",
+      "advisor": "prof:1_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:52",
+          "course": "course:1_0",
+          "grade": 8,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:53",
+          "course": "course:2_0",
+          "grade": 7,
+          "year": 2020,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:27",
+      "first_name": "Kosta",
+      "last_name": "Markovic",
+      "age": 26,
+      "gpa": 7.17,
+      "enrolled": "2019-06-02",
+      "status": "graduated",
+      "scholarship": 4342.31,
+      "skill": "DevOps",
+      "advisor": "prof:0_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:54",
+          "course": "course:3_2",
+          "grade": 8,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:55",
+          "course": "course:1_2",
+          "grade": 8,
+          "year": 2019,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:28",
+      "first_name": "Aleksa",
+      "last_name": "Simic",
+      "age": 25,
+      "gpa": 6.46,
+      "enrolled": "2018-09-25",
+      "status": "inactive",
+      "scholarship": 2458.73,
+      "skill": "Python",
+      "advisor": "prof:1_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:56",
+          "course": "course:3_0",
+          "grade": 9,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:57",
+          "course": "course:4_2",
+          "grade": 7,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:29",
+      "first_name": "Filip",
+      "last_name": "Simic",
+      "age": 26,
+      "gpa": 7.52,
+      "enrolled": "2022-12-19",
+      "status": "inactive",
+      "scholarship": 4300.83,
+      "skill": "Rust",
+      "advisor": "prof:2_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:58",
+          "course": "course:3_0",
+          "grade": 7,
+          "year": 2019,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:59",
+          "course": "course:0_2",
+          "grade": 10,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:30",
+      "first_name": "Uros",
+      "last_name": "Simic",
+      "age": 20,
+      "gpa": 6.96,
+      "enrolled": "2018-11-04",
+      "status": "active",
+      "scholarship": 13.38,
+      "skill": "DevOps",
+      "advisor": "prof:4_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:60",
+          "course": "course:0_1",
+          "grade": 7,
+          "year": 2024,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:61",
+          "course": "course:1_0",
+          "grade": 8,
+          "year": 2024,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:31",
+      "first_name": "Radovan",
+      "last_name": "Ilic",
+      "age": 22,
+      "gpa": 9.15,
+      "enrolled": "2020-03-21",
+      "status": "inactive",
+      "scholarship": 573.88,
+      "skill": "SQL",
+      "advisor": "prof:1_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:62",
+          "course": "course:0_1",
+          "grade": 8,
+          "year": 2024,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:63",
+          "course": "course:2_1",
+          "grade": 9,
+          "year": 2019,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:32",
+      "first_name": "Jelena",
+      "last_name": "Nikolic",
+      "age": 22,
+      "gpa": 8.8,
+      "enrolled": "2021-01-20",
+      "status": "graduated",
+      "scholarship": 2699.91,
+      "skill": "DevOps",
+      "advisor": "prof:0_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:64",
+          "course": "course:0_2",
+          "grade": 7,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:65",
+          "course": "course:0_1",
+          "grade": 9,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:33",
+      "first_name": "Vera",
+      "last_name": "Petrovic",
+      "age": 22,
+      "gpa": 8.3,
+      "enrolled": "2019-12-19",
+      "status": "inactive",
+      "scholarship": 2594.82,
+      "skill": "DevOps",
+      "advisor": "prof:2_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:66",
+          "course": "course:4_0",
+          "grade": 10,
+          "year": 2021,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:67",
+          "course": "course:3_1",
+          "grade": 6,
+          "year": 2020,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:34",
+      "first_name": "Gordana",
+      "last_name": "Simic",
+      "age": 19,
+      "gpa": 9.43,
+      "enrolled": "2021-09-12",
+      "status": "inactive",
+      "scholarship": 3468.37,
+      "skill": "JavaScript",
+      "advisor": "prof:3_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:68",
+          "course": "course:4_0",
+          "grade": 6,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:69",
+          "course": "course:4_2",
+          "grade": 9,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:35",
+      "first_name": "Dunja",
+      "last_name": "Stankovic",
+      "age": 26,
+      "gpa": 9.3,
+      "enrolled": "2018-01-05",
+      "status": "graduated",
+      "scholarship": 4346.84,
+      "skill": "DevOps",
+      "advisor": "prof:3_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:70",
+          "course": "course:0_1",
+          "grade": 6,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:71",
+          "course": "course:4_1",
+          "grade": 8,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:36",
+      "first_name": "Bojana",
+      "last_name": "Markovic",
+      "age": 26,
+      "gpa": 6.52,
+      "enrolled": "2021-03-25",
+      "status": "inactive",
+      "scholarship": 4404.23,
+      "skill": "DevOps",
+      "advisor": "prof:0_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:72",
+          "course": "course:4_3",
+          "grade": 10,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:73",
+          "course": "course:3_2",
+          "grade": 6,
+          "year": 2020,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:37",
+      "first_name": "Aleksa",
+      "last_name": "Popovic",
+      "age": 21,
+      "gpa": 9.97,
+      "enrolled": "2019-04-10",
+      "status": "inactive",
+      "scholarship": 4735.3,
+      "skill": "C++",
+      "advisor": "prof:3_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:74",
+          "course": "course:2_1",
+          "grade": 8,
+          "year": 2023,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:75",
+          "course": "course:1_2",
+          "grade": 10,
+          "year": 2022,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:38",
+      "first_name": "Branko",
+      "last_name": "Ilic",
+      "age": 24,
+      "gpa": 6.76,
+      "enrolled": "2023-09-13",
+      "status": "graduated",
+      "scholarship": 4396.63,
+      "skill": "Java",
+      "advisor": "prof:2_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:76",
+          "course": "course:4_3",
+          "grade": 9,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:77",
+          "course": "course:2_2",
+          "grade": 7,
+          "year": 2022,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:39",
+      "first_name": "Dunja",
+      "last_name": "Stojanovic",
+      "age": 20,
+      "gpa": 7.79,
+      "enrolled": "2023-06-07",
+      "status": "inactive",
+      "scholarship": 1662.2,
+      "skill": "Docker",
+      "advisor": "prof:3_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:78",
+          "course": "course:3_1",
+          "grade": 6,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:79",
+          "course": "course:2_2",
+          "grade": 10,
+          "year": 2023,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:40",
+      "first_name": "Petra",
+      "last_name": "Djordjevic",
+      "age": 25,
+      "gpa": 8.82,
+      "enrolled": "2022-04-11",
+      "status": "inactive",
+      "scholarship": 4942.07,
+      "skill": "C++",
+      "advisor": "prof:3_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:80",
+          "course": "course:2_0",
+          "grade": 10,
+          "year": 2022,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:81",
+          "course": "course:2_1",
+          "grade": 9,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:41",
+      "first_name": "Bojana",
+      "last_name": "Nikolic",
+      "age": 20,
+      "gpa": 7.64,
+      "enrolled": "2019-09-25",
+      "status": "active",
+      "scholarship": 2347.45,
+      "skill": "JavaScript",
+      "advisor": "prof:2_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:82",
+          "course": "course:4_3",
+          "grade": 6,
+          "year": 2022,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:83",
+          "course": "course:3_1",
+          "grade": 10,
+          "year": 2022,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:42",
+      "first_name": "Vera",
+      "last_name": "Lazarevic",
+      "age": 26,
+      "gpa": 6.14,
+      "enrolled": "2018-10-08",
+      "status": "active",
+      "scholarship": 3155.81,
+      "skill": "JavaScript",
+      "advisor": "prof:1_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:84",
+          "course": "course:3_3",
+          "grade": 8,
+          "year": 2024,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:85",
+          "course": "course:0_2",
+          "grade": 8,
+          "year": 2024,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:43",
+      "first_name": "Ceda",
+      "last_name": "Jovanovic",
+      "age": 23,
+      "gpa": 9.18,
+      "enrolled": "2021-04-16",
+      "status": "inactive",
+      "scholarship": 1874.21,
+      "skill": "C++",
+      "advisor": "prof:1_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:86",
+          "course": "course:4_0",
+          "grade": 6,
+          "year": 2022,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:87",
+          "course": "course:1_0",
+          "grade": 8,
+          "year": 2019,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:44",
+      "first_name": "Sara",
+      "last_name": "Stojanovic",
+      "age": 25,
+      "gpa": 9.65,
+      "enrolled": "2019-08-10",
+      "status": "active",
+      "scholarship": 2305.75,
+      "skill": "JavaScript",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:88",
+          "course": "course:1_2",
+          "grade": 7,
+          "year": 2019,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:89",
+          "course": "course:4_3",
+          "grade": 10,
+          "year": 2024,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:45",
+      "first_name": "Jelena",
+      "last_name": "Popovic",
+      "age": 27,
+      "gpa": 7.2,
+      "enrolled": "2022-10-04",
+      "status": "graduated",
+      "scholarship": 1250.49,
+      "skill": "JavaScript",
+      "advisor": "prof:1_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:90",
+          "course": "course:0_0",
+          "grade": 8,
+          "year": 2024,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:91",
+          "course": "course:4_1",
+          "grade": 6,
+          "year": 2022,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:46",
+      "first_name": "Nada",
+      "last_name": "Pavlovic",
+      "age": 18,
+      "gpa": 9.91,
+      "enrolled": "2022-06-10",
+      "status": "inactive",
+      "scholarship": 40.49,
+      "skill": "Python",
+      "advisor": "prof:4_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:92",
+          "course": "course:1_0",
+          "grade": 9,
+          "year": 2023,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:93",
+          "course": "course:2_1",
+          "grade": 10,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:47",
+      "first_name": "Ceda",
+      "last_name": "Pavlovic",
+      "age": 20,
+      "gpa": 8.51,
+      "enrolled": "2018-06-11",
+      "status": "inactive",
+      "scholarship": 3943.05,
+      "skill": "Python",
+      "advisor": "prof:4_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:94",
+          "course": "course:3_0",
+          "grade": 10,
+          "year": 2021,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:95",
+          "course": "course:2_1",
+          "grade": 7,
+          "year": 2023,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:48",
+      "first_name": "Marko",
+      "last_name": "Lazarevic",
+      "age": 26,
+      "gpa": 9.51,
+      "enrolled": "2022-02-07",
+      "status": "graduated",
+      "scholarship": 2508.97,
+      "skill": "JavaScript",
+      "advisor": "prof:1_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:96",
+          "course": "course:1_1",
+          "grade": 8,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:97",
+          "course": "course:0_2",
+          "grade": 7,
+          "year": 2020,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:49",
+      "first_name": "Jelena",
+      "last_name": "Pavlovic",
+      "age": 26,
+      "gpa": 7.46,
+      "enrolled": "2022-06-05",
+      "status": "active",
+      "scholarship": 1322.29,
+      "skill": "Java",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:98",
+          "course": "course:3_0",
+          "grade": 6,
+          "year": 2022,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:99",
+          "course": "course:3_1",
+          "grade": 7,
+          "year": 2020,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:50",
+      "first_name": "Marko",
+      "last_name": "Popovic",
+      "age": 27,
+      "gpa": 6.89,
+      "enrolled": "2018-09-16",
+      "status": "graduated",
+      "scholarship": 4119.28,
+      "skill": "JavaScript",
+      "advisor": "prof:3_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:100",
+          "course": "course:2_2",
+          "grade": 8,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:101",
+          "course": "course:3_3",
+          "grade": 9,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:51",
+      "first_name": "Elena",
+      "last_name": "Nikolic",
+      "age": 24,
+      "gpa": 7.81,
+      "enrolled": "2022-09-13",
+      "status": "graduated",
+      "scholarship": 3711.35,
+      "skill": "C++",
+      "advisor": "prof:3_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:102",
+          "course": "course:0_1",
+          "grade": 8,
+          "year": 2022,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:103",
+          "course": "course:4_3",
+          "grade": 6,
+          "year": 2020,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:52",
+      "first_name": "Zoran",
+      "last_name": "Jovanovic",
+      "age": 21,
+      "gpa": 9.42,
+      "enrolled": "2019-02-11",
+      "status": "graduated",
+      "scholarship": 1836.67,
+      "skill": "Go",
+      "advisor": "prof:0_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:104",
+          "course": "course:4_2",
+          "grade": 8,
+          "year": 2019,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:105",
+          "course": "course:4_0",
+          "grade": 7,
+          "year": 2022,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:53",
+      "first_name": "Nada",
+      "last_name": "Ilic",
+      "age": 23,
+      "gpa": 6.97,
+      "enrolled": "2019-05-31",
+      "status": "graduated",
+      "scholarship": 1026.03,
+      "skill": "Docker",
+      "advisor": "prof:1_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:106",
+          "course": "course:2_0",
+          "grade": 9,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:107",
+          "course": "course:1_0",
+          "grade": 10,
+          "year": 2019,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:54",
+      "first_name": "Uros",
+      "last_name": "Markovic",
+      "age": 26,
+      "gpa": 7.0,
+      "enrolled": "2019-12-16",
+      "status": "active",
+      "scholarship": 3305.29,
+      "skill": "Python",
+      "advisor": "prof:1_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:108",
+          "course": "course:2_1",
+          "grade": 7,
+          "year": 2023,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:109",
+          "course": "course:3_1",
+          "grade": 8,
+          "year": 2020,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:55",
+      "first_name": "Aleksa",
+      "last_name": "Djordjevic",
+      "age": 26,
+      "gpa": 6.45,
+      "enrolled": "2018-09-18",
+      "status": "inactive",
+      "scholarship": 2241.38,
+      "skill": "Go",
+      "advisor": "prof:4_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:110",
+          "course": "course:2_1",
+          "grade": 6,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:111",
+          "course": "course:3_1",
+          "grade": 6,
+          "year": 2020,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:56",
+      "first_name": "Uros",
+      "last_name": "Jovanovic",
+      "age": 18,
+      "gpa": 9.99,
+      "enrolled": "2022-07-04",
+      "status": "inactive",
+      "scholarship": 3430.49,
+      "skill": "DevOps",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:112",
+          "course": "course:4_1",
+          "grade": 10,
+          "year": 2019,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:113",
+          "course": "course:2_1",
+          "grade": 9,
+          "year": 2024,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:57",
+      "first_name": "Darko",
+      "last_name": "Jovanovic",
+      "age": 24,
+      "gpa": 9.98,
+      "enrolled": "2023-12-14",
+      "status": "inactive",
+      "scholarship": 2268.58,
+      "skill": "Rust",
+      "advisor": "prof:0_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:114",
+          "course": "course:3_1",
+          "grade": 6,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:115",
+          "course": "course:1_1",
+          "grade": 10,
+          "year": 2024,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:58",
+      "first_name": "Branko",
+      "last_name": "Jovanovic",
+      "age": 24,
+      "gpa": 8.92,
+      "enrolled": "2021-07-04",
+      "status": "inactive",
+      "scholarship": 1562.62,
+      "skill": "JavaScript",
+      "advisor": "prof:2_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:116",
+          "course": "course:2_0",
+          "grade": 9,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:117",
+          "course": "course:4_0",
+          "grade": 8,
+          "year": 2022,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:59",
+      "first_name": "Filip",
+      "last_name": "Popovic",
+      "age": 20,
+      "gpa": 8.23,
+      "enrolled": "2021-09-12",
+      "status": "graduated",
+      "scholarship": 611.16,
+      "skill": "Go",
+      "advisor": "prof:3_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:118",
+          "course": "course:4_2",
+          "grade": 6,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:119",
+          "course": "course:0_2",
+          "grade": 9,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:60",
+      "first_name": "Ceda",
+      "last_name": "Petrovic",
+      "age": 21,
+      "gpa": 9.39,
+      "enrolled": "2021-12-05",
+      "status": "graduated",
+      "scholarship": 1837.81,
+      "skill": "JavaScript",
+      "advisor": "prof:4_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:120",
+          "course": "course:3_0",
+          "grade": 8,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:121",
+          "course": "course:4_3",
+          "grade": 7,
+          "year": 2024,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:61",
+      "first_name": "Ivan",
+      "last_name": "Stojanovic",
+      "age": 18,
+      "gpa": 6.73,
+      "enrolled": "2019-08-10",
+      "status": "graduated",
+      "scholarship": 3286.72,
+      "skill": "Java",
+      "advisor": "prof:1_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:122",
+          "course": "course:0_0",
+          "grade": 6,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:123",
+          "course": "course:2_2",
+          "grade": 8,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:62",
+      "first_name": "Ceda",
+      "last_name": "Popovic",
+      "age": 20,
+      "gpa": 7.48,
+      "enrolled": "2021-08-21",
+      "status": "graduated",
+      "scholarship": 2981.12,
+      "skill": "Python",
+      "advisor": "prof:1_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:124",
+          "course": "course:0_0",
+          "grade": 10,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:125",
+          "course": "course:0_2",
+          "grade": 9,
+          "year": 2022,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:63",
+      "first_name": "Gordana",
+      "last_name": "Simic",
+      "age": 24,
+      "gpa": 7.09,
+      "enrolled": "2023-09-30",
+      "status": "active",
+      "scholarship": 1725.86,
+      "skill": "Java",
+      "advisor": "prof:2_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:126",
+          "course": "course:0_1",
+          "grade": 8,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:127",
+          "course": "course:0_2",
+          "grade": 9,
+          "year": 2023,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:64",
+      "first_name": "Ana",
+      "last_name": "Popovic",
+      "age": 21,
+      "gpa": 7.21,
+      "enrolled": "2020-05-15",
+      "status": "active",
+      "scholarship": 3820.8,
+      "skill": "JavaScript",
+      "advisor": "prof:2_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:128",
+          "course": "course:4_2",
+          "grade": 6,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:129",
+          "course": "course:3_0",
+          "grade": 10,
+          "year": 2019,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:65",
+      "first_name": "Elena",
+      "last_name": "Petrovic",
+      "age": 26,
+      "gpa": 8.23,
+      "enrolled": "2021-12-21",
+      "status": "active",
+      "scholarship": 1985.36,
+      "skill": "Python",
+      "advisor": "prof:3_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:130",
+          "course": "course:4_2",
+          "grade": 7,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:131",
+          "course": "course:4_0",
+          "grade": 10,
+          "year": 2024,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:66",
+      "first_name": "Aleksa",
+      "last_name": "Pavlovic",
+      "age": 24,
+      "gpa": 6.08,
+      "enrolled": "2021-08-23",
+      "status": "active",
+      "scholarship": 4006.61,
+      "skill": "DevOps",
+      "advisor": "prof:2_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:132",
+          "course": "course:0_2",
+          "grade": 10,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:133",
+          "course": "course:3_1",
+          "grade": 9,
+          "year": 2021,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:67",
+      "first_name": "Darko",
+      "last_name": "Stojanovic",
+      "age": 22,
+      "gpa": 8.98,
+      "enrolled": "2020-06-26",
+      "status": "inactive",
+      "scholarship": 3895.59,
+      "skill": "Java",
+      "advisor": "prof:4_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:134",
+          "course": "course:1_0",
+          "grade": 9,
+          "year": 2023,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:135",
+          "course": "course:2_1",
+          "grade": 10,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:68",
+      "first_name": "Zoran",
+      "last_name": "Jovanovic",
+      "age": 22,
+      "gpa": 6.79,
+      "enrolled": "2019-09-19",
+      "status": "graduated",
+      "scholarship": 376.77,
+      "skill": "DevOps",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:136",
+          "course": "course:4_3",
+          "grade": 8,
+          "year": 2021,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:137",
+          "course": "course:2_0",
+          "grade": 7,
+          "year": 2019,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:69",
+      "first_name": "Dunja",
+      "last_name": "Simic",
+      "age": 22,
+      "gpa": 9.19,
+      "enrolled": "2018-08-19",
+      "status": "inactive",
+      "scholarship": 2536.68,
+      "skill": "JavaScript",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:138",
+          "course": "course:4_1",
+          "grade": 8,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:139",
+          "course": "course:3_1",
+          "grade": 6,
+          "year": 2022,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:70",
+      "first_name": "Petra",
+      "last_name": "Petrovic",
+      "age": 25,
+      "gpa": 8.32,
+      "enrolled": "2018-06-18",
+      "status": "inactive",
+      "scholarship": 4545.25,
+      "skill": "SQL",
+      "advisor": "prof:2_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:140",
+          "course": "course:0_1",
+          "grade": 8,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:141",
+          "course": "course:3_2",
+          "grade": 10,
+          "year": 2023,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:71",
+      "first_name": "Vera",
+      "last_name": "Pavlovic",
+      "age": 26,
+      "gpa": 8.58,
+      "enrolled": "2018-06-10",
+      "status": "active",
+      "scholarship": 3538.11,
+      "skill": "DevOps",
+      "advisor": "prof:4_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:142",
+          "course": "course:4_3",
+          "grade": 6,
+          "year": 2022,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:143",
+          "course": "course:1_1",
+          "grade": 8,
+          "year": 2024,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:72",
+      "first_name": "Sara",
+      "last_name": "Simic",
+      "age": 23,
+      "gpa": 6.26,
+      "enrolled": "2019-01-23",
+      "status": "graduated",
+      "scholarship": 3391.9,
+      "skill": "JavaScript",
+      "advisor": "prof:2_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:144",
+          "course": "course:1_2",
+          "grade": 8,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:145",
+          "course": "course:3_2",
+          "grade": 9,
+          "year": 2021,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:73",
+      "first_name": "Ceda",
+      "last_name": "Popovic",
+      "age": 20,
+      "gpa": 8.38,
+      "enrolled": "2018-12-14",
+      "status": "inactive",
+      "scholarship": 2794.61,
+      "skill": "Go",
+      "advisor": "prof:1_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:146",
+          "course": "course:1_1",
+          "grade": 6,
+          "year": 2023,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:147",
+          "course": "course:3_1",
+          "grade": 8,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:74",
+      "first_name": "Ana",
+      "last_name": "Lazarevic",
+      "age": 20,
+      "gpa": 9.8,
+      "enrolled": "2021-10-31",
+      "status": "inactive",
+      "scholarship": 960.03,
+      "skill": "C++",
+      "advisor": "prof:1_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:148",
+          "course": "course:4_3",
+          "grade": 9,
+          "year": 2023,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:149",
+          "course": "course:0_2",
+          "grade": 6,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:75",
+      "first_name": "Darko",
+      "last_name": "Ilic",
+      "age": 20,
+      "gpa": 6.72,
+      "enrolled": "2019-11-10",
+      "status": "graduated",
+      "scholarship": 2188.37,
+      "skill": "Rust",
+      "advisor": "prof:2_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:150",
+          "course": "course:1_0",
+          "grade": 8,
+          "year": 2023,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:151",
+          "course": "course:0_1",
+          "grade": 10,
+          "year": 2022,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:76",
+      "first_name": "Ana",
+      "last_name": "Lazarevic",
+      "age": 22,
+      "gpa": 9.86,
+      "enrolled": "2023-04-06",
+      "status": "active",
+      "scholarship": 1839.2,
+      "skill": "DevOps",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:152",
+          "course": "course:2_1",
+          "grade": 10,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:153",
+          "course": "course:4_1",
+          "grade": 7,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:77",
+      "first_name": "Dunja",
+      "last_name": "Ilic",
+      "age": 23,
+      "gpa": 8.22,
+      "enrolled": "2019-02-25",
+      "status": "graduated",
+      "scholarship": 4229.46,
+      "skill": "Java",
+      "advisor": "prof:2_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:154",
+          "course": "course:3_3",
+          "grade": 7,
+          "year": 2020,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:155",
+          "course": "course:4_0",
+          "grade": 8,
+          "year": 2019,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:78",
+      "first_name": "Darko",
+      "last_name": "Nikolic",
+      "age": 23,
+      "gpa": 9.72,
+      "enrolled": "2022-08-27",
+      "status": "active",
+      "scholarship": 1982.27,
+      "skill": "Go",
+      "advisor": "prof:1_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:156",
+          "course": "course:2_2",
+          "grade": 10,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:157",
+          "course": "course:4_1",
+          "grade": 6,
+          "year": 2020,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:79",
+      "first_name": "Nada",
+      "last_name": "Jovanovic",
+      "age": 18,
+      "gpa": 7.15,
+      "enrolled": "2023-04-20",
+      "status": "graduated",
+      "scholarship": 4155.55,
+      "skill": "DevOps",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:158",
+          "course": "course:3_2",
+          "grade": 6,
+          "year": 2021,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:159",
+          "course": "course:2_1",
+          "grade": 8,
+          "year": 2020,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:80",
+      "first_name": "Vera",
+      "last_name": "Petrovic",
+      "age": 19,
+      "gpa": 9.1,
+      "enrolled": "2020-08-31",
+      "status": "inactive",
+      "scholarship": 609.24,
+      "skill": "SQL",
+      "advisor": "prof:3_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:160",
+          "course": "course:0_2",
+          "grade": 8,
+          "year": 2020,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:161",
+          "course": "course:0_0",
+          "grade": 10,
+          "year": 2024,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:81",
+      "first_name": "Zoran",
+      "last_name": "Simic",
+      "age": 20,
+      "gpa": 7.17,
+      "enrolled": "2018-01-07",
+      "status": "graduated",
+      "scholarship": 1764.08,
+      "skill": "Rust",
+      "advisor": "prof:1_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:162",
+          "course": "course:4_1",
+          "grade": 6,
+          "year": 2022,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:163",
+          "course": "course:0_2",
+          "grade": 10,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:82",
+      "first_name": "Ana",
+      "last_name": "Popovic",
+      "age": 24,
+      "gpa": 9.92,
+      "enrolled": "2020-11-04",
+      "status": "graduated",
+      "scholarship": 81.21,
+      "skill": "Java",
+      "advisor": "prof:2_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:164",
+          "course": "course:0_2",
+          "grade": 6,
+          "year": 2023,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:165",
+          "course": "course:3_2",
+          "grade": 9,
+          "year": 2022,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:83",
+      "first_name": "Ivan",
+      "last_name": "Lazarevic",
+      "age": 25,
+      "gpa": 9.92,
+      "enrolled": "2023-05-15",
+      "status": "graduated",
+      "scholarship": 911.39,
+      "skill": "C++",
+      "advisor": "prof:0_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:166",
+          "course": "course:1_0",
+          "grade": 7,
+          "year": 2019,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:167",
+          "course": "course:3_1",
+          "grade": 10,
+          "year": 2021,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:84",
+      "first_name": "Branko",
+      "last_name": "Pavlovic",
+      "age": 26,
+      "gpa": 7.59,
+      "enrolled": "2023-04-24",
+      "status": "inactive",
+      "scholarship": 183.1,
+      "skill": "SQL",
+      "advisor": "prof:2_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:168",
+          "course": "course:0_1",
+          "grade": 7,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:169",
+          "course": "course:3_0",
+          "grade": 6,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:85",
+      "first_name": "Marko",
+      "last_name": "Petrovic",
+      "age": 24,
+      "gpa": 7.36,
+      "enrolled": "2020-02-05",
+      "status": "inactive",
+      "scholarship": 3460.34,
+      "skill": "Go",
+      "advisor": "prof:4_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:170",
+          "course": "course:3_1",
+          "grade": 6,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:171",
+          "course": "course:2_2",
+          "grade": 9,
+          "year": 2024,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:86",
+      "first_name": "Jelena",
+      "last_name": "Jovanovic",
+      "age": 19,
+      "gpa": 6.32,
+      "enrolled": "2021-04-25",
+      "status": "inactive",
+      "scholarship": 2229.58,
+      "skill": "Rust",
+      "advisor": "prof:1_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:172",
+          "course": "course:4_0",
+          "grade": 9,
+          "year": 2023,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:173",
+          "course": "course:0_2",
+          "grade": 10,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:87",
+      "first_name": "Branko",
+      "last_name": "Pavlovic",
+      "age": 18,
+      "gpa": 6.3,
+      "enrolled": "2022-07-22",
+      "status": "inactive",
+      "scholarship": 2565.43,
+      "skill": "C++",
+      "advisor": "prof:0_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:174",
+          "course": "course:3_2",
+          "grade": 6,
+          "year": 2024,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:175",
+          "course": "course:4_1",
+          "grade": 10,
+          "year": 2022,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:88",
+      "first_name": "Filip",
+      "last_name": "Simic",
+      "age": 27,
+      "gpa": 6.13,
+      "enrolled": "2019-09-21",
+      "status": "graduated",
+      "scholarship": 2249.61,
+      "skill": "Go",
+      "advisor": "prof:2_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:176",
+          "course": "course:4_1",
+          "grade": 7,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:177",
+          "course": "course:0_1",
+          "grade": 8,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:89",
+      "first_name": "Petra",
+      "last_name": "Jovanovic",
+      "age": 20,
+      "gpa": 8.0,
+      "enrolled": "2022-05-05",
+      "status": "graduated",
+      "scholarship": 588.8,
+      "skill": "JavaScript",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:178",
+          "course": "course:1_1",
+          "grade": 9,
+          "year": 2021,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:179",
+          "course": "course:3_2",
+          "grade": 7,
+          "year": 2019,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:90",
+      "first_name": "Hana",
+      "last_name": "Simic",
+      "age": 25,
+      "gpa": 9.99,
+      "enrolled": "2021-08-02",
+      "status": "graduated",
+      "scholarship": 1737.13,
+      "skill": "Java",
+      "advisor": "prof:4_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:180",
+          "course": "course:3_0",
+          "grade": 7,
+          "year": 2019,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:181",
+          "course": "course:4_2",
+          "grade": 6,
+          "year": 2022,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:91",
+      "first_name": "Tamara",
+      "last_name": "Ilic",
+      "age": 21,
+      "gpa": 9.16,
+      "enrolled": "2018-04-18",
+      "status": "inactive",
+      "scholarship": 2770.11,
+      "skill": "Go",
+      "advisor": "prof:3_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:182",
+          "course": "course:3_0",
+          "grade": 7,
+          "year": 2021,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:183",
+          "course": "course:1_2",
+          "grade": 6,
+          "year": 2020,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:92",
+      "first_name": "Tamara",
+      "last_name": "Nikolic",
+      "age": 27,
+      "gpa": 6.3,
+      "enrolled": "2021-07-22",
+      "status": "graduated",
+      "scholarship": 370.83,
+      "skill": "DevOps",
+      "advisor": "prof:4_0",
+      "enrollments": [
+        {
+          "@id": "enrollment:184",
+          "course": "course:0_2",
+          "grade": 8,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:185",
+          "course": "course:4_3",
+          "grade": 10,
+          "year": 2022,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:93",
+      "first_name": "Marko",
+      "last_name": "Nikolic",
+      "age": 22,
+      "gpa": 6.66,
+      "enrolled": "2021-08-14",
+      "status": "graduated",
+      "scholarship": 1127.35,
+      "skill": "Docker",
+      "advisor": "prof:2_1",
+      "enrollments": [
+        {
+          "@id": "enrollment:186",
+          "course": "course:1_2",
+          "grade": 9,
+          "year": 2023,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:187",
+          "course": "course:1_1",
+          "grade": 6,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:94",
+      "first_name": "Darko",
+      "last_name": "Ilic",
+      "age": 26,
+      "gpa": 8.56,
+      "enrolled": "2019-09-24",
+      "status": "active",
+      "scholarship": 3293.66,
+      "skill": "Go",
+      "advisor": "prof:4_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:188",
+          "course": "course:2_0",
+          "grade": 7,
+          "year": 2024,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:189",
+          "course": "course:2_2",
+          "grade": 10,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:95",
+      "first_name": "Bojana",
+      "last_name": "Petrovic",
+      "age": 25,
+      "gpa": 9.56,
+      "enrolled": "2021-04-01",
+      "status": "graduated",
+      "scholarship": 4783.25,
+      "skill": "DevOps",
+      "advisor": "prof:1_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:190",
+          "course": "course:0_2",
+          "grade": 10,
+          "year": 2021,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:191",
+          "course": "course:0_1",
+          "grade": 10,
+          "year": 2022,
+          "passed": 0
+        }
+      ]
+    },
+    {
+      "@id": "student:96",
+      "first_name": "Ana",
+      "last_name": "Stojanovic",
+      "age": 25,
+      "gpa": 7.86,
+      "enrolled": "2021-10-25",
+      "status": "graduated",
+      "scholarship": 718.34,
+      "skill": "Go",
+      "advisor": "prof:2_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:192",
+          "course": "course:3_0",
+          "grade": 6,
+          "year": 2024,
+          "passed": 0
+        },
+        {
+          "@id": "enrollment:193",
+          "course": "course:4_1",
+          "grade": 7,
+          "year": 2022,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:97",
+      "first_name": "Nada",
+      "last_name": "Nikolic",
+      "age": 21,
+      "gpa": 6.56,
+      "enrolled": "2018-07-27",
+      "status": "inactive",
+      "scholarship": 4726.92,
+      "skill": "Rust",
+      "advisor": "prof:1_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:194",
+          "course": "course:3_2",
+          "grade": 8,
+          "year": 2020,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:195",
+          "course": "course:1_0",
+          "grade": 6,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:98",
+      "first_name": "Gordana",
+      "last_name": "Djordjevic",
+      "age": 18,
+      "gpa": 6.36,
+      "enrolled": "2022-05-30",
+      "status": "graduated",
+      "scholarship": 2286.15,
+      "skill": "SQL",
+      "advisor": "prof:1_2",
+      "enrollments": [
+        {
+          "@id": "enrollment:196",
+          "course": "course:3_1",
+          "grade": 7,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:197",
+          "course": "course:2_0",
+          "grade": 9,
+          "year": 2021,
+          "passed": 1
+        }
+      ]
+    },
+    {
+      "@id": "student:99",
+      "first_name": "Uros",
+      "last_name": "Djordjevic",
+      "age": 19,
+      "gpa": 7.72,
+      "enrolled": "2020-12-19",
+      "status": "graduated",
+      "scholarship": 1828.89,
+      "skill": "Rust",
+      "advisor": "prof:2_3",
+      "enrollments": [
+        {
+          "@id": "enrollment:198",
+          "course": "course:0_1",
+          "grade": 8,
+          "year": 2022,
+          "passed": 1
+        },
+        {
+          "@id": "enrollment:199",
+          "course": "course:4_3",
+          "grade": 8,
+          "year": 2023,
+          "passed": 0
+        }
+      ]
+    }
+  ]
+}
