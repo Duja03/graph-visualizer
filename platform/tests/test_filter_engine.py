@@ -1,8 +1,6 @@
 import pytest
 from datetime import date
-from api.model import Graph
-from api.model import Node
-from api.model import Edge
+from api.model import Graph, Node, Edge
 from core import FilterEngine, FilterError
 
 

@@ -1,4 +1,13 @@
 #!/bin/bash
+
+echo "Installing all dependencies..."
+
+pip install django
+pip install flask
+pip install flask_cors
+
+echo "All dependencies installed successfully!"
+
 echo "Installing all components..."
 
 pip install -e api

@@ -2,7 +2,7 @@ import pytest
 from datetime import date
 from pathlib import Path
 
-from xml_datasource.src.xml_datasource.xml_datasource_plugin import XmlDataSourcePlugin, _parse_typed_value
+from xml_datasource.xml_datasource_plugin import XmlDataSourcePlugin, _parse_typed_value
 
 
 def test_parse_int():

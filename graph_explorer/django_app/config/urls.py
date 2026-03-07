@@ -9,7 +9,6 @@ urlpatterns = [
     path('', views.main_view, name='main'),
     path('workspace/', views.workspace_view, name='workspace'),
 
-    # API endpoints (replaces Flask)
     path('api/plugins/datasource', views.api_datasource_plugins),
     path('api/plugins/visualizer', views.api_visualizer_plugins),
     path('api/plugins/<str:plugin_id>/params', views.api_plugin_params),

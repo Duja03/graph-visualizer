@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 from core import Platform
-from core.plugin_registry import PluginRegistry
+from core import PluginRegistry
 
 platform = Platform()
 registry = PluginRegistry()

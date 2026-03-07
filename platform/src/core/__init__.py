@@ -5,8 +5,10 @@ from .workspace import Workspace
 from .cli_parser import CLIParser
 from .cli_parser import CLIParseError
 from .cli_executor import CLIExecutor
+from .plugin_registry import PluginRegistry
 
 __all__ = [
+    "PluginRegistry",
     "CLIParseError",
     "CLIExecutor",
     "CLIParser",
