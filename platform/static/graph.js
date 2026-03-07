@@ -7,8 +7,48 @@
 async function renderGraph(workspaceId) {
     State.currentWorkspaceId = workspaceId;
     const graphData = await API.getGraph(workspaceId);
+    if (graphData.error) {
+        showExpiredModal();
+        return;
+    }
+
     await renderVisualizer(workspaceId);
     renderTree(graphData.nodes, graphData.edges);
+}
+
+function showExpiredModal() {
+    const modal = document.createElement('div');
+    modal.innerHTML = `
+        <div id="expired-overlay" style="
+            position: fixed; inset: 0; z-index: 1000;
+            background: rgba(109,40,217,0.18);
+            backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;">
+            <div style="
+                background: white; border-radius: 14px;
+                padding: 2rem 2.5rem; max-width: 380px; width: 90%;
+                box-shadow: 0 8px 40px rgba(109,40,217,0.22);
+                text-align: center;">
+                <span class="material-icons" style="font-size:2.5rem;color:var(--violet-600);">cloud_off</span>
+                <h2 style="margin:0.75rem 0 0.5rem;color:var(--violet-700);font-size:1.2rem;">Workspace Expired</h2>
+                <p style="color:var(--gray-500);font-size:0.92rem;margin-bottom:1.5rem;">
+                    This workspace is no longer available. Please load your data again.
+                </p>
+                <button id="expired-btn" style="
+                    background: var(--violet-600); color: white;
+                    border: none; border-radius: 8px;
+                    padding: 0.6rem 1.8rem; font-size: 0.95rem;
+                    cursor: pointer;">
+                    Go to Workspace
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('expired-btn').addEventListener('click', () => {
+        sessionStorage.clear();
+        window.location.href = '/workspace/';
+    });
 }
 
 async function renderVisualizer(workspaceId) {
