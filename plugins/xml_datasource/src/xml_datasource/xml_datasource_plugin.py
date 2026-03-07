@@ -10,35 +10,29 @@ from api.plugins import DataSourcePlugin
 _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 XML_ID = "{http://www.w3.org/XML/1998/namespace}id"
 
+
 def _parse_typed_value(v: Any) -> Optional[str | int | float | date]:
     if v is None:
         return None
-
-    if isinstance(v, str):
-        s = v.strip()
-
-        if not s:
-            return None
-
-        if _DATE_RE.match(s):
-            try:
-                y, m, d = s.split("-")
-                return date(int(y), int(m), int(d))
-            except ValueError:
-                return s
-
-        if s.isdigit() or (s.startswith("-") and s[1:].isdigit()):
-            return int(s)
-
+    if not isinstance(v, str):
+        return None
+    s = v.strip()
+    if not s:
+        return None
+    if _DATE_RE.match(s):
         try:
-            if "." in s or "e" in s.lower():
-                return float(s)
+            y, m, d = s.split("-")
+            return date(int(y), int(m), int(d))
         except ValueError:
             pass
-
-        return s
-
-    return None
+    if s.isdigit() or (s.startswith("-") and s[1:].isdigit()):
+        return int(s)
+    try:
+        if "." in s or "e" in s.lower():
+            return float(s)
+    except ValueError:
+        pass
+    return s
 
 
 class XmlDataSourcePlugin(DataSourcePlugin):
@@ -57,9 +51,7 @@ class XmlDataSourcePlugin(DataSourcePlugin):
         return "XML Data Source"
 
     def parameters(self) -> Dict[str, str]:
-        return {
-            "file_path": "Path to XML file"
-        }
+        return {"file_path": "Path to XML file"}
 
     def load(self, **kwargs: Any) -> Graph:
         file_path = kwargs.get("file_path")
@@ -76,7 +68,6 @@ class XmlDataSourcePlugin(DataSourcePlugin):
             raise ValueError(f"XML parse error: {e}")
 
         xml_root = tree.getroot()
-
         graph = Graph(directed=True)
 
         self._edge_counter = 0
@@ -120,18 +111,18 @@ class XmlDataSourcePlugin(DataSourcePlugin):
             if attr_name in (XML_ID, "reference"):
                 continue
             typed = _parse_typed_value(attr_val)
-            if typed is not None:
-                node.set_attribute(attr_name, typed)
-
-                value_node_id = self._new_node_id()
-                graph.add_node(Node(id=value_node_id))
-                graph.get_node(value_node_id).set_attribute("value", typed)
-                graph.add_edge(Edge(
-                    id=self._new_edge_id(),
-                    source=node_id,
-                    target=value_node_id,
-                    attributes={"name": attr_name}
-                ))
+            if typed is None:
+                continue
+            node.set_attribute(attr_name, typed)
+            value_node_id = self._new_node_id()
+            graph.add_node(Node(id=value_node_id))
+            graph.get_node(value_node_id).set_attribute("value", typed)
+            graph.add_edge(Edge(
+                id=self._new_edge_id(),
+                source=node_id,
+                target=value_node_id,
+                attributes={"name": attr_name}
+            ))
 
         ref = element.get("reference")
         if ref and ref.strip() in self._id_registry:
@@ -146,25 +137,33 @@ class XmlDataSourcePlugin(DataSourcePlugin):
 
         for child in element:
             child_has_children = len(child) > 0
-            child_has_attributes = any(
-                k not in (XML_ID, "reference")
-                for k in child.attrib
+            child_has_own_attributes = any(
+                k not in (XML_ID, "reference") for k in child.attrib
             )
+            child_ref = child.get("reference")
 
-            if not child_has_children and not child_has_attributes:
-                typed = _parse_typed_value((child.text or "").strip())
-                if typed is not None:
-                    node.set_attribute(child.tag, typed)
-
-                if child.get(XML_ID) or child.get("reference"):
-                    child_id = self._visit(graph, child)
+            if not child_has_children and not child_has_own_attributes:
+                if child_ref and child_ref.strip() in self._id_registry:
+                    target_id = child_ref.strip()
+                    self._ensure_node(graph, target_id)
                     graph.add_edge(Edge(
                         id=self._new_edge_id(),
                         source=node_id,
-                        target=child_id,
+                        target=target_id,
                         attributes={"name": child.tag},
                     ))
-
+                else:
+                    typed = _parse_typed_value((child.text or "").strip())
+                    if typed is not None:
+                        node.set_attribute(child.tag, typed)
+                    if child.get(XML_ID):
+                        child_id = self._visit(graph, child)
+                        graph.add_edge(Edge(
+                            id=self._new_edge_id(),
+                            source=node_id,
+                            target=child_id,
+                            attributes={"name": child.tag},
+                        ))
             else:
                 child_id = self._visit(graph, child)
                 graph.add_edge(Edge(

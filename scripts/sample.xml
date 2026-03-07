@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<company xml:id="company_1" founded="2015-03-10">
-    <name>GraphSoft</name>
+<library xml:id="lib1" founded="2001-06-15">
 
-    <employees>
-        <employee xml:id="emp_1" age="23" salary="3500.5">
-            <name>Sara</name>
-            <manager reference="emp_3"/>
-        </employee>
+    <name>City Library</name>
+    <city>Novi Sad</city>
 
-        <employee xml:id="emp_2" age="30">
-            <name>Marko</name>
-            <manager reference="emp_3"/>
-        </employee>
+    <books>
+        <book xml:id="book1" year="2018" price="29.99">
+            <title>Clean Code</title>
+            <author reference="author1"/>
+        </book>
 
-        <employee xml:id="emp_3" age="40">
-            <name>Luka</name>
-            <department xml:id="dep_1">
-                <name>Engineering</name>
-            </department>
-        </employee>
-    </employees>
+        <book xml:id="book2" year="2020" price="34.50">
+            <title>The Pragmatic Programmer</title>
+            <author reference="author1"/>
+        </book>
 
-    <main_department reference="dep_1"/>
-</company>
+        <book xml:id="book3" year="2015" price="19.99">
+            <title>Design Patterns</title>
+            <author reference="author2"/>
+        </book>
+    </books>
+
+    <authors>
+        <author xml:id="author1" rating="4">
+            <name>Robert Martin</name>
+            <recommended reference="book2"/>
+        </author>
+
+        <author xml:id="author2" rating="5">
+            <name>Erich Gamma</name>
+            <recommended reference="book1"/>
+        </author>
+    </authors>
+
+</library>
