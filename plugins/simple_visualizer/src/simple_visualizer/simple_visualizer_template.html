@@ -1,40 +1,24 @@
 {% load static %}
 <style>
-    :root {
-        --violet-50:  #f5f3ff;
-        --violet-100: #ede9fe;
-        --violet-200: #e2d9f3;
-        --violet-300: #c4b5fd;
-        --violet-500: #8b5cf6;
-        --violet-600: #7c3aed;
-        --violet-700: #6d28d9;
-        --violet-800: #5b21b6;
-        --violet-900: #6b21a8;
-        --gray-100:   #f3f4f6;
-        --gray-500:   #6b7280;
-        --gray-700:   #374151;
-        --gray-800:   #4b5563;
-    }
-
     .node-group circle {
-        fill: var(--violet-600);
+        fill: #7c3aed;
         stroke: white;
         stroke-width: 2;
         cursor: grab;
     }
     .node-group:active { cursor: grabbing; }
-    .node-group circle:hover { fill: var(--violet-800); }
+    .node-group circle:hover { fill: #5b21b6; }
     .link {
-        stroke: var(--violet-300);
+        stroke: #c4b5fd;
         stroke-opacity: 0.6;
         stroke-width: 1.5;
     }
     .link.connected {
-        stroke: var(--violet-600);
+        stroke: #7c3aed;
         stroke-width: 3;
     }
     .label {
-        fill: var(--gray-700);
+        fill: #374151;
         font-family: Arial, sans-serif;
         font-size: 0.65em;
         text-anchor: middle;
@@ -55,7 +39,14 @@
 (function() {
     var graphData = {{ graph_json | safe }};
 
-    // ─── Main View ───
+    var COLOR_DEFAULT  = "#7c3aed";
+    var COLOR_FOCUSED  = "#3b0764";
+    var STROKE_DEFAULT = "white";
+    var STROKE_FOCUSED = "#e9d5ff";
+    var RADIUS_DEFAULT = 20;
+    var RADIUS_FOCUSED = 25;
+
+    // ── Main View ────────────────────────────────────────────────────────────
 
     var mainSvg   = d3.select("#container-simple");
     var mainZoomG = mainSvg.append("g").attr("class", "zoom-layer");
@@ -79,11 +70,8 @@
         .enter().append("g")
         .attr("class", "node-group")
         .on("click", function(event, d) {
-            var idx = d.index;
-            mainLink.attr("class", function(l) {
-                return (l.source.index === idx || l.target.index === idx)
-                    ? "link connected" : "link";
-            });
+            event.stopPropagation();
+            window.focusNode(d.id);
         })
         .call(d3.drag()
             .on("start", dragstarted)
@@ -91,145 +79,146 @@
             .on("end",   dragended)
         );
 
+    // Keep references to circle elements for direct attribute manipulation
     mainNodeGroup.each(function(d) {
         var g = d3.select(this);
-        g.append("circle").attr("r", 20);
+        g.append("circle").attr("r", RADIUS_DEFAULT);
         g.append("text").attr("class", "label").attr("y", 35).text(d.id);
     });
 
-    // ─── Bird View ───
-    // Uses the exact same graphData.nodes / edges objects as the simulation.
-    // Since D3 mutates node.x / node.y in-place, bird view always has
-    // up-to-date positions — no events needed.
+    // ── Bird View ────────────────────────────────────────────────────────────
 
     var birdSvg = d3.select("#bird-canvas");
+    var birdLink, birdNode, birdViewport;
+
     if (!birdSvg.empty()) {
         var birdG = birdSvg.append("g").attr("class", "bird-inner");
 
-        // Edges
-        var birdLink = birdG
+        birdLink = birdG
             .selectAll(".bird-link")
             .data(graphData.edges)
             .enter().append("line")
-            .attr("class", "bird-link")
-            .attr("stroke", "var(--violet-300)")
+            .attr("stroke", "#c4b5fd")
             .attr("stroke-width", 0.8)
             .attr("stroke-opacity", 0.5);
 
-        // Nodes
-        var birdNode = birdG
+        birdNode = birdG
             .selectAll(".bird-node")
             .data(graphData.nodes)
             .enter().append("circle")
-            .attr("class", "bird-node")
             .attr("r", 3)
-            .attr("fill", "var(--violet-500)")
-            .attr("opacity", 0.85);
+            .attr("fill", "#8b5cf6")
+            .attr("opacity", 0.85)
+            .style("cursor", "pointer")
+            .on("click", function(event, d) {
+                event.stopPropagation();
+                window.focusNode(d.id);
+            });
 
-        // Keep viewport rect on top of everything
         var vpEl = document.getElementById("bird-viewport");
         if (vpEl) birdSvg.node().appendChild(vpEl);
-        var birdViewport = birdSvg.select("#bird-viewport");
+        birdViewport = birdSvg.select("#bird-viewport");
     }
 
-    // Current main zoom transform (updated on every zoom event)
     var currentTransform = d3.zoomIdentity;
 
-    /**
-     * Compute the scale + translation that fits all graph nodes into
-     * the bird canvas, with padding on all sides.
-     */
     function calcBirdFit() {
         var el = birdSvg.node();
         if (!el) return null;
         var bw = el.clientWidth  || el.getBoundingClientRect().width  || 220;
         var bh = el.clientHeight || el.getBoundingClientRect().height || 140;
-
         var nodes = graphData.nodes;
-        if (!nodes.length) return { s: 1, tx: 0, ty: 0, bw: bw, bh: bh };
-
+        if (!nodes.length) return { s: 1, tx: 0, ty: 0 };
         var xs = nodes.map(function(n) { return n.x || 0; });
         var ys = nodes.map(function(n) { return n.y || 0; });
         var xMin = Math.min.apply(null, xs), xMax = Math.max.apply(null, xs);
         var yMin = Math.min.apply(null, ys), yMax = Math.max.apply(null, ys);
-
-        // Avoid division by zero for single-node graphs
-        var rangeX = (xMax - xMin) || 1;
-        var rangeY = (yMax - yMin) || 1;
-
         var PAD = 10;
-        var s = Math.min(
-            (bw - 2 * PAD) / rangeX,
-            (bh - 2 * PAD) / rangeY
-        );
-
-        // Center horizontally and vertically inside the bird canvas
-        var tx = PAD + ((bw - 2 * PAD) - rangeX * s) / 2 - xMin * s;
-        var ty = PAD + ((bh - 2 * PAD) - rangeY * s) / 2 - yMin * s;
-
+        var s = Math.min((bw - 2*PAD) / ((xMax-xMin)||1), (bh - 2*PAD) / ((yMax-yMin)||1));
+        var tx = PAD + ((bw-2*PAD) - (xMax-xMin)*s) / 2 - xMin*s;
+        var ty = PAD + ((bh-2*PAD) - (yMax-yMin)*s) / 2 - yMin*s;
         return { s: s, tx: tx, ty: ty, bw: bw, bh: bh };
     }
 
-    /**
-     * Reposition all bird-view elements and update the viewport rectangle.
-     * Called on every simulation tick AND on every main-view zoom/pan event.
-     */
     function updateBird() {
-        if (birdSvg.empty()) return;
+        if (birdSvg.empty() || !birdNode) return;
         var fit = calcBirdFit();
         if (!fit) return;
         var s = fit.s, tx = fit.tx, ty = fit.ty;
 
-        // Reposition bird nodes
         birdNode
-            .attr("cx", function(d) { return (d.x || 0) * s + tx; })
-            .attr("cy", function(d) { return (d.y || 0) * s + ty; });
+            .attr("cx", function(d) { return (d.x||0)*s + tx; })
+            .attr("cy", function(d) { return (d.y||0)*s + ty; });
 
-        // Reposition bird edges
         birdLink
-            .attr("x1", function(d) { return (d.source.x || 0) * s + tx; })
-            .attr("y1", function(d) { return (d.source.y || 0) * s + ty; })
-            .attr("x2", function(d) { return (d.target.x || 0) * s + tx; })
-            .attr("y2", function(d) { return (d.target.y || 0) * s + ty; });
-
-        // ── Viewport rectangle ───────────────────────────────────────────────
-        // Main zoom transform maps sim-space → screen-space:
-        //   screen = sim * k + offset
-        // So the visible sim region is:
-        //   sim = (screen - offset) / k
-        // We then apply the bird fit transform to get bird-canvas pixels.
+            .attr("x1", function(d) { return (d.source.x||0)*s + tx; })
+            .attr("y1", function(d) { return (d.source.y||0)*s + ty; })
+            .attr("x2", function(d) { return (d.target.x||0)*s + tx; })
+            .attr("y2", function(d) { return (d.target.y||0)*s + ty; });
 
         var mainEl = mainSvg.node();
-        var mainW  = mainEl.clientWidth  || mainEl.getBoundingClientRect().width  || 800;
-        var mainH  = mainEl.clientHeight || mainEl.getBoundingClientRect().height || 600;
-
-        var k  = currentTransform.k;
-        var ox = currentTransform.x;
-        var oy = currentTransform.y;
-
-        // Visible sim-space corners
-        var simL = (0     - ox) / k;
-        var simT = (0     - oy) / k;
-        var simR = (mainW - ox) / k;
-        var simB = (mainH - oy) / k;
-
-        // Map to bird canvas
-        var vpX = simL * s + tx;
-        var vpY = simT * s + ty;
-        var vpW = (simR - simL) * s;
-        var vpH = (simB - simT) * s;
+        var mainW = mainEl.clientWidth  || mainEl.getBoundingClientRect().width  || 800;
+        var mainH = mainEl.clientHeight || mainEl.getBoundingClientRect().height || 600;
+        var k = currentTransform.k, ox = currentTransform.x, oy = currentTransform.y;
 
         birdViewport
-            .attr("x",      vpX)
-            .attr("y",      vpY)
-            .attr("width",  Math.max(0, vpW))
-            .attr("height", Math.max(0, vpH));
+            .attr("x",      ((0-ox)/k)*s + tx)
+            .attr("y",      ((0-oy)/k)*s + ty)
+            .attr("width",  Math.max(0, (mainW/k)*s))
+            .attr("height", Math.max(0, (mainH/k)*s));
     }
 
-    // ─── Simulation tick ───
+    // ── Focus / Selection ────────────────────────────────────────────────────
+
+    function applyFocus(nodeId) {
+        // Highlight connected edges
+        mainLink.attr("class", function(l) {
+            var srcId = l.source.id !== undefined ? l.source.id : l.source;
+            var tgtId = l.target.id !== undefined ? l.target.id : l.target;
+            return (srcId === nodeId || tgtId === nodeId) ? "link connected" : "link";
+        });
+
+        // Main view — directly set fill/stroke/radius on circle elements
+        mainNodeGroup.each(function(d) {
+            var circle = d3.select(this).select("circle");
+            if (d.id === nodeId) {
+                circle
+                    .attr("fill",         COLOR_FOCUSED)
+                    .attr("stroke",       STROKE_FOCUSED)
+                    .attr("stroke-width", 3)
+                    .attr("r",            RADIUS_FOCUSED);
+            } else {
+                circle
+                    .attr("fill",         COLOR_DEFAULT)
+                    .attr("stroke",       STROKE_DEFAULT)
+                    .attr("stroke-width", 2)
+                    .attr("r",            RADIUS_DEFAULT);
+            }
+        });
+
+        // Bird view — directly set fill/radius
+        if (birdNode) {
+            birdNode
+                .attr("fill", function(d) {
+                    return d.id === nodeId ? COLOR_FOCUSED : "#8b5cf6";
+                })
+                .attr("r", function(d) {
+                    return d.id === nodeId ? 5 : 3;
+                })
+                .attr("opacity", function(d) {
+                    return d.id === nodeId ? 1 : 0.85;
+                });
+        }
+    }
+
+    // Listen for focus from tree or bird view clicks
+    window.addEventListener("graph:focusNode", function(e) {
+        applyFocus(e.detail.nodeId);
+    });
+
+    // ── Simulation tick ──────────────────────────────────────────────────────
 
     simulation.on("tick", function() {
-        // Main view
         mainLink
             .attr("x1", function(d) { return d.source.x; })
             .attr("y1", function(d) { return d.source.y; })
@@ -238,25 +227,22 @@
         mainNodeGroup.attr("transform", function(d) {
             return "translate(" + d.x + "," + d.y + ")";
         });
-
-        // Bird view — same data, different coordinate space
         updateBird();
     });
 
-    // ─── Main zoom/pan ───
+    // ── Zoom ─────────────────────────────────────────────────────────────────
 
     var zoom = d3.zoom()
         .scaleExtent([0.1, 10])
         .on("zoom", function(event) {
             currentTransform = event.transform;
             mainZoomG.attr("transform", event.transform);
-            // Nodes haven't moved — only recalculate viewport rect
             updateBird();
         });
 
     mainSvg.call(zoom);
 
-    // ─── Drag ───
+    // ── Drag ─────────────────────────────────────────────────────────────────
 
     function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();

@@ -126,3 +126,37 @@ if (workspaceId) {
     const lastId = State.currentWorkspaceId;
     if (lastId) renderGraph(lastId);
 }
+
+// ── Global selection state ───────────────────────────────────────────────────
+
+let selectedNodeId = null;
+
+function focusNode(nodeOrId) {
+    const nodeId = (typeof nodeOrId === 'object') ? nodeOrId.id : nodeOrId;
+    if (!nodeId) return;
+
+    selectedNodeId = nodeId;
+
+    window.dispatchEvent(new CustomEvent('graph:focusNode', { detail: { nodeId } }));
+
+    _focusTreeNode(nodeId);
+}
+
+// Expose globally so visualizer templates and tree.js can call it
+window.focusNode = focusNode;
+
+function _focusTreeNode(nodeId) {
+    // Remove previous highlight
+    document.querySelectorAll('.tree-node-header.selected').forEach(el => {
+        el.classList.remove('selected');
+    });
+
+    const treeEl = document.querySelector(`.tree-node[data-id="${CSS.escape(nodeId)}"]`);
+    if (!treeEl) return;
+
+    const header = treeEl.querySelector('.tree-node-header');
+    if (header) {
+        header.classList.add('selected');
+        header.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}

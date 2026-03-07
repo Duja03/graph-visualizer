@@ -4,6 +4,25 @@
  * Each node can be expanded (+) or collapsed (−).
  */
 
+// Inject the .selected style for tree nodes once
+(function injectTreeSelectedStyle() {
+    if (document.getElementById('tree-selected-style')) return;
+    const s = document.createElement('style');
+    s.id = 'tree-selected-style';
+    s.textContent = `
+        .tree-node-header.selected {
+            background: var(--violet-600) !important;
+            border-radius: 999px;
+        }
+        .tree-node-header.selected .tree-label,
+        .tree-node-header.selected .tree-toggle,
+        .tree-node-header.selected .tree-leaf-marker {
+            color: white !important;
+        }
+    `;
+    document.head.appendChild(s);
+})();
+
 function getRootNodes(nodes, edges) {
     const hasParent = new Set(edges.map(e => getEdgeId(e.target)));
     return nodes.filter(n => !hasParent.has(n.id));
@@ -73,7 +92,10 @@ function buildTreeNode(node, childrenMap, nodeMap, visited) {
     const label = document.createElement('span');
     label.className = 'tree-label';
     label.textContent = node.label || node.id;
-    label.onclick = () => focusNode(node);
+    label.onclick = (e) => {
+        e.stopPropagation();
+        window.focusNode(node.id);
+    };
     header.appendChild(label);
 
     const attrs = node.attributes || {};
