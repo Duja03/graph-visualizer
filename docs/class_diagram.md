@@ -1,7 +1,6 @@
 # Graph Visualization Tool - Class Diagram
 
 > **Project done for Software Patterns & Components** 
-> `api` / `platform` / `data_source_plugin` / `visualizer_plugin`
 
 ```mermaid
 classDiagram
@@ -212,10 +211,10 @@ classDiagram
 
 ## Relationship Key
 
-| Notation | Meaning |
-|---|---|
-| `*--` | Composition |
-| `o--` | Aggregation |
-| `--|>` | Inheritance (extends) |
-| `..|>` | Implementation (realization) |
-| `..>` | Dependency / uses |
+| Notation | Line style | Meaning                                         | Example in diagram                           |
+|----------|---|-------------------------------------------------|----------------------------------------------|
+| `--\|>`  | Solid + open arrowhead                          | Inheritance - abstract extends abstract base | `DataSourcePlugin` extends `Plugin` |
+| `..\|>`  | Dashed + open arrowhead                         | Inheritance - concrete extends abstract base | `JsonDataSourcePlugin` extends `DataSourcePlugin` |
+| `*--`    | Solid + filled diamond | Composition - owner controls lifecycle of part  | `Graph` composes `Node`, `Edge`              |
+| `o--`    | Solid + open diamond | Aggregation - owner references but does not own | `Workspace` aggregates `Graph`               |
+| `..>`    | Dashed arrow | Dependency / uses                               | `Node` uses `AttributeValue`                 |
