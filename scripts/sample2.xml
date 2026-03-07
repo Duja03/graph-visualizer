@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<school xml:id="school1">
+
+    <name>Tech School</name>
+
+    <student xml:id="s1" age="20" grade="A">
+        <name>Ana</name>
+        <mentor reference="t1"/>
+    </student>
+
+    <student xml:id="s2" age="22" grade="B">
+        <name>Marko</name>
+        <mentor reference="t1"/>
+        <best_friend reference="s1"/>
+    </student>
+
+    <teacher xml:id="t1" experience="5">
+        <name>Prof Jovic</name>
+        <top_student reference="s2"/>
+    </teacher>
+
+</school>
