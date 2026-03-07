@@ -101,8 +101,9 @@
             selector.appendChild(opt);
         });
 
-        const saved = State.activeVisualizerPlugin;
-        if (saved) selector.value = saved;
+        const saved = State.activeVisualizerPlugin || 'block_visualizer';
+        selector.value = saved;
+        State.activeVisualizerPlugin = selector.value;
 
         selector.addEventListener('change', async () => {
             State.activeVisualizerPlugin = selector.value;
