@@ -60,7 +60,7 @@ class XmlDataSourcePlugin(DataSourcePlugin):
 
     def parameters(self) -> Dict[str, str]:
         return {
-            "file_path": "Path to the XML file to load."
+            "file_path": "Path to XML file"
         }
 
     def load(self, **kwargs: Any) -> Graph:
