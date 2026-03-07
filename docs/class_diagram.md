@@ -1,6 +1,7 @@
-# Graph Visualization Tool — Class Diagram
+# Graph Visualization Tool - Class Diagram
 
-> **Software Patterns & Components** · `api` / `platform` / `data_source_plugin` / `visualizer_plugin`
+> **Project done for Software Patterns & Components** 
+> `api` / `platform` / `data_source_plugin` / `visualizer_plugin`
 
 ```mermaid
 classDiagram
@@ -23,15 +24,15 @@ classDiagram
     %% ── Core model ──────────────────────────────────────────────────────────
 
     class Node {
-        <<dataclass>>
+        <<dataclass, slots=True>>
         +str id
         +Dict~str, AttributeValue~ attributes
         +set_attribute(name: str, value: AttributeValue) None
-        +get_attribute(name: str) AttributeValue
+        +get_attribute(name: str) Optional~AttributeValue~
     }
 
     class Edge {
-        <<dataclass>>
+        <<dataclass, slots=True>>
         +str id
         +str source
         +str target
@@ -53,12 +54,14 @@ classDiagram
         +remove_node(node_id: str) None
         +remove_edge(edge_id: str) None
         +neighbors(node_id: str) Iterable~Node~
-        +subgraph(node_ids: Set) Graph
+        +subgraph(node_ids: Set~str~) Graph
         +has_node(node_id: str) bool
         +has_edge(edge_id: str) bool
         +node_count() int
         +edge_count() int
         +iter_edges() Iterable~Edge~
+        +__len__() int
+        +__iter__() Iterator~Node~
         +is_directed bool
     }
 
@@ -119,8 +122,6 @@ classDiagram
         +name() str
         +parameters() Dict~str, str~
         +load(**kwargs) Graph
-        -_collect_ids(value: Any) None
-        -_visit(value, parent_node_id, rel_name) str
     }
 
     class XmlDataSourcePlugin {
@@ -159,6 +160,11 @@ classDiagram
         +render(graph: Graph) str
     }
 
+    class DateSerializer {
+        <<helper>>
+        +default(obj) str
+    }
+
     class SimpleVisualizerPlugin {
         <<plugin>>
         +str static_identifier = "SIMPLE"
@@ -178,6 +184,7 @@ classDiagram
     DataSourcePlugin --|> Plugin
     VisualizerPlugin --|> Plugin
 
+    SimpleVisualizerPlugin ..> DateSerializer : uses for JSON
     JsonDataSourcePlugin   ..|> DataSourcePlugin
     XmlDataSourcePlugin    ..|> DataSourcePlugin
     CsvDataSourcePlugin    ..|> DataSourcePlugin
@@ -201,7 +208,7 @@ classDiagram
 | **Abstractions** | `Plugin`, `DataSourcePlugin`, `VisualizerPlugin` | `api` |
 | **Platform** | `Platform`, `Workspace` | `platform` |
 | **Data source plugins** | `JsonDataSourcePlugin`, `XmlDataSourcePlugin`, `CsvDataSourcePlugin` | `*_data_source_plugin` |
-| **Visualizer plugins** | `BlockVisualizerPlugin`, `SimpleVisualizerPlugin` *(pending)* | `block_visualizer`, `simple_visualizer` |
+| **Visualizer plugins** | `BlockVisualizerPlugin`, `SimpleVisualizerPlugin` | `block_visualizer`, `simple_visualizer` |
 
 ## Relationship Key
 
