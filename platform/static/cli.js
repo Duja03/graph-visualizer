@@ -15,9 +15,27 @@ function cliPrint(text, isError = false) {
     cliOutput.scrollTop = cliOutput.scrollHeight;
 }
 
+function cliPrintPre(text) {
+    const line = document.createElement('pre');
+    line.className = 'cli-line';
+    line.textContent = text;
+    cliOutput.appendChild(line);
+    cliOutput.scrollTop = cliOutput.scrollHeight;
+}
+
 async function runCommand(command) {
     if (!command.trim()) return;
     cliPrint(`> ${command}`);
+
+    if (command.trim() === 'clear') {
+        cliOutput.innerHTML = '';
+        return;
+    }
+
+    if (command.trim() === 'help') {
+        cliHelp();
+        return;
+    }
 
     if (!State.currentWorkspaceId) {
         cliPrint('No workspace loaded. Load a graph first.', true);
@@ -51,3 +69,30 @@ cliInput?.addEventListener('keydown', (e) => {
         cliInput.value = '';
     }
 });
+
+function cliHelp() {
+    cliPrintPre(`
+NODE
+  create node --id=<id> [--attribute <name>=<value> ...]
+  edit node --id=<id> --attribute <name>=<value> [...]
+  delete node --id=<id>
+
+EDGE
+  create edge --id=<id> --source=<id> --target=<id> [--attribute <name>=<value> ...]
+  edit edge --id=<id> --attribute <name>=<value> [...]
+  delete edge --id=<id>
+
+GRAPH
+  delete graph
+
+FILTER
+  filter <attribute><operator><value>   (operators: == != > >= < <=)
+
+SEARCH
+  search <query>
+
+OTHER
+  help
+  clear
+    `.trim());
+}
