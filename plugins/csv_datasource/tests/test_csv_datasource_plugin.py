@@ -3,7 +3,7 @@ from datetime import date
 from pathlib import Path
 import csv
 
-from csv_datasource.src.csv_datasource.csv_datasource_plugin import CsvDataSourcePlugin, _parse_typed_value
+from csv_datasource.csv_datasource_plugin import CsvDataSourcePlugin, _parse_typed_value
 
 
 # ====== _parse_typed_value tests ======
@@ -172,3 +172,28 @@ def test_multiple_edges(plugin, tmp_path):
 
     graph = plugin.load(file_path=str(p))
     assert graph.edge_count() == 2
+
+def test_edge_attributes(plugin, tmp_path):
+    p = tmp_path / "test.csv"
+    with open(p, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["id", "name", "connected_to", "edge_weight", "edge_type"])
+        writer.writeheader()
+        writer.writerow(
+            {"id": "1", "name": "Alice", "connected_to": "2", "edge_weight": "0.8", "edge_type": "friend"})
+        writer.writerow({"id": "2", "name": "Bob", "connected_to": "", "edge_weight": "", "edge_type": ""})
+
+    graph = plugin.load(file_path=str(p))
+    edge = list(graph.iter_edges())[0]
+    assert edge.attributes.get("weight") == 0.8
+    assert edge.attributes.get("type") == "friend"
+
+def test_edge_columns_not_on_node(plugin, tmp_path):
+    p = tmp_path / "test.csv"
+    with open(p, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["id", "name", "connected_to", "edge_weight"])
+        writer.writeheader()
+        writer.writerow({"id": "1", "name": "Alice", "connected_to": "", "edge_weight": "0.8"})
+
+    graph = plugin.load(file_path=str(p))
+    node = graph.get_node("1")
+    assert node.get_attribute("edge_weight") is None
