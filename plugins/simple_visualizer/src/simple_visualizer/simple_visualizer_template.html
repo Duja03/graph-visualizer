@@ -28,11 +28,49 @@
         width: 100%;
         height: 100%;
     }
+
+    .node-tooltip {
+        position: fixed;
+        background: #1e1b4b;
+        color: #ede9fe;
+        border: 1px solid #7c3aed;
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-family: 'Roboto Mono', 'Courier New', monospace;
+        font-size: 0.75rem;
+        line-height: 1.6;
+        pointer-events: none;
+        z-index: 9999;
+        max-width: 260px;
+        box-shadow: 0 4px 16px rgba(109,40,217,0.3);
+        white-space: nowrap;
+    }
+    .node-tooltip .tooltip-id {
+        font-weight: bold;
+        color: #c4b5fd;
+        border-bottom: 1px solid #4c1d95;
+        padding-bottom: 4px;
+        margin-bottom: 4px;
+    }
+    .node-tooltip .tooltip-row {
+        display: flex;
+        gap: 8px;
+    }
+    .node-tooltip .tooltip-key {
+        color: #a78bfa;
+        flex-shrink: 0;
+    }
+    .node-tooltip .tooltip-val {
+        color: #ede9fe;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 </style>
 
 <div class="simple-svg-container">
     <svg id="container-simple" class="container-simple"></svg>
 </div>
+<div id="node-tooltip" class="node-tooltip" style="display:none;"></div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
@@ -45,6 +83,45 @@
     var STROKE_FOCUSED = "#e9d5ff";
     var RADIUS_DEFAULT = 20;
     var RADIUS_FOCUSED = 25;
+
+    var tooltip = document.getElementById("node-tooltip");
+
+    function showTooltip(event, d) {
+        var attrs = d.attributes || {};
+        var entries = Object.entries(attrs);
+
+        var html = '<div class="tooltip-id">' + d.id + '</div>';
+        if (entries.length === 0) {
+            html += '<div style="color:#6b7280;font-size:0.7rem;">no attributes</div>';
+        } else {
+            entries.forEach(function(entry) {
+                html += '<div class="tooltip-row">'
+                    + '<span class="tooltip-key">' + entry[0] + '</span>'
+                    + '<span class="tooltip-val">' + entry[1] + '</span>'
+                    + '</div>';
+            });
+        }
+        tooltip.innerHTML = html;
+        tooltip.style.display = 'block';
+        moveTooltip(event);
+    }
+
+    function moveTooltip(event) {
+        var x = event.clientX + 14;
+        var y = event.clientY - 10;
+        if (x + tooltip.offsetWidth > window.innerWidth - 8) {
+            x = event.clientX - tooltip.offsetWidth - 14;
+        }
+        if (y + tooltip.offsetHeight > window.innerHeight - 8) {
+            y = event.clientY - tooltip.offsetHeight - 10;
+        }
+        tooltip.style.left = x + 'px';
+        tooltip.style.top  = y + 'px';
+    }
+
+    function hideTooltip() {
+        tooltip.style.display = 'none';
+    }
 
     // ── Main View ────────────────────────────────────────────────────────────
 
@@ -73,6 +150,9 @@
             event.stopPropagation();
             window.focusNode(d.id);
         })
+        .on("mouseover", function(event, d) { showTooltip(event, d); })
+        .on("mousemove", function(event)    { moveTooltip(event); })
+        .on("mouseout",  function()         { hideTooltip(); })
         .call(d3.drag()
             .on("start", dragstarted)
             .on("drag",  dragged)
