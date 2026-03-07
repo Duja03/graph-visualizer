@@ -180,16 +180,11 @@ def api_visualize_graph(request, workspace_id):
     workspace = platform.get_workspace(workspace_id)
     if not workspace:
         return JsonResponse({'error': 'Workspace not found'}, status=404)
-
-    # workspace.visualizer_plugin is likely the CLASS, not the instance
-    plugin_cls = workspace.visualizer_plugin
-
     try:
-        # 1. Instantiate the plugin: plugin_cls()
-        # 2. Call render on that instance
-        plugin_instance = plugin_cls()
-        html_content = plugin_instance.render(workspace.graph)
-
+        plugin = workspace.visualizer_plugin
+        if isinstance(plugin, type):
+            plugin = plugin()
+        html_content = plugin.render(workspace.graph)
         return HttpResponse(html_content, content_type='text/html', status=200)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)

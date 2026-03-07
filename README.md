@@ -64,4 +64,4 @@ Flask will be available at http://127.0.0.1:5000
 ### Note
 
 Both apps provide the same functionality independently. You do not need to run
-both at the same time — each one is a complete standalone application.
+both at the same time - each one is a complete standalone application.

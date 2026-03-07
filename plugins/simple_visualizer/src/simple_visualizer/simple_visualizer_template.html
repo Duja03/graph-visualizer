@@ -22,26 +22,17 @@
         stroke-width: 2;
         cursor: grab;
     }
-
-    .node-group:active {
-        cursor: grabbing;
-    }
-
-    .node-group circle:hover {
-        fill: var(--violet-800);
-    }
-
+    .node-group:active { cursor: grabbing; }
+    .node-group circle:hover { fill: var(--violet-800); }
     .link {
         stroke: var(--violet-300);
         stroke-opacity: 0.6;
         stroke-width: 1.5;
     }
-
     .link.connected {
         stroke: var(--violet-600);
         stroke-width: 3;
     }
-
     .label {
         fill: var(--gray-700);
         font-family: Arial, sans-serif;
@@ -49,7 +40,6 @@
         text-anchor: middle;
         pointer-events: none;
     }
-
     .simple-svg-container, .container-simple {
         width: 100%;
         height: 100%;
@@ -62,86 +52,222 @@
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-    var graphData = JSON.parse('{{ graph_json | safe }}');
+(function() {
+    var graphData = {{ graph_json | safe }};
 
-    var svg = d3.select(".container-simple");
-    var zoomG = svg.append("g").attr("class", "zoom-layer");
+    // ─── Main View ───
+
+    var mainSvg   = d3.select("#container-simple");
+    var mainZoomG = mainSvg.append("g").attr("class", "zoom-layer");
 
     var simulation = d3.forceSimulation()
         .nodes(graphData.nodes)
-        .force("link", d3.forceLink(graphData.edges).id(d => d.id).distance(100))
+        .force("link", d3.forceLink(graphData.edges).id(function(d) { return d.id; }).distance(100))
         .force("charge", d3.forceManyBody().strength(-300))
         .force("center", d3.forceCenter(400, 300))
         .force("collide", d3.forceCollide().radius(30).iterations(3));
 
-    var link = zoomG
+    var mainLink = mainZoomG
         .selectAll(".link")
         .data(graphData.edges)
         .enter().append("line")
         .attr("class", "link");
 
-    var nodeGroup = zoomG
+    var mainNodeGroup = mainZoomG
         .selectAll(".node-group")
         .data(graphData.nodes)
         .enter().append("g")
         .attr("class", "node-group")
         .on("click", function(event, d) {
             var idx = d.index;
-            link.attr("class", l =>
-                (l.source.index === idx || l.target.index === idx) ? "link connected" : "link"
-            );
+            mainLink.attr("class", function(l) {
+                return (l.source.index === idx || l.target.index === idx)
+                    ? "link connected" : "link";
+            });
         })
-        .call(
-            d3.drag()
-                .on("start", dragstarted)
-                .on("drag",  dragged)
-                .on("end",   dragended)
+        .call(d3.drag()
+            .on("start", dragstarted)
+            .on("drag",  dragged)
+            .on("end",   dragended)
         );
 
-    nodeGroup.each(function(d) {
+    mainNodeGroup.each(function(d) {
         var g = d3.select(this);
-
-        g.append("circle")
-            .attr("r", 20);
-
-        g.append("text")
-            .attr("class", "label")
-            .attr("y", 35)
-            .text(d.id);
+        g.append("circle").attr("r", 20);
+        g.append("text").attr("class", "label").attr("y", 35).text(d.id);
     });
+
+    // ─── Bird View ───
+    // Uses the exact same graphData.nodes / edges objects as the simulation.
+    // Since D3 mutates node.x / node.y in-place, bird view always has
+    // up-to-date positions — no events needed.
+
+    var birdSvg = d3.select("#bird-canvas");
+    if (!birdSvg.empty()) {
+        var birdG = birdSvg.append("g").attr("class", "bird-inner");
+
+        // Edges
+        var birdLink = birdG
+            .selectAll(".bird-link")
+            .data(graphData.edges)
+            .enter().append("line")
+            .attr("class", "bird-link")
+            .attr("stroke", "var(--violet-300)")
+            .attr("stroke-width", 0.8)
+            .attr("stroke-opacity", 0.5);
+
+        // Nodes
+        var birdNode = birdG
+            .selectAll(".bird-node")
+            .data(graphData.nodes)
+            .enter().append("circle")
+            .attr("class", "bird-node")
+            .attr("r", 3)
+            .attr("fill", "var(--violet-500)")
+            .attr("opacity", 0.85);
+
+        // Keep viewport rect on top of everything
+        var vpEl = document.getElementById("bird-viewport");
+        if (vpEl) birdSvg.node().appendChild(vpEl);
+        var birdViewport = birdSvg.select("#bird-viewport");
+    }
+
+    // Current main zoom transform (updated on every zoom event)
+    var currentTransform = d3.zoomIdentity;
+
+    /**
+     * Compute the scale + translation that fits all graph nodes into
+     * the bird canvas, with padding on all sides.
+     */
+    function calcBirdFit() {
+        var el = birdSvg.node();
+        if (!el) return null;
+        var bw = el.clientWidth  || el.getBoundingClientRect().width  || 220;
+        var bh = el.clientHeight || el.getBoundingClientRect().height || 140;
+
+        var nodes = graphData.nodes;
+        if (!nodes.length) return { s: 1, tx: 0, ty: 0, bw: bw, bh: bh };
+
+        var xs = nodes.map(function(n) { return n.x || 0; });
+        var ys = nodes.map(function(n) { return n.y || 0; });
+        var xMin = Math.min.apply(null, xs), xMax = Math.max.apply(null, xs);
+        var yMin = Math.min.apply(null, ys), yMax = Math.max.apply(null, ys);
+
+        // Avoid division by zero for single-node graphs
+        var rangeX = (xMax - xMin) || 1;
+        var rangeY = (yMax - yMin) || 1;
+
+        var PAD = 10;
+        var s = Math.min(
+            (bw - 2 * PAD) / rangeX,
+            (bh - 2 * PAD) / rangeY
+        );
+
+        // Center horizontally and vertically inside the bird canvas
+        var tx = PAD + ((bw - 2 * PAD) - rangeX * s) / 2 - xMin * s;
+        var ty = PAD + ((bh - 2 * PAD) - rangeY * s) / 2 - yMin * s;
+
+        return { s: s, tx: tx, ty: ty, bw: bw, bh: bh };
+    }
+
+    /**
+     * Reposition all bird-view elements and update the viewport rectangle.
+     * Called on every simulation tick AND on every main-view zoom/pan event.
+     */
+    function updateBird() {
+        if (birdSvg.empty()) return;
+        var fit = calcBirdFit();
+        if (!fit) return;
+        var s = fit.s, tx = fit.tx, ty = fit.ty;
+
+        // Reposition bird nodes
+        birdNode
+            .attr("cx", function(d) { return (d.x || 0) * s + tx; })
+            .attr("cy", function(d) { return (d.y || 0) * s + ty; });
+
+        // Reposition bird edges
+        birdLink
+            .attr("x1", function(d) { return (d.source.x || 0) * s + tx; })
+            .attr("y1", function(d) { return (d.source.y || 0) * s + ty; })
+            .attr("x2", function(d) { return (d.target.x || 0) * s + tx; })
+            .attr("y2", function(d) { return (d.target.y || 0) * s + ty; });
+
+        // ── Viewport rectangle ───────────────────────────────────────────────
+        // Main zoom transform maps sim-space → screen-space:
+        //   screen = sim * k + offset
+        // So the visible sim region is:
+        //   sim = (screen - offset) / k
+        // We then apply the bird fit transform to get bird-canvas pixels.
+
+        var mainEl = mainSvg.node();
+        var mainW  = mainEl.clientWidth  || mainEl.getBoundingClientRect().width  || 800;
+        var mainH  = mainEl.clientHeight || mainEl.getBoundingClientRect().height || 600;
+
+        var k  = currentTransform.k;
+        var ox = currentTransform.x;
+        var oy = currentTransform.y;
+
+        // Visible sim-space corners
+        var simL = (0     - ox) / k;
+        var simT = (0     - oy) / k;
+        var simR = (mainW - ox) / k;
+        var simB = (mainH - oy) / k;
+
+        // Map to bird canvas
+        var vpX = simL * s + tx;
+        var vpY = simT * s + ty;
+        var vpW = (simR - simL) * s;
+        var vpH = (simB - simT) * s;
+
+        birdViewport
+            .attr("x",      vpX)
+            .attr("y",      vpY)
+            .attr("width",  Math.max(0, vpW))
+            .attr("height", Math.max(0, vpH));
+    }
+
+    // ─── Simulation tick ───
 
     simulation.on("tick", function() {
-        link
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
-
-        nodeGroup.attr("transform", d => `translate(${d.x},${d.y})`);
-    });
-
-    var zoom = d3.zoom()
-        .scaleExtent([0.3, 5])
-        .on("zoom", function(event) {
-            zoomG.attr("transform", event.transform);
+        // Main view
+        mainLink
+            .attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+        mainNodeGroup.attr("transform", function(d) {
+            return "translate(" + d.x + "," + d.y + ")";
         });
 
-    svg.call(zoom);
+        // Bird view — same data, different coordinate space
+        updateBird();
+    });
+
+    // ─── Main zoom/pan ───
+
+    var zoom = d3.zoom()
+        .scaleExtent([0.1, 10])
+        .on("zoom", function(event) {
+            currentTransform = event.transform;
+            mainZoomG.attr("transform", event.transform);
+            // Nodes haven't moved — only recalculate viewport rect
+            updateBird();
+        });
+
+    mainSvg.call(zoom);
+
+    // ─── Drag ───
 
     function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
+        d.fx = d.x; d.fy = d.y;
     }
-
     function dragged(event, d) {
-        d.fx = event.x;
-        d.fy = event.y;
+        d.fx = event.x; d.fy = event.y;
     }
-
     function dragended(event, d) {
         if (!event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
+        d.fx = null; d.fy = null;
     }
+})();
 </script>
