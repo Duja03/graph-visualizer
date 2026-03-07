@@ -1,6 +1,6 @@
 from api.model import Graph
 from .command import Command
-from core.filter_engine import FilterEngine
+from core import FilterEngine
 
 
 class FilterCommand(Command):

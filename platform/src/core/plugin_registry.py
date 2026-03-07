@@ -8,8 +8,7 @@ Visualizer plugins must register under:  graph_explorer.visualizer_plugins
 
 from importlib.metadata import entry_points
 from typing import Optional
-from api.plugins.datasource_plugin import DataSourcePlugin
-from api.plugins.visualizer_plugin import VisualizerPlugin
+from api.plugins import DataSourcePlugin, VisualizerPlugin
 
 
 DATASOURCE_GROUP = "graph_explorer.datasource_plugins"

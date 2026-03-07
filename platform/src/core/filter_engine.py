@@ -3,8 +3,7 @@ import operator
 from datetime import date
 from typing import Set
 
-from api.model import Graph
-from api.model import AttributeValue
+from api.model import Graph, AttributeValue
 
 OPERATORS = {
     '==': operator.eq,

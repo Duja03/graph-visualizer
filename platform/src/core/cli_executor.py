@@ -1,7 +1,7 @@
 from typing import Any
 
 from commands.command import Command
-from core.filter_engine import FilterError
+from core import FilterError
 
 
 class CLIExecutor:

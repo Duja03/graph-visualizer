@@ -3,12 +3,11 @@ routes.py — Flask web application routes.
 Serves frontend templates and API endpoints.
 Talks directly to platform and plugins — no Django dependency.
 """
-import sys
 
 from flask import Blueprint, jsonify, request, render_template, redirect, url_for
 
 from core import Platform
-from core.plugin_registry import PluginRegistry
+from core import PluginRegistry
 
 api_bp = Blueprint('api', __name__)
 platform = Platform()

@@ -4,10 +4,8 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 from xml.etree import ElementTree
 
-from api.model.graph import Graph
-from api.model.node import Node
-from api.model.edge import Edge
-from api.plugins.datasource_plugin import DataSourcePlugin
+from api.model.graph import Graph, Node, Edge
+from api.plugins import DataSourcePlugin
 
 _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 XML_ID = "{http://www.w3.org/XML/1998/namespace}id"

@@ -1,6 +1,6 @@
 from api.model import Graph
 from .command import Command
-from core.search_engine import SearchEngine
+from core import SearchEngine
 
 
 class SearchCommand(Command):

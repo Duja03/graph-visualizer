@@ -1,5 +1,5 @@
 from api.model import Graph, Node, Edge
-from simple_visualizer.src.simple_visualizer import SimpleVisualizerPlugin
+from simple_visualizer import SimpleVisualizerPlugin
 
 graph = Graph(directed=True)
 
