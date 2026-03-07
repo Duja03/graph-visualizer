@@ -26,7 +26,7 @@ class SimpleVisualizerPlugin(VisualizerPlugin):
             graph_data = {'nodes': [], 'edges': []}
         else:
             serialized_nodes = [
-                {'id': node.id}
+                {'id': node.id, 'attributes': node.attributes}
                 for node in graph.nodes.values()
             ]
 
