@@ -1,4 +1,46 @@
-# Graphify-Graph-Visualiser
+# Graph-Visualiser
+
+A web-based graph exploration and visualization tool built with a plugin-based architecture. Load graphs from multiple data sources (CSV, JSON, XML) and explore them interactively through three synchronized views — Tree, Bird's Eye, and Main — using two distinct visualizer styles.
+
+---
+
+### Workspace — Loading & Managing Graphs
+
+Load graphs from CSV, JSON, or XML sources. All active workspaces are listed with their node and edge counts.
+
+![Workspace](docs/screenshots/workspace.png)
+
+---
+
+### Block Visualizer
+
+Nodes are rendered as rich attribute cards. Ideal for exploring graphs with detailed node properties.
+
+![Block Visualizer](docs/screenshots/block_visualizer.png)
+
+
+---
+
+### Simple Visualizer
+
+Nodes are rendered as compact circles connected by edges. Best suited for large graphs where structure matters more than individual node details. Click any node to inspect its properties.
+
+![Simple Visualizer](docs/screenshots/simple_visualizer.png)
+
+> Switch between visualizers at any time using the dropdown in the toolbar.
+
+---
+
+### CLI, Search & Filter
+
+The toolbar exposes a **search** bar for finding nodes by name and a **filter** input 
+for attribute-based queries (e.g. `Age > 30`). For more direct control, the built-in 
+**CLI** at the bottom of the screen lets you create and delete nodes and edges without 
+leaving the visualizer.
+
+![CLI](docs/screenshots/cli.png)
+
+---
 
 ### Contributors
 
